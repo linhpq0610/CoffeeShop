@@ -2,7 +2,7 @@
   require "configs/constants/index.php";
   require_once CONFIGS_DIR . "app.php";
   require_once CONFIGS_DIR . "database.php";
-  require_once ROUTES_CONFIG_DIR . "routes.php";
+  require_once ROUTES_CONFIG_DIR . "index.php";
 
   require_once CORE_DIR . "Connection.php";
   require_once CORE_DIR . "Database.php";

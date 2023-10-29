@@ -1,6 +1,9 @@
 <?php 
   class App {
-    private $__controller, $__action, $__params, $__routes;
+    private $__controller;
+    private $__action;
+    private $__params;
+    private $__routes;
     public static $app;
 
     function __construct() {
