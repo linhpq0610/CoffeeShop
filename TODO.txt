@@ -1,0 +1,39 @@
+validate form 2 side
+
+CSS: 
+header position fixed ✅
+
+JS:
+Tăng giảm số lượng 
+Check có đăng nhập không khi click vào nút 'Mua ngay' và 'Thêm vào giỏ hàng'
+Ẩn hiện mật khẩu input
+
+PHP:
+Giao diện các trang bên admin
+Customer ✅
+Category ✅
+Product ✅
+Statistic ✅
+
+Query insert customer:
+INSERT INTO customer (name, password, image, email) VALUES
+('Nguyen Van A', '12345678', 'person_2.jpg', 'anv@gmail.com'),
+('Nguyen Van B', '12345678', 'person_1.jpg', 'bnv@gmail.com'),
+('Nguyen Van C', '12345678', 'person_2.jpg', 'cnv@gmail.com'),
+('Nguyen Van D', '12345678', 'person_3.jpg', 'dnv@gmail.com'),
+('Nguyen Van E', '12345678', 'person_4.jpg', 'env@gmail.com'),
+('Nguyen Van F', '12345678', 'person_5.jpg', 'fnv@gmail.com'),
+('Nguyen Van G', '12345678', 'person_1.jpg', 'gnv@gmail.com'),
+('Nguyen Van H', '12345678', 'person_2.jpg', 'hnv@gmail.com'),
+('Nguyen Van I', '12345678', 'person_3.jpg', 'inv@gmail.com'),
+('Nguyen Van J', '12345678', 'person_4.jpg', 'jnv@gmail.com'),
+('Nguyen Van K', '12345678', 'person_5.jpg', 'knv@gmail.com'),
+('Nguyen Van L', '12345678', 'person_1.jpg', 'lnv@gmail.com'),
+('Nguyen Van M', '12345678', 'person_2.jpg', 'mnv@gmail.com'),
+('Nguyen Van N', '12345678', 'person_3.jpg', 'nnv@gmail.com'),
+('Nguyen Van O', '12345678', 'person_4.jpg', 'onv@gmail.com'),
+('Nguyen Van P', '12345678', 'person_5.jpg', 'pnv@gmail.com'),
+('Nguyen Van Q', '12345678', 'person_1.jpg', 'qnv@gmail.com'),
+('Nguyen Van R', '12345678', 'person_2.jpg', 'rnv@gmail.com'),
+('Nguyen Van S', '12345678', 'person_3.jpg', 'snv@gmail.com'),
+('Nguyen Van T', '12345678', 'person_4.jpg', 'tnv@gmail.com');
