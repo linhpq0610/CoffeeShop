@@ -9,6 +9,7 @@
   require_once CORE_DIR . "Model.php";
 
   require_once CORE_DIR . "Route.php";
+  require_once CORE_DIR . "Router.php";
   require_once APP_DIR . "App.php";
   require_once CORE_DIR . "Controller.php";
 ?>
