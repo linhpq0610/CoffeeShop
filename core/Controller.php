@@ -71,10 +71,6 @@
           $model->getCountOfRow($wherePhrase) / 
           $this->_ROWS_PER_PAGE
         );
-      // if ($currentPage > $NUMBERS_OF_ROW) {
-      //   App::$app->loadError();
-      //   die;
-      // }
 
       $numbersOfSkipRow = ($currentPage - 1) * 5;
       $condition = 
@@ -84,6 +80,10 @@
       $currentPage = $this->getCurrentPage($currentPage, $NUMBERS_OF_ROW);
 
       return [$currentPage, $NUMBERS_OF_ROW, $condition];
+    }
+
+    public function executeAction($action, $params) {
+      call_user_func_array([$this, $action], $params);
     }
   }
 ?>
