@@ -1,5 +1,4 @@
 <?php 
-  
   class Router {
     private $routes;
 
@@ -67,8 +66,7 @@
         }
       }
 
-      // $controller = new ErrorController();
-      // return $controller->notFound();
+      ErrorHandler::notFound();
     }
   }
 ?>
