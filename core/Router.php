@@ -10,7 +10,7 @@
       $currenPath = '';
       $controller = "Home";
 
-      foreach ($urlSegments as $index => $value) {
+      foreach ($urlSegments as $value) {
         $currenPath .= $value . '/';
         $controllerPath = rtrim($currenPath, '/');
 

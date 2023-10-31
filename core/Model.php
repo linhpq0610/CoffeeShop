@@ -49,11 +49,18 @@
       return $NUMBERS_OF_ROW;
     }
     
-    public function selectRowsByData($condition) {
+    public function selectRowsBy($condition) {
       $sql = 
         "SELECT " . $this->_fieldsSelected .
         " FROM " . $this->_tableName . $condition;
       return $this->_db->selectRows($sql);
+    }
+
+    public function selectRowBy($condition) {
+      $sql = 
+        "SELECT " . $this->_fieldsSelected .
+        " FROM " . $this->_tableName . $condition;
+      return $this->_db->selectRow($sql);
     }
   }
 ?>

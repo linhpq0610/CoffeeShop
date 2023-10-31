@@ -11,6 +11,9 @@
       </div>
       <div class="col-md-6 border-right">
         <form action="<?=SIGN_IN_ROUTE;?>" method="post" class="px-3 pe-lg-5 py-5 sign-in-form">
+          <div class='alert alert-danger border-0 p-0 text-center'>
+            <?=$messageAlert;?>
+          </div>
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="text-right">Đăng nhập</h4>
           </div>
@@ -22,6 +25,7 @@
                 class="form-control"
                 placeholder="VD: example@gmail.com"
                 name="email"
+                value="<?=$email?>"
               />
               <p class="field-message mb-0"></p>
             </div>
@@ -33,6 +37,8 @@
                 type="password" 
                 class="form-control" 
                 name="password" 
+                placeholder="Nhập mật khẩu tại đây"
+                value="<?=$password;?>"
               />
               <p class="field-message mb-0"></p>
             </div>

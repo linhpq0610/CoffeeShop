@@ -23,73 +23,63 @@
       return [];
     }
 
-    public function loadFormSignIn() {
+    public function setDataDefault($data) {
+      $defaultData = [
+        'messageAlert' => '',
+        'name' => '',
+        'email' => '',
+        'password' => '',
+      ];
+      foreach ($data as $key => $value) {
+        $defaultData[$key] = $value;
+      }
+      return $defaultData;
+    }
+
+    public function loadFormSignIn($formData = []) {
+      $formData = $this->setDataDefault($formData);
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/formSignIn';
       $this->_data['pageTitle'] = 'Đăng nhập';
-      $this->_data["contentOfPage"] = [];
+      $this->_data['contentOfPage'] = $formData;
       $this->renderClientLayout($this->_data);
     }
 
     public function checkSignIn() {
       $email = $_POST['email'];
       $password = $_POST['password'];
+      $condition = " WHERE email = '$email' AND password = '$password'";
 
-      $hasCustomer = $this->__accountModel->hasCustomer(
-        ["email" => $email, "password" => $password],
-        "AND"
-      ); 
+      $customer = $this->__accountModel->selectRowBy($condition);
+      $hasCustomer = $this->__accountModel->hasCustomer($customer); 
       if ($hasCustomer) {
-        $this->signIn();
+        $this->signIn($customer);
       }
 
-      App::$app->loadError("customerNotExist");
+      $messageAlert = 
+        '<p class="p-3">
+          Email hoặc mật khẩu không chính xác.
+          <br>
+          Vui lòng kiểm tra lại.
+        </p>';
+      $formData = [
+        'messageAlert' => $messageAlert,
+        'email' => $email,
+        'password' => $password,
+      ];
+      $this->loadFormSignIn($formData);
     }
 
-    public function signIn() {
-      $customer = $this->__accountModel->getCustomer();
-      extract($customer);
+    public function signIn($customer) {
       define("SECONDS_OF_MONTH", 86400 * 30);
-      setcookie(COOKIE_LOGIN_NAME, $id, time() + SECONDS_OF_MONTH);
-
+      setcookie(COOKIE_LOGIN_NAME, $customer['id'], time() + SECONDS_OF_MONTH);
       header("Location: " . HOME_ROUTE);
     }
 
-    public function loadFormSignUp() {
+    public function loadFormSignUp($messageAlert = '') {
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/formSignUp';
       $this->_data['pageTitle'] = 'Đăng ký';
-      $this->_data["contentOfPage"] = [];
+      $this->_data['contentOfPage'] = ['messageAlert' => $messageAlert];
       $this->renderClientLayout($this->_data);
-    }
-
-    public function checkSignUp() {
-      $email = $_POST['email'];
-
-      $hasCustomer = $this->__accountModel->hasCustomer(
-        ["email" => $email],
-        "AND"
-      ); 
-
-      if (!$hasCustomer) {
-        $data = [
-          "name" => $_POST['name'],
-          "email" => $email,
-          "password" => $_POST['password'],
-          "image" => 'default-customer-image.png',
-        ];
-
-        $avatarImageName = $_FILES['avatar']['name'];
-        if ($avatarImageName != "") {
-          $data["image"] = $avatarImageName;
-        }
-        move_uploaded_file(
-          $_FILES['avatar']['tmp_name'], 
-          IMAGES_DIR . "/" . "$avatarImageName"
-        );
-
-        $this->signUp($data);
-      }
-
-      App::$app->loadError("emailExisted");
     }
 
     public function signUp($data) {
@@ -97,6 +87,36 @@
       $tableName = $this->__accountModel->tableFill();
       $DB->insert($tableName, $data);
       header("Location: " . FORM_SIGN_IN_ROUTE);
+    }
+
+    public function initSignUp() {
+      $data = [
+        "name" => $_POST['name'],
+        "email" => $_POST['email'],
+        "password" => $_POST['password'],
+        "image" => 'default-customer-image.png',
+      ];
+
+      $avatarImageName = $_FILES['avatar']['name'];
+      if ($avatarImageName != "") {
+        $data["image"] = $avatarImageName;
+      }
+      move_uploaded_file(
+        $_FILES['avatar']['tmp_name'], 
+        IMAGES_DIR . "/" . "$avatarImageName"
+      );
+
+      $this->signUp($data);
+    }
+
+    public function checkSignUp() {
+      $email = $_POST['email'];
+      $condition = " WHERE email = $email";
+
+      $hasCustomer = $this->__accountModel->hasCustomer($condition); 
+      if (!$hasCustomer) {
+        $this->initSignUp();
+      }
     }
 
     public function signOut() {
@@ -118,6 +138,7 @@
         $_FILES['avatar']['tmp_name'], 
         IMAGES_DIR . "/" . "$avatarImageName"
       );
+
       $DB = $this->__accountModel->getDB();
       $tableName = $this->__accountModel->tableFill();
       $condition = "id = $id";
