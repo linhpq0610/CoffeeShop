@@ -1,16 +1,14 @@
 <?php 
   class App {
-    private $router;
-    public static $app;
+    private $__router;
 
     public function __construct($routes) {
-      self::$app = $this;
-      $this->router = new Router($routes);
+      $this->__router = new Router($routes);
       $this->run();
     }
 
     public function run() {
-      $route = $this->router->matchRoute();
+      $route = $this->__router->matchRoute();
       $controller = $route->getController();
       $action = $route->getAction();
       $params = $route->getParams();

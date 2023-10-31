@@ -1,9 +1,9 @@
 <?php 
   class Router {
-    private $routes;
+    private $__routes;
 
     public function __construct($routes) {
-      $this->routes = $routes;
+      $this->__routes = $routes;
     }
 
     public function handleController($urlSegments) {
@@ -59,7 +59,7 @@
     public function matchRoute() {
       $url = !empty($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : HOME_ROUTE;
 
-      foreach ($this->routes as $urlOfRoute => $route) {
+      foreach ($this->__routes as $urlOfRoute => $route) {
         if (preg_match("~$urlOfRoute~is", $url)) {
           $url = preg_replace("~$urlOfRoute~is", $route, $url);
           return $this->handleUrl($url);
