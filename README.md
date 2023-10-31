@@ -1,5 +1,12 @@
 # Hướng dẫn cài đặt và chạy CoffeeShop
 
+## Mục lục
+
+- [Bước 1: Cấu hình đường dẫn](#bước-1-cấu-hình-đường-dẫn)
+- [Bước 2: Cấu hình URL](#bước-2-cấu-hình-url)
+- [Bước 3: Cấu hình database](#bước-3-cấu-hình-database)
+- [Bước 4: Chạy dự án](#bước-4-chạy-dự-án)
+
 ## Bước 1: Cấu hình đường dẫn
 
 1. Truy cập file `configs/constants/directories.php`.
