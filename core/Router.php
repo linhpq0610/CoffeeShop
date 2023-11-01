@@ -1,17 +1,25 @@
 <?php 
-  
   class Router {
-    private $routes;
+    private $__routes;
 
     public function __construct($routes) {
-      $this->routes = $routes;
+      $this->__routes = $routes;
+    }
+
+    public function checkUserAccess($controllerPath) {
+      if (strpos($controllerPath, 'admin') !== false) {
+        if (!Controller::isAdmin()) {
+          ErrorHandler::isNotAdmin();
+          die();
+        }
+      } 
     }
 
     public function handleController($urlSegments) {
       $currenPath = '';
       $controller = "Home";
 
-      foreach ($urlSegments as $index => $value) {
+      foreach ($urlSegments as $value) {
         $currenPath .= $value . '/';
         $controllerPath = rtrim($currenPath, '/');
 
@@ -22,6 +30,7 @@
         $controllerPath = implode('/', $controllerSegments);
 
         if (file_exists(CONTROLLERS_DIR . $controllerPath . ".php")) {
+          $this->checkUserAccess($controllerPath);
           require_once CONTROLLERS_DIR . $controllerPath . ".php";
           $controller = ucfirst($controllerSegments[$LAST_CONTROLLER_SEGMENT_INDEX]);
           break;
@@ -60,15 +69,14 @@
     public function matchRoute() {
       $url = !empty($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : HOME_ROUTE;
 
-      foreach ($this->routes as $urlOfRoute => $route) {
+      foreach ($this->__routes as $urlOfRoute => $route) {
         if (preg_match("~$urlOfRoute~is", $url)) {
           $url = preg_replace("~$urlOfRoute~is", $route, $url);
           return $this->handleUrl($url);
         }
       }
 
-      // $controller = new ErrorController();
-      // return $controller->notFound();
+      ErrorHandler::notFound();
     }
   }
 ?>

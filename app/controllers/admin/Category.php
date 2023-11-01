@@ -11,7 +11,7 @@
         $this->initPagination($currentPage, $wherePhrase, $this->__categoryModel);
       [$prevPageBtn, $nextPageBtn] = 
         $this->getBtnPagination($currentPage, $NUMBERS_OF_ROW, CATEGORY_ROUTE);
-      $categories = $this->__categoryModel->selectRowsByData($condition);
+      $categories = $this->__categoryModel->selectRowsBy($condition);
 
       $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/categories/list';
       $this->_data['pageTitle'] = 'Danh sách loại hàng';

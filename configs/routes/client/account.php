@@ -5,10 +5,10 @@
   $routes['hien-thi-form-thay-doi-mat-khau'] = 'client/account/showFormChangePassword';
   $routes['tao-mat-khau-moi-cho-nguoi-dung-(\d+)'] = 'client/account/setNewPassword/$1';
   $routes['tai-khoan'] = 'client/account';
-  $routes['dang-nhap'] = 'client/account/loadFormSignIn';
   $routes['xu-ly-dang-nhap'] = 'client/account/checkSignIn';
-  $routes['dang-ky'] = 'client/account/loadFormSignUp';
+  $routes['dang-nhap'] = 'client/account/loadFormSignIn';
   $routes['xu-ly-dang-ky'] = 'client/account/checkSignUp';
+  $routes['dang-ky'] = 'client/account/loadFormSignUp';
   $routes['dang-xuat'] = 'client/account/signOut';
   $routes['cap-nhat-khach-hang-(\d+)'] = 'client/account/update/$1';
 ?>

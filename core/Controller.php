@@ -17,9 +17,18 @@
       }
     }
 
-    public function isSignIng() {
+    public function isSignedIn() {
       if (isset($_COOKIE[COOKIE_LOGIN_NAME])) {
         return true;
+      }
+    }
+
+    static public function isAdmin() {
+      if (self::isSignedIn()) {
+        $customerId = $_COOKIE[COOKIE_LOGIN_NAME];
+        $model = self::getModel('AccountModel');
+        $customer = $model->selectOneRowById($customerId);
+        return $customer['role'];
       }
     }
 

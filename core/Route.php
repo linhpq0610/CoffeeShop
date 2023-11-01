@@ -1,25 +1,25 @@
 <?php 
   class Route {
-    private $controller;
-    private $action;
-    private $params;
+    private $__controller;
+    private $__action;
+    private $__params;
 
     public function __construct($controller, $action, $params) {
-      $this->controller = $controller;
-      $this->action = $action;
-      $this->params = $params;
+      $this->__controller = $controller;
+      $this->__action = $action;
+      $this->__params = $params;
     }
 
     public function getController() {
-      return new $this->controller();
+      return new $this->__controller();
     }
 
     public function getAction() {
-      return $this->action;
+      return $this->__action;
     }
 
     public function getParams() {
-      return $this->params;
+      return $this->__params;
     }
   }
 ?>

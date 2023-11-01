@@ -1,5 +1,5 @@
 <?php 
-  if ($this->isSignIng()) {
+  if ($this->isSignedIn()) {
     require_once "commentForm.php";
   } else {
     require_once "requireSignIn.php";
