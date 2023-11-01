@@ -11,5 +11,9 @@
     static public function isNotAdmin() {
       require_once ERRORS_DIR . "isNotAdmin.php";
     }
+
+    static public function isNotSignedIn() {
+      require_once ERRORS_DIR . "isNotSignedIn.php";
+    }
   }
 ?>

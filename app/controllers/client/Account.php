@@ -7,20 +7,18 @@
     }
 
     public function index() {
+      if (!$this->isSignedIn()) {
+        ErrorHandler::isNotSignedIn();
+        die();
+      }
+      
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/account';
       $this->_data['pageTitle'] = 'Tài khoản';
-      $this->_data["contentOfPage"] = $this->showContentOfAccount();
+
+      $customer = $this->__accountModel->selectOneRowById($_COOKIE[COOKIE_LOGIN_NAME]);
+      $customer['role'] = $customer['role'] ? 'checked' : '';
+      $this->_data['contentOfPage'] = ['customer' => $customer];
       $this->renderClientLayout($this->_data);
-    }
-
-    public function showContentOfAccount() {
-      if ($this->isSignedIn()) {
-        $customer = $this->__accountModel->selectOneRowById($_COOKIE[COOKIE_LOGIN_NAME]);
-        $customer['role'] = $customer['role'] ? 'checked' : '';
-        return $customer;
-      }
-
-      return [];
     }
 
     public function setDefaultData($data) {
