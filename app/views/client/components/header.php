@@ -50,7 +50,7 @@
               <img src="<?=IMAGES_URL;?>/user.svg" />
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-              <?php if ($this->isSignIng()) { ?>
+              <?php if ($this->isSignedIn()) { ?>
                 <li><a class="dropdown-item" href="<?=ACCOUNT_ROUTE;?>">Thông tin</a></li>
                 <li><a class="dropdown-item" href="<?=SIGN_OUT_ROUTE;?>">Đăng xuất</a></li>
               <?php } else { ?>

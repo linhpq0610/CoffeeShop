@@ -27,7 +27,7 @@
       [$prevPageBtn, $nextPageBtn] = 
         $this->getBtnPagination($currentPage, $NUMBERS_OF_ROW, SHOP_ROUTE);
       
-      $products = $this->__productModel->selectRowsByData($condition);
+      $products = $this->__productModel->selectRowsBy($condition);
       $categories = $this->__categoryModel->selectAllRows();
       $countOfProducts = $this->__productModel->getCountOfProductOfCategory();
 
@@ -59,7 +59,7 @@
       $condition = 
         " WHERE category_id = $category_id AND id <> $id" .
         " LIMIT 8";
-      $productsRelated = $this->__productModel->selectRowsByData($condition);
+      $productsRelated = $this->__productModel->selectRowsBy($condition);
       $comments = $this->__commentModel->getComments($id);
       $NUMBERS_OF_COMMENT = count($comments);
 
