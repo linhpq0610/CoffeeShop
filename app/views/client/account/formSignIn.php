@@ -14,6 +14,9 @@
           <div class='alert alert-danger border-0 p-0 text-center'>
             <?=$messageAlert;?>
           </div>
+          <div class='alert alert-success border-0 p-0 text-center'>
+            <?=$messageSuccess;?>
+          </div>
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="text-right">Đăng nhập</h4>
           </div>

@@ -23,8 +23,9 @@
       return [];
     }
 
-    public function setDataDefault($data) {
+    public function setDefaultData($data) {
       $defaultData = [
+        'messageSuccess' => '',
         'messageAlert' => '',
         'name' => '',
         'email' => '',
@@ -37,7 +38,7 @@
     }
 
     public function loadFormSignIn($formData = []) {
-      $formData = $this->setDataDefault($formData);
+      $formData = $this->setDefaultData($formData);
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/formSignIn';
       $this->_data['pageTitle'] = 'Đăng nhập';
       $this->_data['contentOfPage'] = $formData;
@@ -75,10 +76,11 @@
       header("Location: " . HOME_ROUTE);
     }
 
-    public function loadFormSignUp($messageAlert = '') {
+    public function loadFormSignUp($formData = []) {
+      $formData = $this->setDefaultData($formData);
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/formSignUp';
       $this->_data['pageTitle'] = 'Đăng ký';
-      $this->_data['contentOfPage'] = ['messageAlert' => $messageAlert];
+      $this->_data['contentOfPage'] = $formData;
       $this->renderClientLayout($this->_data);
     }
 
@@ -86,7 +88,17 @@
       $DB = $this->__accountModel->getDB();
       $tableName = $this->__accountModel->tableFill();
       $DB->insert($tableName, $data);
-      header("Location: " . FORM_SIGN_IN_ROUTE);
+      
+      $messageSuccess = 
+        '<p class="p-3">
+          Bạn đã đăng ký thành công.
+          <br>
+          Vui lòng đăng nhập tại đây.
+        </p>';
+      $formData = [
+        'messageSuccess' => $messageSuccess,
+      ];
+      $this->loadFormSignIn($formData);
     }
 
     public function initSignUp() {
@@ -111,12 +123,27 @@
 
     public function checkSignUp() {
       $email = $_POST['email'];
-      $condition = " WHERE email = $email";
+      $condition = " WHERE email = '$email'";
 
-      $hasCustomer = $this->__accountModel->hasCustomer($condition); 
+      $customer = $this->__accountModel->selectRowBy($condition);
+      $hasCustomer = $this->__accountModel->hasCustomer($customer); 
       if (!$hasCustomer) {
         $this->initSignUp();
       }
+
+      $messageAlert = 
+        '<p class="p-3">
+          Email đã tồn tại.
+          <br>
+          Vui lòng dùng email khác.
+        </p>';
+      $formData = [
+        'messageAlert' => $messageAlert,
+        'name' => $_POST['name'],
+        'email' => $email,
+        'password' => $_POST['password'],
+      ];
+      $this->loadFormSignUp($formData);
     }
 
     public function signOut() {

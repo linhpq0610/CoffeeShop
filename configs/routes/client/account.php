@@ -7,8 +7,8 @@
   $routes['tai-khoan'] = 'client/account';
   $routes['xu-ly-dang-nhap'] = 'client/account/checkSignIn';
   $routes['dang-nhap'] = 'client/account/loadFormSignIn';
-  $routes['dang-ky'] = 'client/account/loadFormSignUp';
   $routes['xu-ly-dang-ky'] = 'client/account/checkSignUp';
+  $routes['dang-ky'] = 'client/account/loadFormSignUp';
   $routes['dang-xuat'] = 'client/account/signOut';
   $routes['cap-nhat-khach-hang-(\d+)'] = 'client/account/update/$1';
 ?>
