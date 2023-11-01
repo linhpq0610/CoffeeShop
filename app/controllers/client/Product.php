@@ -73,7 +73,7 @@
         "NUMBERS_OF_COMMENT" => $NUMBERS_OF_COMMENT,
       ];
 
-      if ($this->isSignIng()) {
+      if ($this->isSignedIn()) {
         $customerId = $_COOKIE[COOKIE_LOGIN_NAME];
         $customer = $this->__accountModel->selectOneRowById($customerId);
         $this->_data['contentOfPage']['customer'] = $customer;

@@ -14,7 +14,7 @@
     }
 
     public function showContentOfAccount() {
-      if ($this->isSignIng()) {
+      if ($this->isSignedIn()) {
         $customer = $this->__accountModel->selectOneRowById($_COOKIE[COOKIE_LOGIN_NAME]);
         $customer['role'] = $customer['role'] ? 'checked' : '';
         return $customer;

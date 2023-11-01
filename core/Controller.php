@@ -17,7 +17,7 @@
       }
     }
 
-    public function isSignIng() {
+    public function isSignedIn() {
       if (isset($_COOKIE[COOKIE_LOGIN_NAME])) {
         return true;
       }

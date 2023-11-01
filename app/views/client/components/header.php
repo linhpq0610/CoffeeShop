@@ -27,7 +27,7 @@
         <li><a class="nav-link" href="<?=(SHOP_ROUTE . "1");?>">Cửa hàng</a></li>
         <li><a class="nav-link" href="<?=CONTACT_ROUTE?>">Liên hệ</a></li>
         <?php 
-          if ($this->isSignIng()) { 
+          if ($this->isSignedIn()) { 
             $accountModel = $this->getModel("AccountModel");
             if ($accountModel->isAdmin()) {
         ?>
