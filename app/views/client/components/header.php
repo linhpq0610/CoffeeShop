@@ -27,13 +27,10 @@
         <li><a class="nav-link" href="<?=(SHOP_ROUTE . "1");?>">Cửa hàng</a></li>
         <li><a class="nav-link" href="<?=CONTACT_ROUTE?>">Liên hệ</a></li>
         <?php 
-          if ($this->isSignedIn()) { 
-            $accountModel = $this->getModel("AccountModel");
-            if ($accountModel->isAdmin()) {
+          if (Controller::isAdmin()) {
         ?>
           <li><a class="nav-link" href="<?=ADMIN_ROUTE;?>">Admin</a></li>
         <?php 
-            }
           } 
         ?>
       </ul>

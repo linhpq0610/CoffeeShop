@@ -6,6 +6,15 @@
       $this->__routes = $routes;
     }
 
+    public function checkUserAccess($controllerPath) {
+      if (strpos($controllerPath, 'admin') !== false) {
+        if (!Controller::isAdmin()) {
+          ErrorHandler::isNotAdmin();
+          die();
+        }
+      } 
+    }
+
     public function handleController($urlSegments) {
       $currenPath = '';
       $controller = "Home";
@@ -21,6 +30,7 @@
         $controllerPath = implode('/', $controllerSegments);
 
         if (file_exists(CONTROLLERS_DIR . $controllerPath . ".php")) {
+          $this->checkUserAccess($controllerPath);
           require_once CONTROLLERS_DIR . $controllerPath . ".php";
           $controller = ucfirst($controllerSegments[$LAST_CONTROLLER_SEGMENT_INDEX]);
           break;

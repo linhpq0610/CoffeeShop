@@ -23,6 +23,15 @@
       }
     }
 
+    static public function isAdmin() {
+      if (self::isSignedIn()) {
+        $customerId = $_COOKIE[COOKIE_LOGIN_NAME];
+        $model = self::getModel('AccountModel');
+        $customer = $model->selectOneRowById($customerId);
+        return $customer['role'];
+      }
+    }
+
     public function renderClientLayout($data = []) {
       $this->render(CLIENT_LAYOUT_DIR, $data);
     }

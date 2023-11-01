@@ -7,5 +7,9 @@
     static public function serverError($message) {
       require_once ERRORS_DIR . "500.php";
     }
+
+    static public function isNotAdmin() {
+      require_once ERRORS_DIR . "isNotAdmin.php";
+    }
   }
 ?>
