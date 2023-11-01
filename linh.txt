@@ -1,7 +1,6 @@
 hi
 hello
 nguyennef
-<<<<<<< HEAD
-=======
 123
->>>>>>> tranchinguyen1307
+
+hihih
