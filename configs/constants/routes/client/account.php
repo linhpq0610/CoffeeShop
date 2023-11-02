@@ -10,5 +10,5 @@
   define("SIGN_OUT_ROUTE", "dang-xuat");
   define("FORM_SIGN_UP_ROUTE", "dang-ky");
   define("SIGN_UP_ROUTE", "xu-ly-dang-ky");
-  define("UPDATE_CUSTOMER_ROUTE", "cap-nhat-khach-hang-");
+  define("UPDATE_USER_ROUTE", "cap-nhat-nguoi-dung-");
 ?>

@@ -4,7 +4,7 @@
 
 <div class="container rounded" style="padding: 50px 0;">
   <div class="bg-white">
-    <form action="<?=(UPDATE_CUSTOMER_ADMIN_ROUTE . $id)?>" method="post" class="row align-items-center edit-form" enctype="multipart/form-data">
+    <form action="<?=(UPDATE_USER_ADMIN_ROUTE . $id)?>" method="post" class="row align-items-center edit-form" enctype="multipart/form-data">
       <div class="col-md-6 border-right">
         <div class="d-flex flex-column align-items-center text-center p-3 py-5">
           <img

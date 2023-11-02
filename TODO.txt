@@ -15,8 +15,8 @@ Category ✅
 Product ✅
 Statistic ✅
 
-Query insert customer:
-INSERT INTO customer (name, password, image, email) VALUES
+Query insert users:
+INSERT INTO users (name, password, image, email) VALUES
 ('Nguyen Van A', '12345678', 'person_2.jpg', 'anv@gmail.com'),
 ('Nguyen Van B', '12345678', 'person_1.jpg', 'bnv@gmail.com'),
 ('Nguyen Van C', '12345678', 'person_2.jpg', 'cnv@gmail.com'),
