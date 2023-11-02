@@ -11,7 +11,7 @@
         $this->initPagination($currentPage, $wherePhrase, $this->__accountModel);
       [$prevPageBtn, $nextPageBtn] = 
         $this->getBtnPagination($currentPage, $NUMBERS_OF_ROW, CUSTOMER_ROUTE);
-      $customers = $this->__accountModel->selectCustomersByData($condition);
+      $customers = $this->__accountModel->selectRowsBy($condition);
 
       $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/customer/list';
       $this->_data['pageTitle'] = 'Danh sách khách hàng';
