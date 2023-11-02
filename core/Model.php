@@ -31,15 +31,6 @@
         " WHERE id = $id";
       return $this->_db->selectRow($sql);
     }
-
-    public function isAdmin() {
-      $sql = 
-        "SELECT `role`" .
-        " FROM " . $this->_tableName .
-        " WHERE id = " . $_COOKIE[COOKIE_LOGIN_NAME];
-      $customer = $this->_db->selectRow($sql);
-      return $customer['role']; 
-    }
     
     public function getCountOfRow($wherePhrase = '') {
       $sql = 
@@ -49,11 +40,18 @@
       return $NUMBERS_OF_ROW;
     }
     
-    public function selectRowsByData($condition) {
+    public function selectRowsBy($condition) {
       $sql = 
         "SELECT " . $this->_fieldsSelected .
         " FROM " . $this->_tableName . $condition;
       return $this->_db->selectRows($sql);
+    }
+
+    public function selectRowBy($condition) {
+      $sql = 
+        "SELECT " . $this->_fieldsSelected .
+        " FROM " . $this->_tableName . $condition;
+      return $this->_db->selectRow($sql);
     }
   }
 ?>

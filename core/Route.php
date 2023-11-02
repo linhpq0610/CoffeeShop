@@ -1,20 +1,25 @@
 <?php 
   class Route {
-    public function handleRoute($url) {
-      global $routes;
-      unset($routes["default_controller"]);
-      $url = trim($url, "/");
+    private $__controller;
+    private $__action;
+    private $__params;
 
-      $handleUrl = $url;
-      if (!empty($routes)) {
-        foreach ($routes as $key => $value) {
-          if (preg_match("~$key~is", $url)) {
-            $handleUrl = preg_replace("~$key~is", $value, $url);
-          }
-        }
-      }
+    public function __construct($controller, $action, $params) {
+      $this->__controller = $controller;
+      $this->__action = $action;
+      $this->__params = $params;
+    }
 
-      return $handleUrl;
+    public function getController() {
+      return new $this->__controller();
+    }
+
+    public function getAction() {
+      return $this->__action;
+    }
+
+    public function getParams() {
+      return $this->__params;
     }
   }
 ?>

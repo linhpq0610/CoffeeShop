@@ -7,96 +7,141 @@
     }
 
     public function index() {
+      if (!$this->isSignedIn()) {
+        ErrorHandler::isNotSignedIn();
+        die();
+      }
+      
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/account';
       $this->_data['pageTitle'] = 'Tài khoản';
-      $this->_data["contentOfPage"] = $this->showContentOfAccount();
+
+      $customer = $this->__accountModel->selectOneRowById($_COOKIE[COOKIE_LOGIN_NAME]);
+      $customer['role'] = $customer['role'] ? 'checked' : '';
+      $this->_data['contentOfPage'] = ['customer' => $customer];
       $this->renderClientLayout($this->_data);
     }
 
-    public function showContentOfAccount() {
-      if ($this->isSignIng()) {
-        $customer = $this->__accountModel->selectOneRowById($_COOKIE[COOKIE_LOGIN_NAME]);
-        $customer['role'] = $customer['role'] ? 'checked' : '';
-        return $customer;
+    public function setDefaultData($data) {
+      $defaultData = [
+        'messageSuccess' => '',
+        'messageAlert' => '',
+        'name' => '',
+        'email' => '',
+        'password' => '',
+      ];
+      foreach ($data as $key => $value) {
+        $defaultData[$key] = $value;
       }
-
-      return [];
+      return $defaultData;
     }
 
-    public function loadFormSignIn() {
+    public function loadFormSignIn($formData = []) {
+      $formData = $this->setDefaultData($formData);
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/formSignIn';
       $this->_data['pageTitle'] = 'Đăng nhập';
-      $this->_data["contentOfPage"] = [];
+      $this->_data['contentOfPage'] = $formData;
       $this->renderClientLayout($this->_data);
     }
 
     public function checkSignIn() {
       $email = $_POST['email'];
       $password = $_POST['password'];
+      $condition = " WHERE email = '$email' AND password = '$password'";
 
-      $hasCustomer = $this->__accountModel->hasCustomer(
-        ["email" => $email, "password" => $password],
-        "AND"
-      ); 
+      $customer = $this->__accountModel->selectRowBy($condition);
+      $hasCustomer = $this->__accountModel->hasCustomer($customer); 
       if ($hasCustomer) {
-        $this->signIn();
+        $this->signIn($customer);
       }
 
-      App::$app->loadError("customerNotExist");
+      $messageAlert = 
+        '<p class="p-3">
+          Email hoặc mật khẩu không chính xác.
+          <br>
+          Vui lòng kiểm tra lại.
+        </p>';
+      $formData = [
+        'messageAlert' => $messageAlert,
+        'email' => $email,
+        'password' => $password,
+      ];
+      $this->loadFormSignIn($formData);
     }
 
-    public function signIn() {
-      $customer = $this->__accountModel->getCustomer();
-      extract($customer);
+    public function signIn($customer) {
       define("SECONDS_OF_MONTH", 86400 * 30);
-      setcookie(COOKIE_LOGIN_NAME, $id, time() + SECONDS_OF_MONTH);
-
+      setcookie(COOKIE_LOGIN_NAME, $customer['id'], time() + SECONDS_OF_MONTH);
       header("Location: " . HOME_ROUTE);
     }
 
-    public function loadFormSignUp() {
+    public function loadFormSignUp($formData = []) {
+      $formData = $this->setDefaultData($formData);
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/formSignUp';
       $this->_data['pageTitle'] = 'Đăng ký';
-      $this->_data["contentOfPage"] = [];
+      $this->_data['contentOfPage'] = $formData;
       $this->renderClientLayout($this->_data);
-    }
-
-    public function checkSignUp() {
-      $email = $_POST['email'];
-
-      $hasCustomer = $this->__accountModel->hasCustomer(
-        ["email" => $email],
-        "AND"
-      ); 
-
-      if (!$hasCustomer) {
-        $data = [
-          "name" => $_POST['name'],
-          "email" => $email,
-          "password" => $_POST['password'],
-          "image" => 'default-customer-image.png',
-        ];
-
-        $avatarImageName = $_FILES['avatar']['name'];
-        if ($avatarImageName != "") {
-          $data["image"] = $avatarImageName;
-        }
-        move_uploaded_file(
-          $_FILES['avatar']['tmp_name'], 
-          IMAGES_DIR . "/" . "$avatarImageName"
-        );
-
-        $this->signUp($data);
-      }
-
-      App::$app->loadError("emailExisted");
     }
 
     public function signUp($data) {
       $DB = $this->__accountModel->getDB();
       $tableName = $this->__accountModel->tableFill();
       $DB->insert($tableName, $data);
-      header("Location: " . FORM_SIGN_IN_ROUTE);
+      
+      $messageSuccess = 
+        '<p class="p-3">
+          Bạn đã đăng ký thành công.
+          <br>
+          Vui lòng đăng nhập tại đây.
+        </p>';
+      $formData = [
+        'messageSuccess' => $messageSuccess,
+      ];
+      $this->loadFormSignIn($formData);
+    }
+
+    public function initSignUp() {
+      $data = [
+        "name" => $_POST['name'],
+        "email" => $_POST['email'],
+        "password" => $_POST['password'],
+        "image" => 'default-customer-image.png',
+      ];
+
+      $avatarImageName = $_FILES['avatar']['name'];
+      if ($avatarImageName != "") {
+        $data["image"] = $avatarImageName;
+      }
+      move_uploaded_file(
+        $_FILES['avatar']['tmp_name'], 
+        IMAGES_DIR . "/" . "$avatarImageName"
+      );
+
+      $this->signUp($data);
+    }
+
+    public function checkSignUp() {
+      $email = $_POST['email'];
+      $condition = " WHERE email = '$email'";
+
+      $customer = $this->__accountModel->selectRowBy($condition);
+      $hasCustomer = $this->__accountModel->hasCustomer($customer); 
+      if (!$hasCustomer) {
+        $this->initSignUp();
+      }
+
+      $messageAlert = 
+        '<p class="p-3">
+          Email đã tồn tại.
+          <br>
+          Vui lòng dùng email khác.
+        </p>';
+      $formData = [
+        'messageAlert' => $messageAlert,
+        'name' => $_POST['name'],
+        'email' => $email,
+        'password' => $_POST['password'],
+      ];
+      $this->loadFormSignUp($formData);
     }
 
     public function signOut() {
@@ -118,6 +163,7 @@
         $_FILES['avatar']['tmp_name'], 
         IMAGES_DIR . "/" . "$avatarImageName"
       );
+
       $DB = $this->__accountModel->getDB();
       $tableName = $this->__accountModel->tableFill();
       $condition = "id = $id";

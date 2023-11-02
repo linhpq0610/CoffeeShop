@@ -13,7 +13,7 @@
         $this->initPagination($currentPage, $wherePhrase, $this->__productModel);
       [$prevPageBtn, $nextPageBtn] = 
         $this->getBtnPagination($currentPage, $NUMBERS_OF_ROW, ADMIN_PRODUCT_ROUTE);
-      $products = $this->__productModel->selectRowsByData($condition);
+      $products = $this->__productModel->selectRowsBy($condition);
 
       $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/products/list';
       $this->_data['pageTitle'] = 'Danh sách sản phẩm';

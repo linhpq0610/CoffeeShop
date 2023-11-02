@@ -27,13 +27,10 @@
         <li><a class="nav-link" href="<?=(SHOP_ROUTE . "1");?>">Cửa hàng</a></li>
         <li><a class="nav-link" href="<?=CONTACT_ROUTE?>">Liên hệ</a></li>
         <?php 
-          if ($this->isSignIng()) { 
-            $accountModel = $this->getModel("AccountModel");
-            if ($accountModel->isAdmin()) {
+          if (Controller::isAdmin()) {
         ?>
           <li><a class="nav-link" href="<?=ADMIN_ROUTE;?>">Admin</a></li>
         <?php 
-            }
           } 
         ?>
       </ul>
@@ -50,7 +47,7 @@
               <img src="<?=IMAGES_URL;?>/user.svg" />
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-              <?php if ($this->isSignIng()) { ?>
+              <?php if ($this->isSignedIn()) { ?>
                 <li><a class="dropdown-item" href="<?=ACCOUNT_ROUTE;?>">Thông tin</a></li>
                 <li><a class="dropdown-item" href="<?=SIGN_OUT_ROUTE;?>">Đăng xuất</a></li>
               <?php } else { ?>
