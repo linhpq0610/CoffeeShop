@@ -5,15 +5,15 @@
     }
 
     public function fieldsFill() {
-      return "id, content, product_id, customer_id, comment_date";
+      return "id, content, product_id, user_id, comment_date";
     }
 
     public function getComments($productId, $condition = '') {
       $sql = 
-        "SELECT c.*, cus.name customer_name, cus.image" .
+        "SELECT c.*, cus.name user_name, cus.image" .
         " FROM comments c" .
-        " JOIN customers cus" .
-        " ON cus.id = c.customer_id" .
+        " JOIN users cus" .
+        " ON cus.id = c.user_id" .
         " WHERE c.product_id = $productId" . 
         $condition;
       return $this->_db->selectRows($sql);

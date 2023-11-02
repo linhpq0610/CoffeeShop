@@ -22,7 +22,7 @@
         width="40px"
         src="<?=(IMAGES_URL . "/" . $image);?>"
         class="rounded-circle me-2"
-      /><a class="fw-semibold text-decoration-none"><?=$customer_name;?></a>
+      /><a class="fw-semibold text-decoration-none"><?=$user_name;?></a>
       <span class="ms-3 small text-muted">
         <i class="far fa-clock"></i>
         <?=$comment_date;?>

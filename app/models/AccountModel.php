@@ -1,17 +1,15 @@
 <?php 
   class AccountModel extends Model {
-    private $__customer;
-
     public function tableFill() {
-      return 'customers';
+      return 'users';
     }
 
     public function fieldsFill() {
       return "id, name, image, email, active, role, password";
     }
 
-    public function hasCustomer($customer) {
-      return $customer != [] ? true : false;
+    public function hasUser($user) {
+      return $user != [] ? true : false;
     }
   }
 ?>
