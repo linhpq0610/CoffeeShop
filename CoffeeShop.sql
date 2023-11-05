@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 05, 2023 at 04:11 PM
+-- Generation Time: Nov 05, 2023 at 04:14 PM
 -- Server version: 8.0.31
 -- PHP Version: 7.4.33
 
@@ -53,17 +53,18 @@ CREATE TABLE `comments` (
   `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `product_id` int NOT NULL,
   `user_id` int NOT NULL,
-  `commented_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `commented_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `comments`
 --
 
-INSERT INTO `comments` (`id`, `content`, `product_id`, `user_id`, `commented_date`) VALUES
-(1, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus omnis nesciunt adipisci vel voluptatem libero laborum, modi aperiam et corporis earum perspiciatis officiis placeat itaque. Fuga amet repellat itaque eaque!', 3, 28, '2023-10-22 16:26:44'),
-(2, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus omnis nesciunt adipisci vel voluptatem libero laborum, modi aperiam et corporis earum perspiciatis officiis placeat itaque. Fuga amet repellat itaque eaque!', 4, 28, '2023-10-23 12:01:16'),
-(6, 'San pham that tuyet', 3, 28, '2023-10-24 21:56:46');
+INSERT INTO `comments` (`id`, `content`, `product_id`, `user_id`, `commented_date`, `is_deleted`) VALUES
+(1, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus omnis nesciunt adipisci vel voluptatem libero laborum, modi aperiam et corporis earum perspiciatis officiis placeat itaque. Fuga amet repellat itaque eaque!', 3, 28, '2023-10-22 16:26:44', 0),
+(2, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus omnis nesciunt adipisci vel voluptatem libero laborum, modi aperiam et corporis earum perspiciatis officiis placeat itaque. Fuga amet repellat itaque eaque!', 4, 28, '2023-10-23 12:01:16', 0),
+(6, 'San pham that tuyet', 3, 28, '2023-10-24 21:56:46', 0);
 
 -- --------------------------------------------------------
 
