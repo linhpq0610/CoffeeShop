@@ -5,7 +5,7 @@
     }
 
     public function fieldsFill() {
-      return "id, content, product_id, user_id, comment_date";
+      return "id, content, product_id, user_id, commented_date";
     }
 
     public function getComments($productId, $condition = '') {
@@ -34,8 +34,8 @@
         "SELECT " . 
           "p.id, p.name, c.product_id, " . 
           "COUNT(c.product_id) AS NUMBERS_OF_COMMENT, " .
-          "MAX(c.comment_date) AS NEWEST_DATE, " . 
-          "MIN(c.comment_date) AS OLDEST_DATE" .
+          "MAX(c.commented_date) AS NEWEST_DATE, " . 
+          "MIN(c.commented_date) AS OLDEST_DATE" .
         " FROM comments c " .
         " JOIN products p " . 
         " ON c.product_id = p.id " .

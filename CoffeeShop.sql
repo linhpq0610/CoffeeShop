@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 05, 2023 at 01:58 PM
+-- Generation Time: Nov 05, 2023 at 04:11 PM
 -- Server version: 8.0.31
 -- PHP Version: 7.4.33
 
@@ -53,14 +53,14 @@ CREATE TABLE `comments` (
   `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `product_id` int NOT NULL,
   `user_id` int NOT NULL,
-  `comment_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `commented_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `comments`
 --
 
-INSERT INTO `comments` (`id`, `content`, `product_id`, `user_id`, `comment_date`) VALUES
+INSERT INTO `comments` (`id`, `content`, `product_id`, `user_id`, `commented_date`) VALUES
 (1, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus omnis nesciunt adipisci vel voluptatem libero laborum, modi aperiam et corporis earum perspiciatis officiis placeat itaque. Fuga amet repellat itaque eaque!', 3, 28, '2023-10-22 16:26:44'),
 (2, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus omnis nesciunt adipisci vel voluptatem libero laborum, modi aperiam et corporis earum perspiciatis officiis placeat itaque. Fuga amet repellat itaque eaque!', 4, 28, '2023-10-23 12:01:16'),
 (6, 'San pham that tuyet', 3, 28, '2023-10-24 21:56:46');
@@ -105,20 +105,20 @@ CREATE TABLE `users` (
   `id` int NOT NULL,
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `password` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '1',
   `image` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `role` tinyint(1) NOT NULL DEFAULT '0'
+  `is_admin` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `password`, `active`, `image`, `email`, `role`) VALUES
+INSERT INTO `users` (`id`, `name`, `password`, `is_deleted`, `image`, `email`, `is_admin`) VALUES
 (28, 'Nguyen Van C1', '123456788', 1, 'person_2.jpg', 'cnv@gmail.com', 1),
 (32, 'Nguyen Van G', '12345678', 0, 'person_1.jpg', 'gnv@gmail.com', 0),
-(34, 'Nguyen Van I', '12345678', 0, 'person_3.jpg', 'inv@gmail.com', 0),
+(34, 'Nguyen Van I', '12345678', 1, 'person_3.jpg', 'inv@gmail.com', 0),
 (35, 'Nguyen Van J', '12345678', 0, 'person_4.jpg', 'jnv@gmail.com', 0),
 (55, 'Nguyen Van A', '12345678', 0, 'person_4.jpg', 'anv@gmail.com', 0);
 

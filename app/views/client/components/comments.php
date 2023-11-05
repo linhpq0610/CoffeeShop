@@ -25,7 +25,7 @@
       /><a class="fw-semibold text-decoration-none"><?=$user_name;?></a>
       <span class="ms-3 small text-muted">
         <i class="far fa-clock"></i>
-        <?=$comment_date;?>
+        <?=$commented_date;?>
       </span>
       </div>
       <div class="dropdown ms-auto">
