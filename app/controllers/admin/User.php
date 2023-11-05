@@ -42,12 +42,12 @@
     }
 
     public function update($id) {
-      $active = $_POST['active'] ? 1 : 0;
+      $is_deleted = $_POST['is_deleted'] ? 1 : 0;
       $data = [
         "name" => $_POST['name'],
         "email" => $_POST['email'],
         "password" => $_POST['password'],
-        "active" => $active,
+        "is_deleted" => $is_deleted,
       ];
 
       $avatarImageName = $_FILES['avatar']['name'];

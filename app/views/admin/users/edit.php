@@ -55,15 +55,15 @@
             </div>
           </div>
           <div class="row mt-2">
-            <label for="active" class="labels" style="width: unset">
+            <label for="is_deleted" class="labels" style="width: unset">
               Kích hoạt
             </label>
             <input
-              id="active"
+              id="is_deleted"
               type="checkbox"
               style="width: unset; width: 18px"
-              name="active"
-              <?=($active ? "checked" : "");?>
+              name="is_deleted"
+              <?=($is_deleted ? "checked" : "");?>
             />
             <label for="is_admin" class="labels" style="width: unset">
               Quản trị
