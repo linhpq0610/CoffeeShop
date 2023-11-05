@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 05, 2023 at 04:14 PM
+-- Generation Time: Nov 05, 2023 at 04:24 PM
 -- Server version: 8.0.31
 -- PHP Version: 7.4.33
 
@@ -78,7 +78,7 @@ CREATE TABLE `products` (
   `price` double NOT NULL,
   `sale` double NOT NULL DEFAULT '0',
   `image` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `entry_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `entered_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `special` int NOT NULL,
   `view` int NOT NULL DEFAULT '0',
@@ -89,7 +89,7 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `price`, `sale`, `image`, `entry_date`, `description`, `special`, `view`, `category_id`) VALUES
+INSERT INTO `products` (`id`, `name`, `price`, `sale`, `image`, `entered_date`, `description`, `special`, `view`, `category_id`) VALUES
 (3, 'Cà phê Arabica 250g', 250000, 10, 'arabica.png', '2023-10-11 20:11:26', 'Cà phê Arabica tinh khiết được trồng và chăm sóc tận tâm trên những thửa đất phủ đầy cỏ xanh tươi mát, nằm ẩn mình trong vùng nông thôn hữu cơ của chúng tôi. Những hạt cà phê Arabica này được lựa chọn tỉ mỉ, đảm bảo chất lượng và hương vị tốt nhất.\r\n\r\nChúng tôi tự hào giới thiệu một cốc cà phê độc đáo, thăng hoa vị ngon với hương thơm nồng nàn và vị đắng đặc trưng của Arabica. Sự tinh khiết của sản phẩm là kết quả của quy trình chế biến cẩn thận và đội ngũ nông dân tận tâm của chúng tôi. Đây không chỉ là một cốc cà phê, mà còn là một hành trình khám phá vị ngon và tận hưởng sự thư giãn trong từng ngụm.\r\n\r\nHãy đắm chìm trong thế giới hương vị độc đáo và hãy để cà phê Arabica tinh khiết từ chúng tôi đồng hành cùng bạn mỗi sáng. Một kỳ nghỉ đẳng cấp và trải nghiệm cà phê không giống ai đang chờ bạn.', 0, 542, 4),
 (4, 'Máy pha cà phê đơn giản', 1000000, 0, 'coffee-maker.png', '2023-10-11 20:11:26', 'Máy pha cà phê cho người yêu cà phê tại nhà\r\nLorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus omnis nesciunt adipisci vel voluptatem libero laborum, modi aperiam et corporis earum perspiciatis officiis placeat itaque. Fuga amet repellat itaque eaque!', 1, 82, 5),
 (5, 'Bộ ấm đun nước và pha cà phê', 1500000, 0, 'kettle-coffee.png', '2023-10-11 20:11:26', 'Bộ sản phẩm đa năng cho cà phê sáng tạo\r\nLorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus omnis nesciunt adipisci vel voluptatem libero laborum, modi aperiam et corporis earum perspiciatis officiis placeat itaque. Fuga amet repellat itaque eaque!', 1, 97, 5),

@@ -66,7 +66,7 @@
             <div class="col-md-6">
               <label class="labels">Ngày tạo</label
               ><input
-                readonly type="datetime" class="form-control" value="<?=$entry_date;?>" name="entry_date" />
+                readonly type="datetime" class="form-control" value="<?=$entered_date;?>" name="entered_date" />
               <p class="field-message mb-0"></p>
             </div>
           </div>
