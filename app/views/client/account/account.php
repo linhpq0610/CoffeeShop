@@ -66,13 +66,13 @@
               checked
               disabled
             />
-            <label for="role" class="labels" style="width: unset">Quản trị</label>
+            <label for="is_admin" class="labels" style="width: unset">Quản trị</label>
             <input 
-              id="role" 
+              id="is_admin" 
               type="checkbox" 
               style="width: unset; width: 18px" 
               disabled
-              <?=$role;?>
+              <?=$is_admin;?>
             />
           </div>
           <div class="mt-5 text-center">

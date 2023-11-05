@@ -16,7 +16,7 @@
       $this->_data['pageTitle'] = 'Tài khoản';
 
       $user = $this->__accountModel->selectOneRowById($_COOKIE[COOKIE_LOGIN_NAME]);
-      $user['role'] = $user['role'] ? 'checked' : '';
+      $user['is_admin'] = $user['is_admin'] ? 'checked' : '';
       $this->_data['contentOfPage'] = ['user' => $user];
       $this->renderClientLayout($this->_data);
     }

@@ -5,7 +5,7 @@
     }
 
     public function fieldsFill() {
-      return "id, name, image, email, active, role, password";
+      return "id, name, image, email, active, is_admin, password";
     }
 
     public function hasUser($user) {

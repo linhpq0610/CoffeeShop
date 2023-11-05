@@ -65,7 +65,7 @@
                   type="checkbox" 
                   name="id[]" 
                   value="<?=$id;?>" 
-                  <?=($role ? "disabled" : "");?>
+                  <?=($is_admin ? "disabled" : "");?>
                 />
               </div>
             </td>
@@ -103,7 +103,7 @@
             <td>
               <div class="p-2 d-flex flex-column">
                 <span>
-                  <?=($role ? "Admin" : "Khách hàng");?>
+                  <?=($is_admin ? "Admin" : "Khách hàng");?>
                 </span>
               </div>
             </td>
@@ -117,7 +117,7 @@
                 </a>
                 <a 
                   href="#deleteEmployeeModal" 
-                  class="delete <?=($role ? "delete-icon-disabled" : "");?>" 
+                  class="delete <?=($is_admin ? "delete-icon-disabled" : "");?>" 
                   data-bs-toggle="modal" 
                   data-bs-original-title="Delete" 
                   data-bs-toggle="tooltip" 

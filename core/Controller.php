@@ -28,7 +28,7 @@
         $userId = $_COOKIE[COOKIE_LOGIN_NAME];
         $model = self::getModel('AccountModel');
         $user = $model->selectOneRowById($userId);
-        return $user['role'];
+        return $user['is_admin'];
       }
     }
 
