@@ -15,9 +15,10 @@
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/account';
       $this->_data['pageTitle'] = 'Tài khoản';
 
-      $user = $this->__accountModel->selectOneRowById($_COOKIE[COOKIE_LOGIN_NAME]);
+      $userId = $_COOKIE[COOKIE_LOGIN_NAME];
+      $user = $this->__accountModel->selectOneRowById($userId);
       $user['is_admin'] = $user['is_admin'] ? 'checked' : '';
-      $this->_data['contentOfPage'] = ['user' => $user];
+      $this->_data['contentOfPage'] = $user;
       $this->renderClientLayout($this->_data);
     }
 
