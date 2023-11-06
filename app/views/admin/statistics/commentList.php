@@ -77,7 +77,7 @@
               </div>
             </td>
             <td>
-              <div class="p-2"><?=$comment_date;?></div>
+              <div class="p-2"><?=$commented_date;?></div>
             </td>
             <td>
               <div class="p-2 d-flex flex-column"><?=$user_name;?></div>

@@ -74,19 +74,6 @@
               <p class="field-message mb-0"></p>
             </div>
           </div>
-          <div class="row mt-2">
-            <div class="col-md-12">
-              <label class="labels">Đặc biệt</label
-              >
-              <input
-                id="active"
-                type="checkbox"
-                style="width: unset; width: 18px"
-                name="special"
-              />
-              <p class="field-message mb-0"></p>
-            </div>
-          </div>
           <div class="mt-5 text-center">
             <button
               class="btn btn-primary profile-button"

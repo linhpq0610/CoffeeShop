@@ -55,24 +55,24 @@
             </div>
           </div>
           <div class="row mt-2">
-            <label for="active" class="labels" style="width: unset">
+            <label for="is_deleted" class="labels" style="width: unset">
               Kích hoạt
             </label>
             <input
-              id="active"
+              id="is_deleted"
               type="checkbox"
               style="width: unset; width: 18px"
-              name="active"
-              <?=($active ? "checked" : "");?>
+              name="is_deleted"
+              <?=($is_deleted ? "checked" : "");?>
             />
-            <label for="role" class="labels" style="width: unset">
+            <label for="is_admin" class="labels" style="width: unset">
               Quản trị
             </label>
             <input 
-              id="role" 
+              id="is_admin" 
               type="checkbox" 
               style="width: unset; width: 18px" 
-              <?=($role ? "checked" : "");?>
+              <?=($is_admin ? "checked" : "");?>
               disabled
             />
           </div>

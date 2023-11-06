@@ -51,13 +51,11 @@
     }
 
     public function update($id) {
-      $special = $_POST['special'] ? 1 : 0;
       $data = [
         "name" => $_POST['name'],
         "description" => $_POST['description'],
         "price" => $_POST['price'],
         "sale" => $_POST['sale'],
-        "special" => $special,
         "category_id" => $_POST['category_id'],
       ];
 
@@ -97,13 +95,11 @@
     }
 
     public function initAdd() {
-      $special = $_POST['special'] ? 1 : 0;
       $data = [
         "name" => $_POST['name'],
         "description" => $_POST['description'],
         "price" => $_POST['price'],
         "sale" => $_POST['sale'],
-        "special" => $special,
         "category_id" => $_POST['category_id'],
         "image" => 'default-product-image.png',
       ];
