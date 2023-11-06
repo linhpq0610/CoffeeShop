@@ -25,10 +25,10 @@
 
     static public function isAdmin() {
       if (self::isSignedIn()) {
-        $customerId = $_COOKIE[COOKIE_LOGIN_NAME];
+        $userId = $_COOKIE[COOKIE_LOGIN_NAME];
         $model = self::getModel('AccountModel');
-        $customer = $model->selectOneRowById($customerId);
-        return $customer['role'];
+        $user = $model->selectOneRowById($userId);
+        return $user['is_admin'];
       }
     }
 

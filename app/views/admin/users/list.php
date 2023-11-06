@@ -1,10 +1,10 @@
-<h4>Danh sách khách hàng</h4>
+<h4>Danh sách người dùng</h4>
 
 <div class="mt-3">
   <div class="table-title border-bottom pb-3">
     <div class="row">
       <div class="col-sm-4">
-        <form class="search-box" method="post" action="<?=SEARCH_CUSTOMER_ROUTE;?>">
+        <form class="search-box" method="post" action="<?=SEARCH_USER_ROUTE;?>">
           <input 
             type="text" 
             class="form-control" 
@@ -15,17 +15,17 @@
         </form>
       </div>
       <div class="col-sm-8 text-sm-end text-center mt-sm-0 mt-3">
-        <a href="<?=FORM_ADD_CUSTOMER_ROUTE;?>" class="btn btn-success me-lg-2">
-          <i class="fas fa-plus-circle"></i> <span>Thêm khách hàng</span>
+        <a href="<?=FORM_ADD_USER_ROUTE;?>" class="btn btn-success me-lg-2">
+          <i class="fas fa-plus-circle"></i> <span>Thêm người dùng</span>
         </a>
         <a href="#deleteEmployeeModal" class="btn btn-danger disabled" data-bs-toggle="modal" id="delete-btn">
-          <i class="fas fa-minus-circle"></i> <span>Xóa khách hàng</span>
+          <i class="fas fa-minus-circle"></i> <span>Xóa người dùng</span>
         </a>
       </div>
     </div>
   </div>
 
-  <form action="<?=DELETE_CUSTOMER_ROUTE;?>" method="post">
+  <form action="<?=DELETE_USER_ROUTE;?>" method="post">
     <table class="table table-borderless table-responsive card-1">
       <thead>
         <tr class="border-bottom">
@@ -54,8 +54,8 @@
       <tbody>
         <?php 
           $orderNumber = 1;
-          foreach ($customers as $customer):
-            extract($customer);
+          foreach ($users as $user):
+            extract($user);
         ?>
           <tr class="border-bottom">
             <td>
@@ -65,7 +65,7 @@
                   type="checkbox" 
                   name="id[]" 
                   value="<?=$id;?>" 
-                  <?=($role ? "disabled" : "");?>
+                  <?=($is_admin ? "disabled" : "");?>
                 />
               </div>
             </td>
@@ -87,8 +87,9 @@
             </td>
             <td>
               <div class="p-2">
+                <!-- // TODO: delete if condition -->
                 <?php 
-                  if ($active) {
+                  if ($is_deleted) {
                 ?>
                   <span class="status text-success">&bull;</span> Kích hoạt</td>
                 <?php 
@@ -103,21 +104,21 @@
             <td>
               <div class="p-2 d-flex flex-column">
                 <span>
-                  <?=($role ? "Admin" : "Khách hàng");?>
+                  <?=($is_admin ? "Admin" : "Khách hàng");?>
                 </span>
               </div>
             </td>
             <td>
               <div class="p-2 icons">
-                <a href="<?=(CUSTOMER_INFO_ROUTE . $id);?>" class="edit text-decoration-none">
+                <a href="<?=(USER_INFO_ROUTE . $id);?>" class="edit text-decoration-none">
                   <i class="fas fa-info"></i>
                 </a>
-                <a href="<?=(EDIT_CUSTOMER_ROUTE . $id);?>" class="edit text-decoration-none">
+                <a href="<?=(EDIT_USER_ROUTE . $id);?>" class="edit text-decoration-none">
                   <i class="fas fa-pen text-warning mx-2"></i>
                 </a>
                 <a 
                   href="#deleteEmployeeModal" 
-                  class="delete <?=($role ? "delete-icon-disabled" : "");?>" 
+                  class="delete <?=($is_admin ? "delete-icon-disabled" : "");?>" 
                   data-bs-toggle="modal" 
                   data-bs-original-title="Delete" 
                   data-bs-toggle="tooltip" 

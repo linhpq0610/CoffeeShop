@@ -74,9 +74,9 @@
       ];
 
       if ($this->isSignedIn()) {
-        $customerId = $_COOKIE[COOKIE_LOGIN_NAME];
-        $customer = $this->__accountModel->selectOneRowById($customerId);
-        $this->_data['contentOfPage']['customer'] = $customer;
+        $userId = $_COOKIE[COOKIE_LOGIN_NAME];
+        $user = $this->__accountModel->selectOneRowById($userId);
+        $this->_data['contentOfPage']['user'] = $user;
       }
       $this->renderClientLayout($this->_data);
     }
@@ -132,7 +132,7 @@
       $data = [
         "content" => $_POST['content'],
         "product_id" => $id,
-        "customer_id" => $_COOKIE[COOKIE_LOGIN_NAME],
+        "user_id" => $_COOKIE[COOKIE_LOGIN_NAME],
       ];
 
       $DB = $this->__commentModel->getDB();

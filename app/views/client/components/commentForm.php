@@ -2,9 +2,9 @@
   <header class="card-header border-0 bg-transparent">
     <img
       width="40px"
-      src="<?=(IMAGES_URL . "/" . $customer['image']);?>"
+      src="<?=(IMAGES_URL . "/" . $user['image']);?>"
       class="rounded-circle me-2"
-    /><a class="fw-semibold text-decoration-none"><?=$customer['name'];?></a>
+    /><a class="fw-semibold text-decoration-none"><?=$user['name'];?></a>
   </header>
   <div class="card-body py-1">
     <div>

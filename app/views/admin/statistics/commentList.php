@@ -77,10 +77,10 @@
               </div>
             </td>
             <td>
-              <div class="p-2"><?=$comment_date;?></div>
+              <div class="p-2"><?=$commented_date;?></div>
             </td>
             <td>
-              <div class="p-2 d-flex flex-column"><?=$customer_name;?></div>
+              <div class="p-2 d-flex flex-column"><?=$user_name;?></div>
             </td>
             <td>
               <div class="p-2 icons">

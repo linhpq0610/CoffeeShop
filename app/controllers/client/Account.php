@@ -15,9 +15,9 @@
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/account';
       $this->_data['pageTitle'] = 'Tài khoản';
 
-      $customer = $this->__accountModel->selectOneRowById($_COOKIE[COOKIE_LOGIN_NAME]);
-      $customer['role'] = $customer['role'] ? 'checked' : '';
-      $this->_data['contentOfPage'] = ['customer' => $customer];
+      $user = $this->__accountModel->selectOneRowById($_COOKIE[COOKIE_LOGIN_NAME]);
+      $user['is_admin'] = $user['is_admin'] ? 'checked' : '';
+      $this->_data['contentOfPage'] = ['user' => $user];
       $this->renderClientLayout($this->_data);
     }
 
@@ -48,10 +48,10 @@
       $password = $_POST['password'];
       $condition = " WHERE email = '$email' AND password = '$password'";
 
-      $customer = $this->__accountModel->selectRowBy($condition);
-      $hasCustomer = $this->__accountModel->hasCustomer($customer); 
-      if ($hasCustomer) {
-        $this->signIn($customer);
+      $user = $this->__accountModel->selectRowBy($condition);
+      $hasUser = $this->__accountModel->hasUser($user); 
+      if ($hasUser) {
+        $this->signIn($user);
       }
 
       $messageAlert = 
@@ -68,9 +68,9 @@
       $this->loadFormSignIn($formData);
     }
 
-    public function signIn($customer) {
+    public function signIn($user) {
       define("SECONDS_OF_MONTH", 86400 * 30);
-      setcookie(COOKIE_LOGIN_NAME, $customer['id'], time() + SECONDS_OF_MONTH);
+      setcookie(COOKIE_LOGIN_NAME, $user['id'], time() + SECONDS_OF_MONTH);
       header("Location: " . HOME_ROUTE);
     }
 
@@ -90,8 +90,6 @@
       $messageSuccess = 
         '<p class="p-3">
           Bạn đã đăng ký thành công.
-          <br>
-          Vui lòng đăng nhập tại đây.
         </p>';
       $formData = [
         'messageSuccess' => $messageSuccess,
@@ -104,7 +102,7 @@
         "name" => $_POST['name'],
         "email" => $_POST['email'],
         "password" => $_POST['password'],
-        "image" => 'default-customer-image.png',
+        "image" => 'default-user-image.png',
       ];
 
       $avatarImageName = $_FILES['avatar']['name'];
@@ -123,9 +121,9 @@
       $email = $_POST['email'];
       $condition = " WHERE email = '$email'";
 
-      $customer = $this->__accountModel->selectRowBy($condition);
-      $hasCustomer = $this->__accountModel->hasCustomer($customer); 
-      if (!$hasCustomer) {
+      $user = $this->__accountModel->selectRowBy($condition);
+      $hasUser = $this->__accountModel->hasUser($user); 
+      if (!$hasUser) {
         $this->initSignUp();
       }
 
@@ -179,23 +177,20 @@
     }
 
     public function checkEmail() {
-      $hasCustomer = $this->__accountModel->hasCustomer(
-        ["email" => $_POST['email']],
-        "AND"
-      ); 
-      if ($hasCustomer) {
-        $this->showFormNewPassword();
+      $email = $_POST['email'];
+      $condition = " WHERE email = '$email'";
+
+      $user = $this->__accountModel->selectRowBy($condition);
+      $hasUser = $this->__accountModel->hasUser($user); 
+      if ($hasUser) {
+        $this->showFormNewPassword($user);
       }
     }
 
-    public function showFormNewPassword($id = '') {
-      $customer = $this->__accountModel->getCustomer();
-
+    public function showFormNewPassword($user) {
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/newPassword';
       $this->_data['pageTitle'] = 'Mật khẩu mới';
-      $this->_data["contentOfPage"] = [
-        'customerId' => $id ?? $customer['id'],
-      ];
+      $this->_data["contentOfPage"] = ['userId' => $user['id']];
       $this->renderClientLayout($this->_data);
     }
 
@@ -207,7 +202,15 @@
       $tableName = $this->__accountModel->tableFill();
       $condition = "id = $id";
       $DB->update($tableName, $data, $condition);
-      header("Location: " . SIGN_IN_ROUTE);
+      
+      $messageSuccess = 
+        '<p class="p-3">
+          Bạn đã thay đổi mật khẩu thành công.
+        </p>';
+      $formData = [
+        'messageSuccess' => $messageSuccess,
+      ];
+      $this->loadFormSignIn($formData);
     }
 
     public function showFormChangePassword() {
@@ -218,8 +221,8 @@
     }
 
     public function isPasswordExist() {
-      $customer = $this->__accountModel->selectOneRowById($_COOKIE[COOKIE_LOGIN_NAME]);
-      if ($_POST['old-password'] == $customer['password']) {
+      $user = $this->__accountModel->selectOneRowById($_COOKIE[COOKIE_LOGIN_NAME]);
+      if ($_POST['old-password'] == $user['password']) {
         return true;
       }
       return false;
