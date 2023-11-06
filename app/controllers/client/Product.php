@@ -27,7 +27,7 @@
       [$prevPageBtn, $nextPageBtn] = 
         $this->getBtnPagination($currentPage, $NUMBERS_OF_ROW, SHOP_ROUTE);
       
-      $products = $this->__productModel->selectRowsByData($condition);
+      $products = $this->__productModel->selectRowsBy($condition);
       $categories = $this->__categoryModel->selectAllRows();
       $countOfProducts = $this->__productModel->getCountOfProductOfCategory();
 
@@ -59,7 +59,7 @@
       $condition = 
         " WHERE category_id = $category_id AND id <> $id" .
         " LIMIT 8";
-      $productsRelated = $this->__productModel->selectRowsByData($condition);
+      $productsRelated = $this->__productModel->selectRowsBy($condition);
       $comments = $this->__commentModel->getComments($id);
       $NUMBERS_OF_COMMENT = count($comments);
 
@@ -73,10 +73,10 @@
         "NUMBERS_OF_COMMENT" => $NUMBERS_OF_COMMENT,
       ];
 
-      if ($this->isSignIng()) {
-        $customerId = $_COOKIE[COOKIE_LOGIN_NAME];
-        $customer = $this->__accountModel->selectOneRowById($customerId);
-        $this->_data['contentOfPage']['customer'] = $customer;
+      if ($this->isSignedIn()) {
+        $userId = $_COOKIE[COOKIE_LOGIN_NAME];
+        $user = $this->__accountModel->selectOneRowById($userId);
+        $this->_data['contentOfPage']['user'] = $user;
       }
       $this->renderClientLayout($this->_data);
     }
@@ -132,7 +132,7 @@
       $data = [
         "content" => $_POST['content'],
         "product_id" => $id,
-        "customer_id" => $_COOKIE[COOKIE_LOGIN_NAME],
+        "user_id" => $_COOKIE[COOKIE_LOGIN_NAME],
       ];
 
       $DB = $this->__commentModel->getDB();

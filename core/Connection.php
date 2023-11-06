@@ -17,7 +17,7 @@
         );
       } catch (Exception $e) {
         $message = $e->getMessage();
-        App::$app->loadError('database', ['message' => $message]);
+        ErrorHandler::serverError($message);
         die();
       }
     }

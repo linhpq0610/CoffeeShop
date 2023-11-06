@@ -1,6 +1,6 @@
 <div class="container rounded" style="padding-top: 50px; padding-bottom: 50px">
   <div class="bg-white">
-    <form action="<?=(UPDATE_CUSTOMER_ROUTE . $id)?>" method="post" class="row align-items-center account-form" enctype="multipart/form-data">
+    <form action="<?=(UPDATE_USER_ROUTE . $id)?>" method="post" class="row align-items-center account-form" enctype="multipart/form-data">
       <div class="col-md-6 border-right">
         <div class="d-flex flex-column align-items-center text-center p-3 py-5">
           <img
@@ -56,23 +56,23 @@
             </div>
           </div>
           <div class="row mt-2">
-            <label for="active" class="labels" style="width: unset"
+            <label for="is_deleted" class="labels" style="width: unset"
               >Kích hoạt</label
             >
             <input
-              id="active"
+              id="is_deleted"
               type="checkbox"
               style="width: unset; width: 18px"
               checked
               disabled
             />
-            <label for="role" class="labels" style="width: unset">Quản trị</label>
+            <label for="is_admin" class="labels" style="width: unset">Quản trị</label>
             <input 
-              id="role" 
+              id="is_admin" 
               type="checkbox" 
               style="width: unset; width: 18px" 
               disabled
-              <?=$role;?>
+              <?=$is_admin;?>
             />
           </div>
           <div class="mt-5 text-center">

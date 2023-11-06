@@ -7,7 +7,7 @@
             class="rounded-circle"
             width="250px"
             id="avatar"
-            src="<?=IMAGES_URL;?>/default-customer-image.webp"
+            src="<?=IMAGES_URL;?>/default-user-image.webp"
           />
           <input type="file" style="width: 200px;" class="mt-4" name="avatar" />
         </div>
@@ -15,6 +15,9 @@
 
       <div class="col-md-6 border-right">
         <div class="px-3 ps-lg-5 py-5">
+          <div class='alert alert-danger border-0 p-0 text-center'>
+            <?=$messageAlert;?>
+          </div>
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="text-right">Đăng ký</h4>
           </div>
@@ -26,6 +29,7 @@
                 class="form-control"
                 placeholder="VD: Linh"
                 name="name"
+                value="<?=$name;?>"
               />
               <p class="field-message mb-0"></p>
             </div>
@@ -38,6 +42,7 @@
                 class="form-control"
                 placeholder="VD: example@gmail.com"
                 name="email"
+                value="<?=$email;?>"
               />
               <p class="field-message mb-0"></p>
             </div>
@@ -45,7 +50,13 @@
           <div class="row mt-2">
             <div class="col-md-12">
               <label class="labels">Mật khẩu</label>
-              <input type="password" class="form-control" name="password" />
+              <input 
+                type="password" 
+                class="form-control" 
+                name="password" 
+                placeholder="Nhập mật khẩu tại đây"
+                value="<?=$password;?>"
+              />
               <p class="field-message mb-0"></p>
             </div>
           </div>

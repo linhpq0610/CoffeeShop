@@ -13,7 +13,7 @@
         $this->initPagination($currentPage, $wherePhrase, $this->__productModel);
       [$prevPageBtn, $nextPageBtn] = 
         $this->getBtnPagination($currentPage, $NUMBERS_OF_ROW, ADMIN_PRODUCT_ROUTE);
-      $products = $this->__productModel->selectRowsByData($condition);
+      $products = $this->__productModel->selectRowsBy($condition);
 
       $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/products/list';
       $this->_data['pageTitle'] = 'Danh sách sản phẩm';
@@ -51,13 +51,11 @@
     }
 
     public function update($id) {
-      $special = $_POST['special'] ? 1 : 0;
       $data = [
         "name" => $_POST['name'],
         "description" => $_POST['description'],
         "price" => $_POST['price'],
         "sale" => $_POST['sale'],
-        "special" => $special,
         "category_id" => $_POST['category_id'],
       ];
 
@@ -97,13 +95,11 @@
     }
 
     public function initAdd() {
-      $special = $_POST['special'] ? 1 : 0;
       $data = [
         "name" => $_POST['name'],
         "description" => $_POST['description'],
         "price" => $_POST['price'],
         "sale" => $_POST['sale'],
-        "special" => $special,
         "category_id" => $_POST['category_id'],
         "image" => 'default-product-image.png',
       ];

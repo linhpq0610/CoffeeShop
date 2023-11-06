@@ -7,96 +7,140 @@
     }
 
     public function index() {
+      if (!$this->isSignedIn()) {
+        ErrorHandler::isNotSignedIn();
+        die();
+      }
+      
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/account';
       $this->_data['pageTitle'] = 'Tài khoản';
-      $this->_data["contentOfPage"] = $this->showContentOfAccount();
+
+      $userId = $_COOKIE[COOKIE_LOGIN_NAME];
+      $user = $this->__accountModel->selectOneRowById($userId);
+      $user['is_admin'] = $user['is_admin'] ? 'checked' : '';
+      $this->_data['contentOfPage'] = $user;
       $this->renderClientLayout($this->_data);
     }
 
-    public function showContentOfAccount() {
-      if ($this->isSignIng()) {
-        $customer = $this->__accountModel->selectOneRowById($_COOKIE[COOKIE_LOGIN_NAME]);
-        $customer['role'] = $customer['role'] ? 'checked' : '';
-        return $customer;
+    public function setDefaultData($data) {
+      $defaultData = [
+        'messageSuccess' => '',
+        'messageAlert' => '',
+        'name' => '',
+        'email' => '',
+        'password' => '',
+      ];
+      foreach ($data as $key => $value) {
+        $defaultData[$key] = $value;
       }
-
-      return [];
+      return $defaultData;
     }
 
-    public function loadFormSignIn() {
+    public function loadFormSignIn($formData = []) {
+      $formData = $this->setDefaultData($formData);
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/formSignIn';
       $this->_data['pageTitle'] = 'Đăng nhập';
-      $this->_data["contentOfPage"] = [];
+      $this->_data['contentOfPage'] = $formData;
       $this->renderClientLayout($this->_data);
     }
 
     public function checkSignIn() {
       $email = $_POST['email'];
       $password = $_POST['password'];
+      $condition = " WHERE email = '$email' AND password = '$password'";
 
-      $hasCustomer = $this->__accountModel->hasCustomer(
-        ["email" => $email, "password" => $password],
-        "AND"
-      ); 
-      if ($hasCustomer) {
-        $this->signIn();
+      $user = $this->__accountModel->selectRowBy($condition);
+      $hasUser = $this->__accountModel->hasUser($user); 
+      if ($hasUser) {
+        $this->signIn($user);
       }
 
-      App::$app->loadError("customerNotExist");
+      $messageAlert = 
+        '<p class="p-3">
+          Email hoặc mật khẩu không chính xác.
+          <br>
+          Vui lòng kiểm tra lại.
+        </p>';
+      $formData = [
+        'messageAlert' => $messageAlert,
+        'email' => $email,
+        'password' => $password,
+      ];
+      $this->loadFormSignIn($formData);
     }
 
-    public function signIn() {
-      $customer = $this->__accountModel->getCustomer();
-      extract($customer);
+    public function signIn($user) {
       define("SECONDS_OF_MONTH", 86400 * 30);
-      setcookie(COOKIE_LOGIN_NAME, $id, time() + SECONDS_OF_MONTH);
-
+      setcookie(COOKIE_LOGIN_NAME, $user['id'], time() + SECONDS_OF_MONTH);
       header("Location: " . HOME_ROUTE);
     }
 
-    public function loadFormSignUp() {
+    public function loadFormSignUp($formData = []) {
+      $formData = $this->setDefaultData($formData);
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/formSignUp';
       $this->_data['pageTitle'] = 'Đăng ký';
-      $this->_data["contentOfPage"] = [];
+      $this->_data['contentOfPage'] = $formData;
       $this->renderClientLayout($this->_data);
-    }
-
-    public function checkSignUp() {
-      $email = $_POST['email'];
-
-      $hasCustomer = $this->__accountModel->hasCustomer(
-        ["email" => $email],
-        "AND"
-      ); 
-
-      if (!$hasCustomer) {
-        $data = [
-          "name" => $_POST['name'],
-          "email" => $email,
-          "password" => $_POST['password'],
-          "image" => 'default-customer-image.png',
-        ];
-
-        $avatarImageName = $_FILES['avatar']['name'];
-        if ($avatarImageName != "") {
-          $data["image"] = $avatarImageName;
-        }
-        move_uploaded_file(
-          $_FILES['avatar']['tmp_name'], 
-          IMAGES_DIR . "/" . "$avatarImageName"
-        );
-
-        $this->signUp($data);
-      }
-
-      App::$app->loadError("emailExisted");
     }
 
     public function signUp($data) {
       $DB = $this->__accountModel->getDB();
       $tableName = $this->__accountModel->tableFill();
       $DB->insert($tableName, $data);
-      header("Location: " . FORM_SIGN_IN_ROUTE);
+      
+      $messageSuccess = 
+        '<p class="p-3">
+          Bạn đã đăng ký thành công.
+        </p>';
+      $formData = [
+        'messageSuccess' => $messageSuccess,
+      ];
+      $this->loadFormSignIn($formData);
+    }
+
+    public function initSignUp() {
+      $data = [
+        "name" => $_POST['name'],
+        "email" => $_POST['email'],
+        "password" => $_POST['password'],
+        "image" => 'default-user-image.png',
+      ];
+
+      $avatarImageName = $_FILES['avatar']['name'];
+      if ($avatarImageName != "") {
+        $data["image"] = $avatarImageName;
+      }
+      move_uploaded_file(
+        $_FILES['avatar']['tmp_name'], 
+        IMAGES_DIR . "/" . "$avatarImageName"
+      );
+
+      $this->signUp($data);
+    }
+
+    public function checkSignUp() {
+      $email = $_POST['email'];
+      $condition = " WHERE email = '$email'";
+
+      $user = $this->__accountModel->selectRowBy($condition);
+      $hasUser = $this->__accountModel->hasUser($user); 
+      if (!$hasUser) {
+        $this->initSignUp();
+      }
+
+      $messageAlert = 
+        '<p class="p-3">
+          Email đã tồn tại.
+          <br>
+          Vui lòng dùng email khác.
+        </p>';
+      $formData = [
+        'messageAlert' => $messageAlert,
+        'name' => $_POST['name'],
+        'email' => $email,
+        'password' => $_POST['password'],
+      ];
+      $this->loadFormSignUp($formData);
     }
 
     public function signOut() {
@@ -118,6 +162,7 @@
         $_FILES['avatar']['tmp_name'], 
         IMAGES_DIR . "/" . "$avatarImageName"
       );
+
       $DB = $this->__accountModel->getDB();
       $tableName = $this->__accountModel->tableFill();
       $condition = "id = $id";
@@ -133,23 +178,20 @@
     }
 
     public function checkEmail() {
-      $hasCustomer = $this->__accountModel->hasCustomer(
-        ["email" => $_POST['email']],
-        "AND"
-      ); 
-      if ($hasCustomer) {
-        $this->showFormNewPassword();
+      $email = $_POST['email'];
+      $condition = " WHERE email = '$email'";
+
+      $user = $this->__accountModel->selectRowBy($condition);
+      $hasUser = $this->__accountModel->hasUser($user); 
+      if ($hasUser) {
+        $this->showFormNewPassword($user);
       }
     }
 
-    public function showFormNewPassword($id = '') {
-      $customer = $this->__accountModel->getCustomer();
-
+    public function showFormNewPassword($user) {
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/newPassword';
       $this->_data['pageTitle'] = 'Mật khẩu mới';
-      $this->_data["contentOfPage"] = [
-        'customerId' => $id ?? $customer['id'],
-      ];
+      $this->_data["contentOfPage"] = ['userId' => $user['id']];
       $this->renderClientLayout($this->_data);
     }
 
@@ -161,7 +203,15 @@
       $tableName = $this->__accountModel->tableFill();
       $condition = "id = $id";
       $DB->update($tableName, $data, $condition);
-      header("Location: " . SIGN_IN_ROUTE);
+      
+      $messageSuccess = 
+        '<p class="p-3">
+          Bạn đã thay đổi mật khẩu thành công.
+        </p>';
+      $formData = [
+        'messageSuccess' => $messageSuccess,
+      ];
+      $this->loadFormSignIn($formData);
     }
 
     public function showFormChangePassword() {
@@ -172,8 +222,8 @@
     }
 
     public function isPasswordExist() {
-      $customer = $this->__accountModel->selectOneRowById($_COOKIE[COOKIE_LOGIN_NAME]);
-      if ($_POST['old-password'] == $customer['password']) {
+      $user = $this->__accountModel->selectOneRowById($_COOKIE[COOKIE_LOGIN_NAME]);
+      if ($_POST['old-password'] == $user['password']) {
         return true;
       }
       return false;

@@ -66,7 +66,7 @@
             <div class="col-md-6">
               <label class="labels">Ngày tạo</label
               ><input
-                readonly type="datetime" class="form-control" value="<?=$entry_date;?>" name="entry_date" />
+                readonly type="datetime" class="form-control" value="<?=$entered_date;?>" name="entered_date" />
               <p class="field-message mb-0"></p>
             </div>
           </div>
@@ -75,20 +75,6 @@
               <label class="labels">Thể loại</label
               ><input
                 readonly type="text" class="form-control" value="<?=$categoryName;?>" name="categories" />
-              <p class="field-message mb-0"></p>
-            </div>
-          </div>
-          <div class="row mt-2">
-            <div class="col-md-12">
-              <label class="labels">Đặc biệt</label
-              >
-              <input
-                id="active"
-                type="checkbox"
-                style="width: unset; width: 18px"
-                disabled
-                <?=($special ? "checked" : "");?>
-              />
               <p class="field-message mb-0"></p>
             </div>
           </div>

@@ -1,5 +1,5 @@
 <?php 
-  class Customer extends Controller {
+  class User extends Controller {
     private $__accountModel;
 
     function __construct() {
@@ -10,13 +10,13 @@
       [$currentPage, $NUMBERS_OF_ROW, $condition] = 
         $this->initPagination($currentPage, $wherePhrase, $this->__accountModel);
       [$prevPageBtn, $nextPageBtn] = 
-        $this->getBtnPagination($currentPage, $NUMBERS_OF_ROW, CUSTOMER_ROUTE);
-      $customers = $this->__accountModel->selectCustomersByData($condition);
+        $this->getBtnPagination($currentPage, $NUMBERS_OF_ROW, USER_ROUTE);
+      $users = $this->__accountModel->selectRowsBy($condition);
 
-      $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/customer/list';
-      $this->_data['pageTitle'] = 'Danh sách khách hàng';
+      $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/users/list';
+      $this->_data['pageTitle'] = 'Danh sách người dùng';
       $this->_data["contentOfPage"] = [
-        'customers' => $customers,
+        'users' => $users,
         'NUMBERS_OF_ROW' => $NUMBERS_OF_ROW,
         'currentPage' => $currentPage,
         'prevPageBtn' => $prevPageBtn,
@@ -26,28 +26,28 @@
     }
 
     public function info($id) {
-      $customer = $this->__accountModel->selectOneRowById($id);
-      $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/customer/info';
-      $this->_data['pageTitle'] = $customer['name'];
-      $this->_data["contentOfPage"] = $customer;
+      $user = $this->__accountModel->selectOneRowById($id);
+      $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/users/info';
+      $this->_data['pageTitle'] = $user['name'];
+      $this->_data["contentOfPage"] = $user;
       $this->renderAdminLayout($this->_data);
     }
 
     public function edit($id) {
-      $customer = $this->__accountModel->selectOneRowById($id);
-      $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/customer/edit';
-      $this->_data['pageTitle'] = 'Chỉnh sửa khách hàng';
-      $this->_data["contentOfPage"] = $customer;
+      $user = $this->__accountModel->selectOneRowById($id);
+      $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/users/edit';
+      $this->_data['pageTitle'] = 'Chỉnh sửa người dùng';
+      $this->_data["contentOfPage"] = $user;
       $this->renderAdminLayout($this->_data);
     }
 
     public function update($id) {
-      $active = $_POST['active'] ? 1 : 0;
+      $is_deleted = $_POST['is_deleted'] ? 1 : 0;
       $data = [
         "name" => $_POST['name'],
         "email" => $_POST['email'],
         "password" => $_POST['password'],
-        "active" => $active,
+        "is_deleted" => $is_deleted,
       ];
 
       $avatarImageName = $_FILES['avatar']['name'];
@@ -64,7 +64,7 @@
       $tableName = $this->__accountModel->tableFill();
       $condition = "id = $id";
       $DB->update($tableName, $data, $condition);
-      header("Location: " . EDIT_CUSTOMER_ROUTE . $id);
+      header("Location: " . EDIT_USER_ROUTE . $id);
     }
 
     public function delete() {
@@ -73,12 +73,12 @@
       $tableName = $this->__accountModel->tableFill();
       $condition = "id IN ($ids)";
       $DB->delete($tableName, $condition);
-      header("Location: " . CUSTOMER_ROUTE . "1");
+      header("Location: " . USER_ROUTE . "1");
     }
 
-    public function showFormAddCustomer() {
-      $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/customer/add';
-      $this->_data['pageTitle'] = 'Thêm khách hàng';
+    public function showFormAddUser() {
+      $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/users/add';
+      $this->_data['pageTitle'] = 'Thêm người dùng';
       $this->_data["contentOfPage"] = [];
       $this->renderAdminLayout($this->_data);
     }
@@ -88,7 +88,7 @@
         "name" => $_POST['name'],
         "email" => $_POST['email'],
         "password" => $_POST['password'],
-        "image" => 'default-customer-image.png',
+        "image" => 'default-user-image.png',
       ];
       
       $avatarImageName = $_FILES['avatar']['name'];
@@ -107,10 +107,10 @@
       $DB = $this->__accountModel->getDB();
       $tableName = $this->__accountModel->tableFill();
       $DB->insert($tableName, $data);
-      header("Location: " . CUSTOMER_ROUTE . "1");
+      header("Location: " . USER_ROUTE . "1");
     }
 
-    public function searchCustomersByNameAndEmail() {
+    public function searchUsersByNameAndEmail() {
       $searchMessage = $_POST['search-box'];
       $wherePhrase = " WHERE name LIKE '%$searchMessage%' OR email LIKE '%$searchMessage%'";
       $this->index(1, $wherePhrase);

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer not exist</title>
+    <title>Is not admin</title>
     <meta name="author" content="Untree.co" />
     <link rel="shortcut icon" href="<?=IMAGES_URL;?>/favicon1.png" />
 
@@ -16,10 +16,10 @@
   <body>
     <div class="d-flex align-items-center justify-content-center vh-100">
       <div class="text-center">
-          <p class="fs-3"> <span class="text-danger">Opps!</span> Không tìm thấy tài khoản.</p>
+          <p class="fs-3"> <span class="text-danger">Opps!</span> Không thể thực hiện hành động này.</p>
           <p class="lead">
-            Tài khoản không tồn tại.
-            Vui lòng kiểm tra lại thông tin.
+            Chỉ admin mới có thể thực hiện hành động này.
+            Vui lòng kiểm tra lại tài khoản.
           </p>
           <a onclick="goBack()" class="btn btn-primary" style="background: #333">Quay về</a>
       </div>

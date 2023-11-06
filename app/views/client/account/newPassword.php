@@ -5,12 +5,12 @@
         <div class="d-flex flex-column align-items-center text-center p-3 py-5">
           <img
             width="250px"
-            src="<?=IMAGES_URL;?>/default-customer-image.webp"
+            src="<?=IMAGES_URL;?>/default-user-image.webp"
           />
         </div>
       </div>
       <div class="col-md-6 border-right">
-        <form action="<?=(SET_NEW_PASSWORD_ROUTE . $customerId);?>" method="post" class="px-3 pe-lg-5 py-5 new-password-form">
+        <form action="<?=(SET_NEW_PASSWORD_ROUTE . $userId);?>" method="post" class="px-3 pe-lg-5 py-5 new-password-form">
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="text-right">Mật khẩu mới</h4>
           </div>
