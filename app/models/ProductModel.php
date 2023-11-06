@@ -5,7 +5,7 @@
     }
 
     public function fieldsFill() {
-      return "id, name, price, sale, view, image, description, entered_date, special, category_id";
+      return "id, name, price, sale, view, image, description, entered_date, category_id";
     }
 
     public function getCountOfProductOfCategory() {
