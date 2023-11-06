@@ -4,7 +4,7 @@
    $routes['xoa-san-pham'] = 'admin/product/delete';
    $routes['chinh-sua-san-pham-(\d+)'] = 'admin/product/edit/$1';
    $routes['thong-tin-san-pham-(\d+)'] = 'admin/product/info/$1';
-   $routes['them-san-pham'] = 'admin/product/initAdd';
    $routes['form-them-san-pham'] = 'admin/product/showFormAddProduct';
+   $routes['them-san-pham'] = 'admin/product/initAdd';
    $routes['tim-kiem-san-pham-phia-admin'] = 'admin/product/searchProductsByNameAndDescription';
 ?>
