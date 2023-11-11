@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 11, 2023 at 06:13 AM
+-- Generation Time: Nov 11, 2023 at 06:22 AM
 -- Server version: 8.0.31
 -- PHP Version: 7.4.33
 
@@ -165,6 +165,7 @@ INSERT INTO `users` (`id`, `name`, `password`, `is_deleted`, `image`, `email`, `
 
 CREATE TABLE `user_tokens` (
   `id` int NOT NULL,
+  `token` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `password` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `expiry` datetime NOT NULL,
