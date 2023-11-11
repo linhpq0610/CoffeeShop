@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 11, 2023 at 06:22 AM
+-- Generation Time: Nov 11, 2023 at 01:41 PM
 -- Server version: 8.0.31
 -- PHP Version: 7.4.33
 
@@ -168,7 +168,7 @@ CREATE TABLE `user_tokens` (
   `token` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `password` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `expiry` datetime NOT NULL,
+  `expiration_date` datetime NOT NULL,
   `user_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -253,6 +253,12 @@ ALTER TABLE `products`
 --
 ALTER TABLE `users`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+
+--
+-- AUTO_INCREMENT for table `user_tokens`
+--
+ALTER TABLE `user_tokens`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- Constraints for dumped tables
