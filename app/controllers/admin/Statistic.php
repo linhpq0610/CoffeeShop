@@ -87,13 +87,11 @@
 
     public function showStatisticProducts() {
       $statisticProducts = $this->__productModel->statisticProducts();
-      $countOfProducts = $this->__productModel->getCountOfProductOfCategory();
 
       $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/statistics/product';
       $this->_data['pageTitle'] = 'Thống kê sản phẩm';
       $this->_data["contentOfPage"] = [
         'statisticProducts' => $statisticProducts,
-        'countOfProducts' => $countOfProducts,
       ];
       $this->renderAdminLayout($this->_data);
     }
