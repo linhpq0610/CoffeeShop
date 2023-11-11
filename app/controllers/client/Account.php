@@ -1,9 +1,11 @@
 <?php 
   class Account extends Controller {
     private $__accountModel;
+    private $__userTokenModel;
 
     function __construct() {
       $this->__accountModel = $this->getModel("AccountModel");
+      $this->__userTokenModel = $this->getModel("UserTokenModel");
     }
 
     public function index() {
@@ -69,8 +71,45 @@
       $this->loadFormSignIn($formData);
     }
 
+    public function generateToken() {
+      return bin2hex(random_bytes(16));
+    }
+
+    public function addUserToken($user) {
+      $SECONDS_PER_MONTH = 86400;
+      $EXPIRATION_DATE = time() + $SECONDS_PER_MONTH;
+      $token = $this->generateToken();
+      setcookie('userToken', $token, $EXPIRATION_DATE);
+
+      $data = [
+        'token' => $token,
+        'email' => $user['email'],
+        'password' => $user['password'],
+        'expiration_date' =>  date("Y-m-d H:i:s", $EXPIRATION_DATE),
+        'user_id' => $_SESSION['userId'],
+      ];
+
+      $DB = $this->__userTokenModel->getDB();
+      $tableName = $this->__userTokenModel->tableFill();
+      $DB->insert($tableName, $data);
+    }
+
+    public function autoSignIn() {
+      if (!isset($_SESSION['userId'])) {
+        $token = $_COOKIE['userToken'];
+        $condition = " WHERE token = '$token' AND expiry > NOW()";
+        $user = $this->__userTokenModel->selectRowBy($condition);
+        $user['id'] = $user['user_id'];
+
+        $this->signIn($user);
+      } else {
+        header("Location: " . HOME_ROUTE);
+      }
+    }
+
     public function signIn($user) {
       $_SESSION['userId'] = $user['id'];
+      $this->addUserToken($user);
       header("Location: " . HOME_ROUTE);
     }
 
@@ -142,8 +181,18 @@
       $this->loadFormSignUp($formData);
     }
 
+    public function deleteUserToken() {
+      $token = $_COOKIE['userToken'];
+      $condition = " token = '$token'";
+      $DB = $this->__userTokenModel->getDB();
+      $tableName = $this->__userTokenModel->tableFill();
+      $DB->delete($tableName, $condition);
+    }
+
     public function signOut() {
+      $this->deleteUserToken();
       $_SESSION = [];
+      setcookie('userToken');
       header("Location: " . HOME_ROUTE);
     }
 
