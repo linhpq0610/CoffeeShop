@@ -18,7 +18,10 @@
     }
 
     public function isSignedIn() {
-      if (isset($_SESSION[SESSION_LOGIN_NAME])) {
+      if (isset($_COOKIE['userToken'])) {
+        if (!isset($_SESSION['userId'])) {
+          header("Location: " . AUTO_SIGN_IN_ROUTE);
+        }
         return true;
       }
     }
