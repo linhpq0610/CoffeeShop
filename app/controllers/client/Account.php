@@ -15,7 +15,7 @@
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/account';
       $this->_data['pageTitle'] = 'Tài khoản';
 
-      $userId = $_COOKIE[COOKIE_LOGIN_NAME];
+      $userId = $_SESSION[SESSION_LOGIN_NAME];
       $user = $this->__accountModel->selectOneRowById($userId);
       $user['is_admin'] = $user['is_admin'] ? 'checked' : '';
       $this->_data['contentOfPage'] = $user;
@@ -70,8 +70,7 @@
     }
 
     public function signIn($user) {
-      define("SECONDS_OF_MONTH", 86400 * 30);
-      setcookie(COOKIE_LOGIN_NAME, $user['id'], time() + SECONDS_OF_MONTH);
+      $_SESSION['userId'] = $user['id'];
       header("Location: " . HOME_ROUTE);
     }
 
@@ -144,7 +143,7 @@
     }
 
     public function signOut() {
-      setcookie(COOKIE_LOGIN_NAME);
+      $_SESSION = [];
       header("Location: " . HOME_ROUTE);
     }
 
@@ -222,7 +221,7 @@
     }
 
     public function isPasswordExist() {
-      $user = $this->__accountModel->selectOneRowById($_COOKIE[COOKIE_LOGIN_NAME]);
+      $user = $this->__accountModel->selectOneRowById($_SESSION[SESSION_LOGIN_NAME]);
       if ($_POST['old-password'] == $user['password']) {
         return true;
       }
@@ -231,7 +230,7 @@
 
     public function changePassword() {
       if ($this->isPasswordExist()) {
-        $this->setNewPassword($_COOKIE[COOKIE_LOGIN_NAME]);
+        $this->setNewPassword($_SESSION[SESSION_LOGIN_NAME]);
         header("Location: " . ACCOUNT_ROUTE);
       }
     }
