@@ -28,9 +28,8 @@
       <tbody>
         <?php 
           $orderNumber = 1;
-          for ($i = 0; $i < count($statisticProducts); $i++) {
-            extract($statisticProducts[$i]);
-            extract($countOfProducts[$i]);
+          foreach ($statisticProducts as $product):
+            extract($product);
         ?>
           <tr class="border-bottom">
             <td>
@@ -42,7 +41,7 @@
               </div>
             </td>
             <td>
-              <div class="p-2"><?=$countOfProduct;?></div>
+              <div class="p-2"><?=$NUMBER_OF_PRODUCTS;?></div>
             </td>
             <td>
               <div class="p-2 d-flex flex-column"><?=($this->formatNumber($AVG_PRICE));?>₫</div>
@@ -54,7 +53,7 @@
               <div class="p-2 d-flex flex-column"><?=($this->formatNumber($MAX_PRICE));?>₫</div>
             </td>
           </tr>
-        <?php } ?>
+        <?php endforeach; ?>
       </tbody>
     </table>
   </form>

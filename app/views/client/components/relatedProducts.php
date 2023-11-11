@@ -39,8 +39,8 @@
         </div>
         
         <?php 
-          $NUMBERS_OF_PRODUCT_RELATED_SHOULD_SHOW = 8;
-          if (count($productsRelated) > $NUMBERS_OF_PRODUCT_RELATED_SHOULD_SHOW) {
+          $NUMBER_OF_PRODUCTS_RELATED_SHOULD_SHOW = 8;
+          if (count($productsRelated) > $NUMBER_OF_PRODUCTS_RELATED_SHOULD_SHOW) {
         ?>
           <a 
             href="<?=(SEARCH_ADMIN_PRODUCT_ROUTE_CLIENT_SIDE_BY_CATEGORY . $category_id);?>" class="btn"
