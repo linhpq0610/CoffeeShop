@@ -18,14 +18,17 @@
     }
 
     public function isSignedIn() {
-      if (isset($_COOKIE[COOKIE_LOGIN_NAME])) {
+      if (isset($_COOKIE['userToken'])) {
+        if (!isset($_SESSION['userId'])) {
+          header("Location: " . AUTO_SIGN_IN_ROUTE);
+        }
         return true;
       }
     }
 
     static public function isAdmin() {
       if (self::isSignedIn()) {
-        $userId = $_COOKIE[COOKIE_LOGIN_NAME];
+        $userId = $_SESSION[SESSION_LOGIN_NAME];
         $model = self::getModel('AccountModel');
         $user = $model->selectOneRowById($userId);
         return $user['is_admin'];

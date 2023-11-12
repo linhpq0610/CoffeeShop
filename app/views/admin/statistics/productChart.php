@@ -19,7 +19,7 @@
         foreach ($dataForProductChart as $data):
           extract($data);
       ?>
-          ["<?=$name;?>", <?=$NUMBERS_OF_PRODUCT;?>],
+          ["<?=$name;?>", <?=$NUMBER_OF_PRODUCTS;?>],
       <?php 
         endforeach;
       ?>

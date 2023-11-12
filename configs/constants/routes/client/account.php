@@ -6,6 +6,7 @@
   define("SET_NEW_PASSWORD_ROUTE", "tao-mat-khau-moi-cho-nguoi-dung-");
   define("ACCOUNT_ROUTE", "tai-khoan");
   define("FORM_SIGN_IN_ROUTE", "dang-nhap");
+  define("AUTO_SIGN_IN_ROUTE", "tu-dong-dang-nhap");
   define("SIGN_IN_ROUTE", "xu-ly-dang-nhap");
   define("SIGN_OUT_ROUTE", "dang-xuat");
   define("FORM_SIGN_UP_ROUTE", "dang-ky");
