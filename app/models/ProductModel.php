@@ -7,6 +7,14 @@
     public function fieldsFill() {
       return "id, name, price, sale, view, image, description, entered_date, category_id";
     }
+    
+    public function getCountOfProductOfCategory() {
+      $sql =
+        "SELECT count(category_id) AS countOfProduct" .
+        " FROM " . $this->tableFill() . 
+        " GROUP BY category_id";
+      return $this->_db->selectRows($sql);
+    }
 
     public function statisticProducts() {
       $sql = 
