@@ -1,5 +1,6 @@
 <?php 
-  define("ROOT_URL", "http://localhost/CoffeeShop/");
+  //link http://localhost/duan1/CoffeeShop/
+  define("ROOT_URL", "http://localhost/duan1/CoffeeShop/");
   define("FEATURES_URL", ROOT_URL . "features");
   define("PUBLIC_URL", ROOT_URL . "public/");
   define("ASSETS_URL", PUBLIC_URL . "assets/");
