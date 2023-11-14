@@ -122,7 +122,7 @@
       $DB->insert($tableName, $data);
       header("Location: " . ADMIN_PRODUCT_ROUTE . "1");
     }
-
+// tiềm kiếm
     public function searchProductsByNameAndDescription() {
       $searchMessage = $_POST['search-box'];
       $wherePhrase = " WHERE name LIKE '%$searchMessage%' OR description LIKE '%$searchMessage%'";
