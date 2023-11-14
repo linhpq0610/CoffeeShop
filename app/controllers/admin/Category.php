@@ -24,7 +24,7 @@
       ];
       $this->renderAdminLayout($this->_data);
     }
-
+// sửa danh mục
     public function edit($id) {
       $category = $this->__categoryModel->selectOneRowById($id);
       $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/categories/edit';
