@@ -68,6 +68,7 @@
     }
 
     public function delete() {
+      // Đã xóa mềm
       $ids = implode(", ", $_POST['id']);
       $DB = $this->__accountModel->getDB();
       $tableName = $this->__accountModel->tableFill();
