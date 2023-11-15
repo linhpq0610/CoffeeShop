@@ -58,5 +58,5 @@
     </table>
   </form>
 
-  <a href='<?=SHOW_PRODUCT_CHART_ROUTE;?>' class='page-link d-inline-block text-black'>Xem biểu đồ</a>
+  <a href="<?=SHOW_PRODUCT_CHART_ROUTE;?>" class="page-link d-inline-block text-black">Xem biểu đồ</a>
 </div>
