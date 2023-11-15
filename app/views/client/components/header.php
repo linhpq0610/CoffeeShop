@@ -1,20 +1,9 @@
 <!-- Start Header/Navigation -->
-<nav
-  class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark fixed-top" style="background: #333 !important"
-  arial-label="Furni navigation bar"
->
+<nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark fixed-top" style="background: #333 !important" aria-label="Furni navigation bar">
   <div class="container">
     <a class="navbar-brand" href="<?=HOME_ROUTE;?>"><?=WEB_NAME;?></a>
 
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarsFurni"
-      aria-controls="navbarsFurni"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -37,9 +26,9 @@
 
       <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
         <li>
-          <a class="nav-link" href="<?=CART_ROUTE;?>"
-            ><img src="<?=IMAGES_URL;?>/cart.svg"
-          /></a>
+          <a class="nav-link" href="<?=CART_ROUTE;?>">
+            <img src="<?=IMAGES_URL;?>/cart.svg" />
+          </a>
         </li>
         <li>
           <div class="dropdown">

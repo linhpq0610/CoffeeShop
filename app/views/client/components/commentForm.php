@@ -1,10 +1,11 @@
-<form action="<?=(ADD_COMMENT_ROUTE . $product['id']);?>" method="post" class="card bg-light">
+<form action="<?php echo ADD_COMMENT_ROUTE . $product['id']; ?>" method="post" class="card bg-light">
   <header class="card-header border-0 bg-transparent">
     <img
       width="40px"
-      src="<?=(IMAGES_URL . "/" . $user['image']);?>"
+      src="<?php echo IMAGES_URL . "/" . $user['image']; ?>"
       class="rounded-circle me-2"
-    /><a class="fw-semibold text-decoration-none"><?=$user['name'];?></a>
+    />
+    <a class="fw-semibold text-decoration-none"><?php echo $user['name']; ?></a>
   </header>
   <div class="card-body py-1">
     <div>

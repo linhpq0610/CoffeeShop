@@ -7,10 +7,7 @@
     <div class="row align-items-center">
       <div class="col-md-6 border-right">
         <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-          <img
-            width="250px"
-            src="<?=IMAGES_URL;?>/default-product-image.png"
-          />
+          <img width="250px" src="<?=IMAGES_URL;?>/default-product-image.png" />
         </div>
       </div>
 
@@ -21,8 +18,8 @@
           </div>
           <div class="row mt-2">
             <div class="col-md-12">
-              <label class="labels">Tên</label
-              ><input
+              <label class="labels">Tên</label>
+              <input
                 type="text"
                 class="form-control"
                 placeholder="Cà phê hạt nguyên chất"
@@ -33,10 +30,7 @@
             </div>
           </div>
           <div class="mt-5 text-center">
-            <button
-              class="btn btn-primary profile-button"
-              style="background-color: #333"
-            >
+            <button class="btn btn-primary profile-button" style="background-color: #333">
               Lưu
             </button>
           </div>
