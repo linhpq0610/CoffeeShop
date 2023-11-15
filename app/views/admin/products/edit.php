@@ -1,17 +1,17 @@
 <?php 
-  require_once ADMIN_COMPONENTS_DIR . "/backBtn.php";
+require_once ADMIN_COMPONENTS_DIR . "/backBtn.php";
 ?>
 
 <div class="container rounded" style="padding: 50px 0;">
   <div class="bg-white">
-    <form action="<?=(UPDATE_PRODUCT_ROUTE . $id)?>" method="post" class="row align-items-center edit-form" enctype="multipart/form-data">
+    <form action="<?= (UPDATE_PRODUCT_ROUTE . $id) ?>" method="post" class="row align-items-center edit-form" enctype="multipart/form-data">
       <div class="col-md-6 border-right">
         <div class="d-flex flex-column align-items-center text-center p-3 py-5">
           <img
             class="rounded-circle"
             width="300px"
             id="avatar"
-            src="<?=(IMAGES_URL . "/" . $image);?>"
+            src="<?= (IMAGES_URL . "/" . $image); ?>"
           />
           <input type="file" style="width: 200px;" class="mt-4" name="avatar" />
         </div>
@@ -23,13 +23,12 @@
           </div>
           <div class="row mt-2">
             <div class="col-md-12">
-              <label class="labels">Tên</label
-              ><input
-              
+              <label class="labels">Tên</label>
+              <input
                 type="text"
                 class="form-control"
                 placeholder="VD: Cà phê Arabica 250g"
-                value="<?=$name;?>"
+                value="<?= $name; ?>"
                 name="name"
               />
               <p class="field-message mb-0"></p>
@@ -37,42 +36,49 @@
           </div>
           <div class="row mt-2">
             <div class="col-md-12">
-              <label class="labels">Mô tả</label
-              >
-              <textarea class="form-control" cols="30" rows="4" name="description" placeholder="VD: Cà phê Arabica tinh khiết được trồng và chăm sóc tận tâm trên những thửa đất phủ đầy cỏ xanh tươi mát..."><?=$description;?></textarea>
+              <label class="labels">Mô tả</label>
+              <textarea class="form-control" cols="30" rows="4" name="description" placeholder="VD: Cà phê Arabica tinh khiết được trồng và chăm sóc tận tâm trên những thửa đất phủ đầy cỏ xanh tươi mát..."><?= $description; ?></textarea>
               <p class="field-message mb-0"></p>
             </div>
           </div>
           <div class="row mt-2">
             <div class="col-md-6">
-              <label class="labels">Giá</label
-              ><input
-               type="number" class="form-control" value="<?=$price;?>" name="price" placeholder="VD: 100000" />
+              <label class="labels">Giá</label>
+              <input
+                type="number"
+                class="form-control"
+                value="<?= $price; ?>"
+                name="price"
+                placeholder="VD: 100000"
+              />
               <p class="field-message mb-0"></p>
             </div>
             <div class="col-md-6">
-              <label class="labels">Giảm giá</label
-              ><input
-               type="number" class="form-control" value="<?=$sale;?>" name="sale" placeholder="VD: 10-100" />
+              <label class="labels">Giảm giá</label>
+              <input
+                type="number"
+                class="form-control"
+                value="<?= $sale; ?>"
+                name="sale"
+                placeholder="VD: 10-100"
+              />
               <p class="field-message mb-0"></p>
             </div>
           </div>
           <div class="row mt-2">
             <div class="col-md-12">
               <label class="labels">Thể loại</label>
-              
-              <select
-               type="text" class="form-control" name="category_id">
+              <select type="text" class="form-control" name="category_id">
                 <option value="">Chọn thể loại</option>
-                <?php 
-                  foreach ($categories as $category):
+                <?php
+foreach ($categories as $category):
                     extract($category);
                     $selected = "";
                     if ($id == $category_id) {
                       $selected = "selected";
                     }
                 ?>
-                  <option value="<?=$id;?>" <?=($selected);?>><?=$name;?></option>
+                  <option value="<?= $id; ?>" <?= ($selected); ?>><?= $name; ?></option>
                 <?php
                   endforeach;
                 ?>
@@ -95,8 +101,8 @@
 </div>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
-<script src="<?=FEATURES_URL;?>/Validator.js"></script>
-<script src="<?=FEATURES_URL;?>/loadImageFromInput.js"></script>
+<script src="<?= FEATURES_URL; ?>/Validator.js"></script>
+<script src="<?= FEATURES_URL; ?>/loadImageFromInput.js"></script>
 
 <script>
   loadImageFromInput("input[name='avatar']", "#avatar");
@@ -111,8 +117,7 @@
   const NEW_CONSTRAINTS = {
     name: {
       format: {
-        pattern:
-          /^[a-zA-Z0-9\sàáạãảăắằẵặấầẩẫậđèéẹẻẽêếềểễệìíịỉĩòóọỏõôốồổỗộơớờởỡợùúụủũưứừửữựỳýỵỷỹ]+$/,
+        pattern: /^[a-zA-Z0-9\sàáạãảăắằẵặấầẩẫậđèéẹẻẽêếềểễệìíịỉĩòóọỏõôốồổỗộơớờởỡợùúụủũưứừửữựỳýỵỷỹ]+$/,
         message: "Vui lòng không nhập gì ngoài alphabet, ký tự trắng và số",
       },
     },
@@ -150,7 +155,8 @@
         message: "Vui lòng chọn thể loại",
       },
     },
-  }
+  };
   formValidator.addConstraint(NEW_CONSTRAINTS);
   formValidator.start();
 </script>
+
