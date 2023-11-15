@@ -1,7 +1,7 @@
 <div class="col-lg-8">
   <div class="border rounded-2 px-3 py-2 bg-white">
     <h5 class="card-title text-start">Chính sách đổi trả</h5>
-    <p>Với mong muốn mang đến chất lượng phục vụ tốt nhất cho người dùng, <b><?=WEB_NAME;?></b> có những chính sách phù hợp khi người dùng có nhu cầu đổi/ trả sản phẩm. Chúng tôi hy vọng những sản phẩm người dùng đã chọn là sản phẩm ưng ý nhất.</p>
+    <p>Với mong muốn mang đến chất lượng phục vụ tốt nhất cho người dùng, <b><?= WEB_NAME; ?></b> có những chính sách phù hợp khi người dùng có nhu cầu đổi/ trả sản phẩm. Chúng tôi hy vọng những sản phẩm người dùng đã chọn là sản phẩm ưng ý nhất.</p>
     <p> Việc đổi sản phẩm đi kèm theo các điều kiện cụ thể, đối với hàng hóa đã mua sẽ không được trả hàng và hoàn tiền. Quý khách vui lòng đọc kỹ các quy định được nêu rõ trong Chính sách đổi trả hàng của chúng tôi để đảm bảo rằng sản phẩm/ hàng hóa yêu cầu đổi thoả mãn tất cả các điều kiện sau đây:</p>
 
     <h6>Các trường hợp áp dụng đổi trả</h6>

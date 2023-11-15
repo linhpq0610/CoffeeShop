@@ -1,13 +1,13 @@
 <div class="container rounded" style="padding-top: 50px; padding-bottom: 50px">
   <div class="bg-white">
-    <form action="<?=(UPDATE_USER_ROUTE . $id)?>" method="post" class="row align-items-center account-form" enctype="multipart/form-data">
+    <form action="<?= (UPDATE_USER_ROUTE . $id) ?>" method="post" class="row align-items-center account-form" enctype="multipart/form-data">
       <div class="col-md-6 border-right">
         <div class="d-flex flex-column align-items-center text-center p-3 py-5">
           <img
             class="rounded-circle"
             width="250px"
             id="avatar"
-            src="<?=(IMAGES_URL . "/" . $image);?>"
+            src="<?= (IMAGES_URL . "/" . $image); ?>"
           />
           <input 
             type="file" 
@@ -24,12 +24,12 @@
           </div>
           <div class="row mt-2">
             <div class="col-md-12">
-              <label class="labels">Tên</label
-              ><input
+              <label class="labels">Tên</label>
+              <input
                 type="text"
                 class="form-control"
                 placeholder="VD: Linh"
-                value="<?=$name;?>"
+                value="<?= $name; ?>"
                 name="name"
               />
               <p class="field-message mb-0"></p>
@@ -37,12 +37,12 @@
           </div>
           <div class="row mt-2">
             <div class="col-md-12">
-              <label class="labels">Email</label
-              ><input
+              <label class="labels">Email</label>
+              <input
                 type="email"
                 class="form-control"
                 placeholder="VD: example@gmail.com"
-                value="<?=$email;?>"
+                value="<?= $email; ?>"
                 name="email"
               />
               <p class="field-message mb-0"></p>
@@ -50,15 +50,13 @@
           </div>
           <div class="row mt-2">
             <div class="col-md-12">
-              <label class="labels">Mật khẩu</label
-              ><input type="password" class="form-control" value="<?=$password;?>" name="password" />
+              <label class="labels">Mật khẩu</label>
+              <input type="password" class="form-control" value="<?= $password; ?>" name="password" />
               <p class="field-message mb-0"></p>
             </div>
           </div>
           <div class="row mt-2">
-            <label for="is_deleted" class="labels" style="width: unset"
-              >Kích hoạt</label
-            >
+            <label for="is_deleted" class="labels" style="width: unset">Kích hoạt</label>
             <input
               id="is_deleted"
               type="checkbox"
@@ -72,12 +70,12 @@
               type="checkbox" 
               style="width: unset; width: 18px" 
               disabled
-              <?=$is_admin;?>
+              <?= $is_admin; ?>
             />
           </div>
           <div class="mt-5 text-center">
             <a
-              href="<?=SHOW_FORM_CHANGE_PASSWORD_ROUTE;?>"
+              href="<?= SHOW_FORM_CHANGE_PASSWORD_ROUTE; ?>"
               class="btn btn-primary profile-button"
               style="background-color: #333"
             >
@@ -97,8 +95,8 @@
 </div>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
-<script src="<?=FEATURES_URL;?>/Validator.js"></script>
-<script src="<?=FEATURES_URL;?>/loadImageFromInput.js"></script>
+<script src="<?= FEATURES_URL; ?>/Validator.js"></script>
+<script src="<?= FEATURES_URL; ?>/loadImageFromInput.js"></script>
 
 <script>
   loadImageFromInput("input[name='avatar']", "#avatar");

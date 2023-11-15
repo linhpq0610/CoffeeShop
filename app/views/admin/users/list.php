@@ -4,18 +4,18 @@
   <div class="table-title border-bottom pb-3">
     <div class="row">
       <div class="col-sm-4">
-        <form class="search-box" method="post" action="<?=SEARCH_USER_ROUTE;?>">
-          <input 
-            type="text" 
-            class="form-control" 
-            name="search-box" 
+        <form class="search-box" method="post" action="<?= SEARCH_USER_ROUTE; ?>">
+          <input
+            type="text"
+            class="form-control"
+            name="search-box"
             placeholder="Tìm kiếm&hellip;"
-            value="<?=($_POST['search-box'] ?? '');?>"
+            value="<?= ($_POST['search-box'] ?? ''); ?>"
           />
         </form>
       </div>
       <div class="col-sm-8 text-sm-end text-center mt-sm-0 mt-3">
-        <a href="<?=FORM_ADD_USER_ROUTE;?>" class="btn btn-success me-lg-2">
+        <a href="<?= FORM_ADD_USER_ROUTE; ?>" class="btn btn-success me-lg-2">
           <i class="fas fa-plus-circle"></i> <span>Thêm người dùng</span>
         </a>
         <a href="#deleteEmployeeModal" class="btn btn-danger disabled" data-bs-toggle="modal" id="delete-btn">
@@ -25,7 +25,7 @@
     </div>
   </div>
 
-  <form action="<?=DELETE_USER_ROUTE;?>" method="post">
+  <form action="<?= DELETE_USER_ROUTE; ?>" method="post">
     <table class="table table-borderless table-responsive card-1">
       <thead>
         <tr class="border-bottom">
@@ -52,25 +52,25 @@
         </tr>
       </thead>
       <tbody>
-        <?php 
-          $orderNumber = 1;
-          foreach ($users as $user):
-            extract($user);
+        <?php
+        $orderNumber = 1;
+        foreach ($users as $user) :
+          extract($user);
         ?>
           <tr class="border-bottom">
             <td>
               <div class="p-2 ps-0">
-                <input 
-                  class="form-check-input" 
-                  type="checkbox" 
-                  name="id[]" 
-                  value="<?=$id;?>" 
-                  <?=($is_admin ? "disabled" : "");?>
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  name="id[]"
+                  value="<?= $id; ?>"
+                  <?= ($is_admin ? "disabled" : ""); ?>
                 />
               </div>
             </td>
             <td>
-              <div class="p-2"><?=$orderNumber++;?></div>
+              <div class="p-2"><?= $orderNumber++; ?></div>
             </td>
             <td>
               <div class="p-2 d-flex flex-row align-items-center mb-2">
@@ -88,23 +88,17 @@
             <td>
               <div class="p-2">
                 <!-- // TODO: delete if condition -->
-                <?php 
-                  if ($is_deleted) {
-                ?>
-                  <span class="status text-success">&bull;</span> Kích hoạt</td>
-                <?php 
-                  } else {
-                ?>
+                <?php if ($is_deleted) : ?>
+<span class="status text-success">&bull;</span> Kích hoạt</td>
+                <?php else : ?>
                   <span class="status text-warning">&bull;</span> Không kích hoạt</td>
-                <?php
-                  }
-                ?>
+                <?php endif; ?>
               </div>
             </td>
             <td>
               <div class="p-2 d-flex flex-column">
                 <span>
-                  <?=($is_admin ? "Admin" : "Khách hàng");?>
+                  <?= ($is_admin ? "Admin" : "Khách hàng"); ?>
                 </span>
               </div>
             </td>
@@ -116,12 +110,12 @@
                 <a href="<?=(EDIT_USER_ROUTE . $id);?>" class="edit text-decoration-none">
                   <i class="fas fa-pen text-warning mx-2"></i>
                 </a>
-                <a 
-                  href="#deleteEmployeeModal" 
-                  class="delete <?=($is_admin ? "delete-icon-disabled" : "");?>" 
-                  data-bs-toggle="modal" 
-                  data-bs-original-title="Delete" 
-                  data-bs-toggle="tooltip" 
+                <a
+                  href="#deleteEmployeeModal"
+                  class="delete <?= ($is_admin ? "delete-icon-disabled" : ""); ?>"
+                  data-bs-toggle="modal"
+                  data-bs-original-title="Delete"
+                  data-bs-toggle="tooltip"
                   onclick="handleSingleDelete.start(<?=$id;?>)"
                 >
                   <i class="fa fa-trash text-danger"></i>
@@ -133,18 +127,18 @@
       </tbody>
     </table>
 
-    <?php 
-      require_once ADMIN_COMPONENTS_DIR . "/deleteModal.php";
+    <?php
+    require_once ADMIN_COMPONENTS_DIR . "/deleteModal.php";
     ?>
   </form>
 </div>
 
-<?php 
-  require_once ADMIN_COMPONENTS_DIR . "/pagination.php";
+<?php
+require_once ADMIN_COMPONENTS_DIR . "/pagination.php";
 ?>
 
-<script src="<?=FEATURES_URL?>/handleSingleDelete.js"></script>
-<script src="<?=FEATURES_URL?>/handleCheckboxes.js"></script>
+<script src="<?= FEATURES_URL ?>/handleSingleDelete.js"></script>
+<script src="<?= FEATURES_URL ?>/handleCheckboxes.js"></script>
 
 <script>
   handleCheckboxes.setCheckboxAllElement("#checkbox-all");

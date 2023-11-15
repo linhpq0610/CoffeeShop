@@ -1,5 +1,5 @@
 <?php 
-  define("ROOT_DIR", "C:\Program Files\Ampps\www\CoffeeShop/");
+  define("ROOT_DIR", "D:\WorkSpace\Ampps\www/CoffeeShop/");
   define("APP_DIR", ROOT_DIR . "app/");
   define("CORE_DIR", ROOT_DIR . "core/");
   define("CONFIGS_DIR", ROOT_DIR . "configs/");

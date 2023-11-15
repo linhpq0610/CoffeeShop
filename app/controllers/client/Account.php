@@ -97,7 +97,7 @@
     public function autoSignIn() {
       if (!isset($_SESSION['userId'])) {
         $token = $_COOKIE['userToken'];
-        $condition = " WHERE token = '$token' AND expiry > NOW()";
+        $condition = " WHERE token = '$token' AND expiration_date > NOW()";
         $user = $this->__userTokenModel->selectRowBy($condition);
         $user['id'] = $user['user_id'];
 
