@@ -89,30 +89,23 @@
                   class="delete" 
                   data-bs-toggle="modal" 
                   data-bs-original-title="Delete" 
-                  data-bs-toggle="tooltip" 
-                  onclick="handleSingleDelete.start(<?=$id;?>)"
+                  data-bs-toggle="tooltip"
+onclick="handleSingleDelete.start(<?=$id;?>)"
                 >
                   <i class="fa fa-trash text-danger"></i>
                 </a>
               </div>
             </td>
           </tr>
-        <?php 
-          endforeach;
-        ?>
+        <?php endforeach; ?>
       </tbody>
     </table>
 
-    <?php 
-      require_once ADMIN_COMPONENTS_DIR . "/deleteModal.php";
-    ?>
+    <?php require_once ADMIN_COMPONENTS_DIR . "/deleteModal.php"; ?>
   </form>
 </div>
 
-<?php 
-  require_once ADMIN_COMPONENTS_DIR . "/pagination.php";
-?>
-
+<?php require_once ADMIN_COMPONENTS_DIR . "/pagination.php"; ?>
 
 <script src="<?=FEATURES_URL?>/handleSingleDelete.js"></script>
 <script src="<?=FEATURES_URL?>/handleCheckboxes.js"></script>
