@@ -1,5 +1,5 @@
 <?php 
-  define("ROOT_DIR", "D:\WorkSpace\Ampps\www\CoffeeShop/");
+  define("ROOT_DIR", "D:\WorkSpace\Ampps\www/CoffeeShop/");
   define("APP_DIR", ROOT_DIR . "app/");
   define("CORE_DIR", ROOT_DIR . "core/");
   define("CONFIGS_DIR", ROOT_DIR . "configs/");
@@ -19,4 +19,3 @@
   define("CLIENT_LAYOUT_DIR", CLIENT_VIEW_DIR . "/layouts/layout");
   define("ADMIN_LAYOUT_DIR", ADMIN_VIEW_DIR . "/layouts/layout");
   define("IMAGES_DIR", ROOT_DIR . "public/assets/images");
-?>

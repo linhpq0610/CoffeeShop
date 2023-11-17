@@ -71,12 +71,6 @@
           </li>
         </ul>
       </div>
-
-      <!-- <div class="col-lg-8">
-        <div class="row links-wrap mt-0">
-          
-        </div>
-      </div> -->
     </div>
 
     <div class="border-top copyright">
@@ -87,7 +81,7 @@
         </script>
         . All Rights Reserved. &mdash; Designed with love by
         <a href="https://untree.co">Untree.co</a> Distributed By
-        <a hreff="https://themewagon.com">ThemeWagon</a>
+        <a href="https://themewagon.com">ThemeWagon</a>
         <!-- License information: https://untree.co/license/ -->
       </p>
     </div>
