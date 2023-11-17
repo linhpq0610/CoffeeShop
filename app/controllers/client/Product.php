@@ -74,9 +74,7 @@
       ];
 
       if ($this->isSignedIn()) {
-        $userId = $_SESSION[SESSION_LOGIN_NAME];
-        $user = $this->__accountModel->selectOneRowById($userId);
-        $this->_data['contentOfPage']['user'] = $user;
+        $this->_data['contentOfPage']['user'] = $_SESSION['user'];
       }
       $this->renderClientLayout($this->_data);
     }
@@ -132,7 +130,7 @@
       $data = [
         "content" => $_POST['content'],
         "product_id" => $id,
-        "user_id" => $_SESSION[SESSION_LOGIN_NAME],
+        "user_id" => $_SESSION['user']['id'],
       ];
 
       $DB = $this->__commentModel->getDB();
