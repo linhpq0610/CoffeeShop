@@ -1,4 +1,6 @@
 <?php 
+  use Firebase\JWT\JWT;
+  use Firebase\JWT\Key;
   class Account extends Controller {
     private $__accountModel;
     private $__userTokenModel;
@@ -17,8 +19,7 @@
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/account';
       $this->_data['pageTitle'] = 'Tài khoản';
 
-      $userId = $_SESSION[SESSION_LOGIN_NAME];
-      $user = $this->__accountModel->selectOneRowById($userId);
+      $user = $_SESSION['user'];
       $user['is_admin'] = $user['is_admin'] ? 'checked' : '';
       $this->_data['contentOfPage'] = $user;
       $this->renderClientLayout($this->_data);
@@ -76,39 +77,34 @@
     }
 
     public function addUserToken($user) {
+      $secretKey = 'bGS6lzFqvvSQ8ALbOxatm7/Vk7mLQyzqaS34Q4oR1ew=';
+      $data = $user;
+
+      $jwt = JWT::encode(
+        $data,
+        $secretKey,
+        'HS256'
+      );
+
       $SECONDS_PER_MONTH = 86400;
       $EXPIRATION_DATE = time() + $SECONDS_PER_MONTH;
-      $token = $this->generateToken();
-      setcookie('userToken', $token, $EXPIRATION_DATE);
-
-      $data = [
-        'token' => $token,
-        'email' => $user['email'],
-        'password' => $user['password'],
-        'expiration_date' =>  date("Y-m-d H:i:s", $EXPIRATION_DATE),
-        'user_id' => $_SESSION['userId'],
-      ];
-
-      $DB = $this->__userTokenModel->getDB();
-      $tableName = $this->__userTokenModel->tableFill();
-      $DB->insert($tableName, $data);
+      setcookie('userToken', $jwt, $EXPIRATION_DATE);
     }
 
     public function autoSignIn() {
-      if (!isset($_SESSION['userId'])) {
-        $token = $_COOKIE['userToken'];
-        $condition = " WHERE token = '$token' AND expiration_date > NOW()";
-        $user = $this->__userTokenModel->selectRowBy($condition);
-        $user['id'] = $user['user_id'];
+      $secretKey = 'bGS6lzFqvvSQ8ALbOxatm7/Vk7mLQyzqaS34Q4oR1ew=';
+      $jwt = $_COOKIE['userToken'];
+      $user = JWT::decode(
+        $jwt,
+        new Key($secretKey, 'HS256')
+      );
 
-        $this->signIn($user);
-      } else {
-        header("Location: " . HOME_ROUTE);
-      }
+      $_SESSION['user'] = (array)$user;
+      header("Location: " . HOME_ROUTE);
     }
 
     public function signIn($user) {
-      $_SESSION['userId'] = $user['id'];
+      $_SESSION['user'] = $user;
       $this->addUserToken($user);
       header("Location: " . HOME_ROUTE);
     }
@@ -270,8 +266,7 @@
     }
 
     public function isPasswordExist() {
-      $user = $this->__accountModel->selectOneRowById($_SESSION[SESSION_LOGIN_NAME]);
-      if ($_POST['old-password'] == $user['password']) {
+      if ($_POST['old-password'] === $_SESSION['user']['password']) {
         return true;
       }
       return false;
@@ -279,7 +274,7 @@
 
     public function changePassword() {
       if ($this->isPasswordExist()) {
-        $this->setNewPassword($_SESSION[SESSION_LOGIN_NAME]);
+        $this->setNewPassword($_SESSION['user']['id']);
         header("Location: " . ACCOUNT_ROUTE);
       }
     }
