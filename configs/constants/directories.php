@@ -4,6 +4,7 @@
   define("CORE_DIR", ROOT_DIR . "core/");
   define("CONFIGS_DIR", ROOT_DIR . "configs/");
   define("ROUTES_CONFIG_DIR", CONFIGS_DIR . "routes/");
+  define("LIBRARY_DIR", ROOT_DIR . "public/libs/");
 
   // In app dir
   define("MODELS_DIR", APP_DIR . "models/");
