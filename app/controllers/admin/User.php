@@ -68,12 +68,14 @@
     }
 
     public function softDelete() {
-      // xóa mềm
+      $data = [
+        "is_deleted" => 1,
+      ];
       $ids = implode(", ", $_POST['id']);
       $DB = $this->__accountModel->getDB();
       $tableName = $this->__accountModel->tableFill();
       $condition = "id IN ($ids)";
-      $DB->delete($tableName, $condition);
+      $DB->update($tableName, $data, $condition);
       header("Location: " . USER_ROUTE . "1");
     }
 
