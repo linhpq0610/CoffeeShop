@@ -67,8 +67,8 @@
       header("Location: " . EDIT_USER_ROUTE . $id);
     }
 
-    public function delete() {
-      // Đã xóa mềm
+    public function softDelete() {
+      // xóa mềm
       $ids = implode(", ", $_POST['id']);
       $DB = $this->__accountModel->getDB();
       $tableName = $this->__accountModel->tableFill();
