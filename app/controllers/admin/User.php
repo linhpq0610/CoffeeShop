@@ -6,7 +6,7 @@
       $this->__accountModel = $this->getModel("AccountModel");
     }
 
-    public function index($currentPage, $wherePhrase = "") {
+    public function index($currentPage, $wherePhrase = " WHERE is_deleted = 0") {
       [$currentPage, $NUMBERS_OF_ROW, $condition] = 
         $this->initPagination($currentPage, $wherePhrase, $this->__accountModel);
       [$prevPageBtn, $nextPageBtn] = 
@@ -115,7 +115,11 @@
 
     public function searchUsersByNameAndEmail() {
       $searchMessage = $_POST['search-box'];
-      $wherePhrase = " WHERE name LIKE '%$searchMessage%' OR email LIKE '%$searchMessage%'";
+      $wherePhrase = 
+        " WHERE" . 
+        " (name LIKE '%$searchMessage%' OR" .
+        " email LIKE '%$searchMessage%') AND" . 
+        " is_deleted = 0";
       $this->index(1, $wherePhrase);
     }
   }
