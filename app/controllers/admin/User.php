@@ -117,9 +117,9 @@
       $searchMessage = $_POST['search-box'];
       $wherePhrase = 
         " WHERE" . 
-        " (name LIKE '%$searchMessage%' OR" .
-        " email LIKE '%$searchMessage%') AND" . 
-        " is_deleted = 0";
+          " (name LIKE '%$searchMessage%' OR" .
+          " email LIKE '%$searchMessage%') AND" . 
+          " is_deleted = 0";
       $this->index(1, $wherePhrase);
     }
   }
