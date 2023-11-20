@@ -179,9 +179,13 @@
       $this->loadFormSignUp($formData);
     }
 
-    public function signOut() {
+    public function handleSignOut() {
       $_SESSION = [];
       setcookie('userToken');
+    }
+
+    public function signOut() {
+      $this->handleSignOut();
       header("Location: " . HOME_ROUTE);
     }
 
