@@ -12,6 +12,7 @@
       $sql =
         "SELECT count(category_id) AS countOfProduct" .
         " FROM " . $this->tableFill() . 
+        " WHERE is_deleted = 0" .
         " GROUP BY category_id";
       return $this->_db->selectRows($sql);
     }
