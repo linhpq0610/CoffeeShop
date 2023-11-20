@@ -1,5 +1,5 @@
 <?php 
-  $routes['quen-mat-khau'] = 'client/account/forgotPassword';
+  $routes['quen-mat-khau'] = 'client/account/loadFormForgotPassword';
   $routes['kiem-tra-email'] = 'client/account/checkEmail';
   $routes['hien-thi-form-thay-doi-mat-khau'] = 'client/account/showFormChangePassword';
   $routes['thay-doi-mat-khau'] = 'client/account/changePassword';

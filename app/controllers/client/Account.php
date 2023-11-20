@@ -207,7 +207,7 @@
       header("Location: " . ACCOUNT_ROUTE);
     }
 
-    public function forgotPassword() {
+    public function loadFormForgotPassword() {
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/forgotPassword';
       $this->_data['pageTitle'] = 'Quên mật khẩu';
       $this->_data["contentOfPage"] = [];
