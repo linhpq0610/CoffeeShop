@@ -25,6 +25,7 @@
         " FROM categories c " .
         " JOIN products p " . 
         " ON c.id = p.category_id " .
+        " WHERE c.is_deleted = 0" .
         " GROUP BY c.name";
       return $this->_db->selectRows($sql);
     }
@@ -35,6 +36,7 @@
         " FROM categories c" . 
         " JOIN products p" . 
         " ON p.category_id = c.id" . 
+        " WHERE c.is_deleted = 0" .
         " GROUP BY c.name";
       return $this->_db->selectRows($sql);
     }
