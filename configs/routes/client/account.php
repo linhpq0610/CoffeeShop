@@ -1,5 +1,5 @@
 <?php 
-  $routes['quen-mat-khau'] = 'client/account/loadFormForgotPassword';
+  $routes['quen-mat-khau'] = 'client/account/showFormForgotPassword';
   $routes['kiem-tra-email'] = 'client/account/checkEmail';
   $routes['hien-thi-form-thay-doi-mat-khau'] = 'client/account/showFormChangePassword';
   $routes['thay-doi-mat-khau'] = 'client/account/changePassword';
@@ -7,9 +7,9 @@
   $routes['tai-khoan'] = 'client/account';
   $routes['tu-dong-dang-nhap'] = 'client/account/autoSignIn';
   $routes['xu-ly-dang-nhap'] = 'client/account/checkSignIn';
-  $routes['dang-nhap'] = 'client/account/loadFormSignIn';
+  $routes['dang-nhap'] = 'client/account/showFormSignIn';
   $routes['xu-ly-dang-ky'] = 'client/account/checkSignUp';
-  $routes['dang-ky'] = 'client/account/loadFormSignUp';
+  $routes['dang-ky'] = 'client/account/showFormSignUp';
   $routes['dang-xuat'] = 'client/account/signOut';
   $routes['cap-nhat-khach-hang-(\d+)'] = 'client/account/update/$1';
 ?>

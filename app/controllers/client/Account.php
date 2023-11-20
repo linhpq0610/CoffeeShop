@@ -37,7 +37,7 @@
       return $defaultData;
     }
 
-    public function loadFormSignIn($formData = []) {
+    public function showFormSignIn($formData = []) {
       $formData = $this->setDefaultData($formData);
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/formSignIn';
       $this->_data['pageTitle'] = 'Đăng nhập';
@@ -71,7 +71,7 @@
         'email' => $email,
         'password' => $password,
       ];
-      $this->loadFormSignIn($formData);
+      $this->showFormSignIn($formData);
     }
 
     public function generateToken() {
@@ -111,7 +111,7 @@
       header("Location: " . HOME_ROUTE);
     }
 
-    public function loadFormSignUp($formData = []) {
+    public function showFormSignUp($formData = []) {
       $formData = $this->setDefaultData($formData);
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/formSignUp';
       $this->_data['pageTitle'] = 'Đăng ký';
@@ -131,7 +131,7 @@
       $formData = [
         'messageSuccess' => $messageSuccess,
       ];
-      $this->loadFormSignIn($formData);
+      $this->showFormSignIn($formData);
     }
 
     public function initSignUp() {
@@ -176,7 +176,7 @@
         'email' => $email,
         'password' => $_POST['password'],
       ];
-      $this->loadFormSignUp($formData);
+      $this->showFormSignUp($formData);
     }
 
     public function handleSignOut() {
@@ -211,7 +211,7 @@
       header("Location: " . ACCOUNT_ROUTE);
     }
 
-    public function loadFormForgotPassword($formData = []) {
+    public function showFormForgotPassword($formData = []) {
       $formData = $this->setDefaultData($formData);
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/forgotPassword';
       $this->_data['pageTitle'] = 'Quên mật khẩu';
@@ -239,7 +239,7 @@
           Vui lòng kiểm tra lại.
         </p>';
       $formData = ['messageAlert' => $messageAlert];
-      $this->loadFormForgotPassword($formData);
+      $this->showFormForgotPassword($formData);
     }
 
     public function showFormNewPassword($user) {
@@ -265,7 +265,7 @@
       $formData = [
         'messageSuccess' => $messageSuccess,
       ];
-      $this->loadFormSignIn($formData);
+      $this->showFormSignIn($formData);
     }
 
     public function showFormChangePassword() {
