@@ -6,7 +6,7 @@
       $this->__categoryModel = $this->getModel("CategoryModel");
     }
 
-    public function index($currentPage, $wherePhrase = "") {
+    public function index($currentPage, $wherePhrase = " WHERE is_deleted = 0") {
       [$currentPage, $NUMBERS_OF_ROW, $condition] = 
         $this->initPagination($currentPage, $wherePhrase, $this->__categoryModel);
       [$prevPageBtn, $nextPageBtn] = 
@@ -77,7 +77,10 @@
 
     public function searchCategoriesByName() {
       $searchMessage = $_POST['search-box'];
-      $wherePhrase = " WHERE name LIKE '%$searchMessage%'";
+      $wherePhrase = 
+        " WHERE" . 
+          " name LIKE '%$searchMessage%' AND" . 
+          " is_deleted = 0";
       $this->index(1, $wherePhrase);
     }
   }

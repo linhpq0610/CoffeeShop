@@ -18,7 +18,7 @@
       return $condition;
     }
 
-    public function showStatisticComments($currentPage, $wherePhrase = '') {
+    public function showStatisticComments($currentPage, $wherePhrase = ' WHERE p.is_deleted = 0') {
       $condition = $this->getCondition($currentPage, $wherePhrase);
       [$currentPage, $NUMBERS_OF_ROW] = 
         $this->initPagination($currentPage, $wherePhrase, $this->__commentModel);
@@ -59,6 +59,7 @@
           COMMENTS_ROUTE . $productId . "-trang-"
         );
       
+      $condition = ' AND c.is_deleted = 0 ' . $condition;
       $comments = $this->__commentModel->getComments($productId, $condition);
 
       $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/statistics/commentList';
@@ -98,7 +99,10 @@
 
     public function searchProducts() {
       $searchMessage = $_POST['search-box'];
-      $wherePhrase = " WHERE p.name LIKE '%$searchMessage%'";
+      $wherePhrase = 
+        " WHERE" . 
+          " p.name LIKE '%$searchMessage%' AND" . 
+          " p.is_deleted = 0";
       $this->showStatisticComments(1, $wherePhrase);
     }
     
