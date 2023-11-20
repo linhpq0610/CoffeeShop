@@ -25,6 +25,7 @@
                 class="form-control"
                 placeholder="VD: example@gmail.com"
                 name="email"
+                value="<?=$email;?>"
               />
               <p class="field-message mb-0"></p>
             </div>

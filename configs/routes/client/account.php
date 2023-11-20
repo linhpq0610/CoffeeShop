@@ -11,5 +11,5 @@
   $routes['xu-ly-dang-ky'] = 'client/account/checkSignUp';
   $routes['dang-ky'] = 'client/account/showFormSignUp';
   $routes['dang-xuat'] = 'client/account/signOut';
-  $routes['cap-nhat-khach-hang-(\d+)'] = 'client/account/update/$1';
+  $routes['cap-nhat-nguoi-dung-(\d+)'] = 'client/account/update/$1';
 ?>
