@@ -57,10 +57,13 @@
       $product = $this->__productModel->selectOneRowById($id);
       $category_id = $product['category_id'];
       $condition = 
-        " WHERE category_id = $category_id AND id <> $id" .
+        " WHERE" . 
+          " category_id = $category_id AND" . 
+          " id <> $id AND" .
+          " is_deleted = 0" .
         " LIMIT 8";
       $productsRelated = $this->__productModel->selectRowsBy($condition);
-      $comments = $this->__commentModel->getComments($id);
+      $comments = $this->__commentModel->getComments($id, " AND c.is_deleted = 0");
       $NUMBERS_OF_COMMENT = count($comments);
 
       $this->updateView($product['view'], $id);
