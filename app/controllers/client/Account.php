@@ -207,10 +207,11 @@
       header("Location: " . ACCOUNT_ROUTE);
     }
 
-    public function loadFormForgotPassword() {
+    public function loadFormForgotPassword($formData = []) {
+      $formData = $this->setDefaultData($formData);
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/forgotPassword';
       $this->_data['pageTitle'] = 'Quên mật khẩu';
-      $this->_data["contentOfPage"] = [];
+      $this->_data["contentOfPage"] = $formData;
       $this->renderClientLayout($this->_data);
     }
 
@@ -226,6 +227,15 @@
       if ($hasUser) {
         $this->showFormNewPassword($user);
       }
+
+      $messageAlert = 
+        '<p class="p-3">
+          Tài khoản không tồn tại.
+          <br>
+          Vui lòng kiểm tra lại.
+        </p>';
+      $formData = ['messageAlert' => $messageAlert];
+      $this->loadFormForgotPassword($formData);
     }
 
     public function showFormNewPassword($user) {

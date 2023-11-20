@@ -11,6 +11,9 @@
       </div>
       <div class="col-md-6 border-right">
         <form action="<?=CHECK_EMAIL_ROUTE;?>" method="post" class="px-3 pe-lg-5 py-5 forgot-password-form">
+          <div class='alert alert-danger border-0 p-0 text-center'>
+            <?=$messageAlert;?>
+          </div>
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="text-right">Quên mật khẩu</h4>
           </div>
