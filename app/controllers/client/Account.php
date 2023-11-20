@@ -50,7 +50,11 @@
     public function checkSignIn() {
       $email = $_POST['email'];
       $password = $_POST['password'];
-      $condition = " WHERE email = '$email' AND password = '$password'";
+      $condition = 
+        " WHERE" . 
+          " email = '$email' AND" . 
+          " password = '$password' AND" . 
+          " is_deleted = 0";
 
       $user = $this->__accountModel->selectRowBy($condition);
       $hasUser = $this->__accountModel->hasUser($user); 
@@ -60,7 +64,7 @@
 
       $messageAlert = 
         '<p class="p-3">
-          Email hoặc mật khẩu không chính xác.
+          Tài khoản không tồn tại.
           <br>
           Vui lòng kiểm tra lại.
         </p>';
@@ -164,7 +168,7 @@
 
       $messageAlert = 
         '<p class="p-3">
-          Email đã tồn tại.
+          Email đã được sử dụng.
           <br>
           Vui lòng dùng email khác.
         </p>';
@@ -223,7 +227,10 @@
 
     public function checkEmail() {
       $email = $_POST['email'];
-      $condition = " WHERE email = '$email'";
+      $condition = 
+        " WHERE" . 
+          " email = '$email' AND" . 
+          " is_deleted = 0";
 
       $user = $this->__accountModel->selectRowBy($condition);
       $hasUser = $this->__accountModel->hasUser($user); 
