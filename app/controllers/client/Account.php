@@ -3,11 +3,9 @@
   use Firebase\JWT\Key;
   class Account extends Controller {
     private $__accountModel;
-    private $__userTokenModel;
 
     function __construct() {
       $this->__accountModel = $this->getModel("AccountModel");
-      $this->__userTokenModel = $this->getModel("UserTokenModel");
     }
 
     public function index() {
@@ -181,16 +179,7 @@
       $this->loadFormSignUp($formData);
     }
 
-    public function deleteUserToken() {
-      $token = $_COOKIE['userToken'];
-      $condition = " token = '$token'";
-      $DB = $this->__userTokenModel->getDB();
-      $tableName = $this->__userTokenModel->tableFill();
-      $DB->delete($tableName, $condition);
-    }
-
     public function signOut() {
-      $this->deleteUserToken();
       $_SESSION = [];
       setcookie('userToken');
       header("Location: " . HOME_ROUTE);
