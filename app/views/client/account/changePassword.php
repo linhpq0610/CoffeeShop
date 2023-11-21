@@ -11,6 +11,9 @@
       </div>
       <div class="col-md-6 border-right">
         <form action="<?=CHANGE_PASSWORD_ROUTE;?>" method="post" class="px-3 pe-lg-5 py-5 new-password-form">
+          <div class='alert alert-danger border-0 p-0 text-center'>
+            <?=$messageAlert;?>
+          </div>
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="text-right">Thay đổi mật khẩu</h4>
           </div>
@@ -22,6 +25,7 @@
                 class="form-control"
                 placeholder="Nhập mật cũ mới tại đây"
                 name="old-password"
+                value="<?=$oldPassword;?>"
               />
               <p class="field-message mb-0"></p>
             </div>
@@ -34,6 +38,7 @@
                 class="form-control"
                 placeholder="Nhập mật khẩu mới tại đây"
                 name="password"
+                value="<?=$password;?>"
               />
               <p class="field-message mb-0"></p>
             </div>
@@ -46,6 +51,7 @@
                 class="form-control"
                 placeholder="Nhập lại mật khẩu tại đây"
                 name="confirm-password"
+                value="<?=$confirmPassword;?>"
               />
               <p class="field-message mb-0"></p>
             </div>

@@ -30,6 +30,8 @@
         'name' => '',
         'email' => '',
         'password' => '',
+        'oldPassword' => '',
+        'confirmPassword' => '',
       ];
       foreach ($data as $key => $value) {
         $defaultData[$key] = $value;
@@ -37,7 +39,7 @@
       return $defaultData;
     }
 
-    public function loadFormSignIn($formData = []) {
+    public function showFormSignIn($formData = []) {
       $formData = $this->setDefaultData($formData);
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/formSignIn';
       $this->_data['pageTitle'] = 'Đăng nhập';
@@ -64,14 +66,14 @@
         '<p class="p-3">
           Tài khoản không tồn tại.
           <br>
-          Vui lòng kiểm tra lại.
+          Nếu quên mật khẩu bạn có thể thay đổi <a href="' . FORGOT_PASSWORD_ROUTE .'">tại đây</a>.
         </p>';
       $formData = [
         'messageAlert' => $messageAlert,
         'email' => $email,
         'password' => $password,
       ];
-      $this->loadFormSignIn($formData);
+      $this->showFormSignIn($formData);
     }
 
     public function generateToken() {
@@ -111,7 +113,7 @@
       header("Location: " . HOME_ROUTE);
     }
 
-    public function loadFormSignUp($formData = []) {
+    public function showFormSignUp($formData = []) {
       $formData = $this->setDefaultData($formData);
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/formSignUp';
       $this->_data['pageTitle'] = 'Đăng ký';
@@ -131,7 +133,7 @@
       $formData = [
         'messageSuccess' => $messageSuccess,
       ];
-      $this->loadFormSignIn($formData);
+      $this->showFormSignIn($formData);
     }
 
     public function initSignUp() {
@@ -176,12 +178,16 @@
         'email' => $email,
         'password' => $_POST['password'],
       ];
-      $this->loadFormSignUp($formData);
+      $this->showFormSignUp($formData);
+    }
+
+    public function handleSignOut() {
+      $_SESSION = [];
+      setcookie('userToken', '', time() - 3600);
     }
 
     public function signOut() {
-      $_SESSION = [];
-      setcookie('userToken');
+      $this->handleSignOut();
       header("Location: " . HOME_ROUTE);
     }
 
@@ -189,7 +195,6 @@
       $data = [
         "name" => $_POST['name'],
         "email" => $_POST['email'],
-        "password" => $_POST['password'],
       ];
       $avatarImageName = $_FILES['avatar']['name'];
       if ($avatarImageName != "") {
@@ -207,10 +212,11 @@
       header("Location: " . ACCOUNT_ROUTE);
     }
 
-    public function forgotPassword() {
+    public function showFormForgotPassword($formData = []) {
+      $formData = $this->setDefaultData($formData);
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/forgotPassword';
       $this->_data['pageTitle'] = 'Quên mật khẩu';
-      $this->_data["contentOfPage"] = [];
+      $this->_data["contentOfPage"] = $formData;
       $this->renderClientLayout($this->_data);
     }
 
@@ -226,6 +232,18 @@
       if ($hasUser) {
         $this->showFormNewPassword($user);
       }
+
+      $messageAlert = 
+        '<p class="p-3">
+          Tài khoản không tồn tại.
+          <br>
+          Vui lòng kiểm tra lại.
+        </p>';
+      $formData = [
+        'messageAlert' => $messageAlert,
+        'email' => $_POST['email'],
+      ];
+      $this->showFormForgotPassword($formData);
     }
 
     public function showFormNewPassword($user) {
@@ -233,6 +251,48 @@
       $this->_data['pageTitle'] = 'Mật khẩu mới';
       $this->_data["contentOfPage"] = ['userId' => $user['id']];
       $this->renderClientLayout($this->_data);
+    }
+
+    public function notifySuccessChangePassword() {
+      $messageSuccess = 
+        '<p class="p-3">
+          Bạn đã thay đổi mật khẩu thành công.
+        </p>';
+      $formData = [
+        'messageSuccess' => $messageSuccess,
+      ];
+      $this->showFormSignIn($formData);
+    }
+
+    public function showFormChangePassword($formData = []) {
+      $formData = $this->setDefaultData($formData);
+      $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/changePassword';
+      $this->_data['pageTitle'] = 'Thay đổi mật khẩu';
+      $this->_data["contentOfPage"] = $formData;
+      $this->renderClientLayout($this->_data);
+    }
+
+    public function isPasswordExist() {
+      if ($_POST['old-password'] === $_SESSION['user']['password']) {
+        return true;
+      }
+      return false;
+    }
+
+    public function handleWhenPasswordNotExist() {
+      $messageAlert = 
+        '<p class="p-3">
+          Mật khẩu cũ không chính xác.
+          <br>
+          Nếu quên mật khẩu bạn có thể thay đổi <a href="' . FORGOT_PASSWORD_ROUTE .'">tại đây</a>.
+        </p>';
+      $formData = [
+        'messageAlert' => $messageAlert,
+        'oldPassword' => $_POST['old-password'],
+        'password' => $_POST['password'],
+        'confirmPassword' => $_POST['confirm-password'],
+      ];
+      $this->showFormChangePassword($formData);
     }
 
     public function setNewPassword($id) {
@@ -244,35 +304,16 @@
       $condition = "id = $id";
       $DB->update($tableName, $data, $condition);
       
-      $messageSuccess = 
-        '<p class="p-3">
-          Bạn đã thay đổi mật khẩu thành công.
-        </p>';
-      $formData = [
-        'messageSuccess' => $messageSuccess,
-      ];
-      $this->loadFormSignIn($formData);
+      $this->notifySuccessChangePassword();
+      $this->handleSignOut();
     }
-
-    public function showFormChangePassword() {
-      $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/changePassword';
-      $this->_data['pageTitle'] = 'Thay đổi mật khẩu';
-      $this->_data["contentOfPage"] = [];
-      $this->renderClientLayout($this->_data);
-    }
-
-    public function isPasswordExist() {
-      if ($_POST['old-password'] === $_SESSION['user']['password']) {
-        return true;
-      }
-      return false;
-    }
-
+    
     public function changePassword() {
       if ($this->isPasswordExist()) {
         $this->setNewPassword($_SESSION['user']['id']);
-        header("Location: " . ACCOUNT_ROUTE);
       }
+
+      $this->handleWhenPasswordNotExist();
     }
   }
 ?>
