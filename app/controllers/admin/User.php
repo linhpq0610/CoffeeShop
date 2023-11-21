@@ -152,5 +152,36 @@
           " is_deleted = 1";
       $this->showUsersDeleted(1, $wherePhrase);
     }
+
+    public function restore() {
+      $data = [
+        "is_deleted" => 0,
+      ];
+      $ids = implode(", ", $_POST['id']);
+      $DB = $this->__accountModel->getDB();
+      $tableName = $this->__accountModel->tableFill();
+      $condition = "id IN ($ids)";
+      $DB->update($tableName, $data, $condition);
+      header("Location: " . USER_DELETED_ROUTE . "1");
+    }
+    
+    public function hardDelete() {
+      $ids = implode(", ", $_POST['id']);
+      $DB = $this->__accountModel->getDB();
+      $tableName = $this->__accountModel->tableFill();
+      $condition = "id IN ($ids)";
+      $DB->delete($tableName, $condition);
+      header("Location: " . USER_DELETED_ROUTE . "1");
+    }
+
+    public function handleActionInUsersDeleted() {
+      if ($_POST['action'] == 'restore') {
+        $this->restore();
+        die();
+      }
+
+      $this->hardDelete();
+    }
+
   }
 ?>
