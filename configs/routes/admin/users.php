@@ -9,4 +9,5 @@
   $routes['them-nguoi-dung'] = 'admin/user/initAdd';
   $routes['tim-kiem-nguoi-dung-da-xoa'] = 'admin/user/searchUsersDeletedByNameAndEmail';
   $routes['tim-kiem-nguoi-dung'] = 'admin/user/searchUsersByNameAndEmail';
+  $routes['xu-ly-hanh-dong-trong-danh-sach-nguoi-dung-da-xoa'] = 'admin/user/handleActionInUsersDeleted';
 ?>

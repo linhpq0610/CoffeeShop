@@ -9,4 +9,5 @@
   define("ADD_USER_ROUTE", "them-nguoi-dung");
   define("SEARCH_USER_DELETED_ROUTE", "tim-kiem-nguoi-dung-da-xoa");
   define("SEARCH_USER_ROUTE", "tim-kiem-nguoi-dung");
+  define("HANDLE_ACTION_USERS_DELETED_ROUTE", "xu-ly-hanh-dong-trong-danh-sach-nguoi-dung-da-xoa");
 ?>
