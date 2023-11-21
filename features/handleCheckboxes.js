@@ -1,7 +1,7 @@
 const handleCheckboxes = (function () {
   let checkboxAll;
   let checkboxes;
-  let deleteBtn;
+  const actionBtns = [];
   let submitBtn;
   let checkedQuantity = 0;
 
@@ -13,7 +13,7 @@ const handleCheckboxes = (function () {
       checkboxes = document.querySelectorAll(selector);
     },
     setDeleteBtn(selector) {
-      deleteBtn = document.querySelector(selector);
+      actionBtns.push(document.querySelector(selector));
     },
     setSubmitBtn(selector) {
       submitBtn = document.querySelector(selector);
@@ -52,11 +52,13 @@ const handleCheckboxes = (function () {
       });
     },
     activeDeleteBtn() {
-      if (checkedQuantity > 0) {
-        deleteBtn?.classList.remove("disabled");
-      } else {
-        deleteBtn?.classList.add("disabled");
-      }
+      actionBtns.forEach((actionBtn) => {
+        if (checkedQuantity > 0) {
+          actionBtn?.classList.remove("disabled");
+        } else {
+          actionBtn?.classList.add("disabled");
+        }
+      });
     },
     handleCheckboxAll() {
       if (checkedQuantity === checkboxes.length) {
