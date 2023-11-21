@@ -1,4 +1,5 @@
 <?php 
+   $routes['danh-sach-san-pham-da-xoa-trang-(\d+)'] = 'admin/product/showProductsDeleted/$1';
    $routes['san-pham-phia-admin-trang-(\d+)'] = 'admin/product/index/$1';
    $routes['cap-nhat-san-pham-(\d+)'] = 'admin/product/update/$1';
    $routes['xoa-san-pham'] = 'admin/product/softDelete';

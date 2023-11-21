@@ -1,4 +1,5 @@
 <?php 
+  define("PRODUCT_DELETED_ROUTE", "danh-sach-san-pham-da-xoa-trang-");
   define("ADMIN_PRODUCT_ROUTE", "san-pham-phia-admin-trang-");
   define("PRODUCT_INFO_ROUTE", "thong-tin-san-pham-");
   define("EDIT_PRODUCT_ROUTE", "chinh-sua-san-pham-");
