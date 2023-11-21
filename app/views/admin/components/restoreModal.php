@@ -19,7 +19,7 @@
       </div>
       <div>
         <div class="modal-body">
-          <p>Bạn có chắc khi muốn khôi phục những hàng này?</p>
+          <p>Bạn có chắc khi muốn xóa những hàng này?</p>
         </div>
         <div class="modal-footer">
           <button
