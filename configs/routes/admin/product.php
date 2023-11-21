@@ -7,5 +7,6 @@
    $routes['thong-tin-san-pham-(\d+)'] = 'admin/product/info/$1';
    $routes['form-them-san-pham'] = 'admin/product/showFormAddProduct';
    $routes['them-san-pham'] = 'admin/product/initAdd';
-   $routes['tim-kiem-san-pham-phia-admin'] = 'admin/product/searchProductsByNameAndDescription';
+   $routes['tim-kiem-san-pham-da-xoa-phia-admin'] = 'admin/product/searchProductsDeletedByNameAndDescription';
+   $routes['tim-kiem-san-pham-phia-admin'] = 'admin/product/searchProductsByNameAndDescription'; 
 ?>
