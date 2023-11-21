@@ -1,4 +1,4 @@
-<h4>Danh sách sản phẩm bị xoá</h4>
+<h4>Danh sách sản phẩm đã xoá</h4>
 
 <div class="mt-3">
   <div class="table-title border-bottom pb-3">

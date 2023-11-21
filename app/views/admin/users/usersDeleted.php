@@ -1,4 +1,4 @@
-<h4>Danh sách người dùng bị xóa</h4>
+<h4>Danh sách người dùng đã xóa</h4>
 
 <div class="mt-3">
   <div class="table-title border-bottom pb-3">
@@ -66,11 +66,7 @@
             </td>
             <td>
               <div class="p-2">
-                <?php if ($is_deleted): ?>
-                  <span class="status text-success">&bull;</span> Kích hoạt
-                <?php else: ?>
-                  <span class="status text-warning">&bull;</span> Không kích hoạt
-                <?php endif; ?>
+                <span class="status text-warning">&bull;</span> Đã xóa
               </div>
             </td>
             <td>

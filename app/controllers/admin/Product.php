@@ -35,7 +35,7 @@
       $products = $this->__productModel->selectRowsBy($condition);
 
       $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/products/productsDeleted';
-      $this->_data['pageTitle'] = 'Danh sách sản phẩm bị xoá';
+      $this->_data['pageTitle'] = 'Danh sách sản phẩm đã xoá';
       $this->_data["contentOfPage"] = [
         'products' => $products,
         'NUMBERS_OF_ROW' => $NUMBERS_OF_ROW,
@@ -154,7 +154,7 @@
           " is_deleted = 0";
       $this->index(1, $wherePhrase);
     }
-    
+
     public function searchProductsDeletedByNameAndDescription() {
       $searchMessage = $_POST['search-box'];
       $wherePhrase = 

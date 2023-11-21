@@ -16,6 +16,7 @@
           <nav class="sb-sidenav-menu-nested nav">
             <a class="nav-link" href="<?=FORM_ADD_USER_ROUTE;?>">Thêm người dùng</a>
             <a class="nav-link" href=<?=(USER_ROUTE . "1");?>>Danh sách người dùng</a>
+            <a class="nav-link" href=<?=(USER_DELETED_ROUTE . "1");?>>Người dùng đã xóa</a>
           </nav>
         </div>
 
@@ -40,6 +41,7 @@
           <nav class="sb-sidenav-menu-nested nav">
             <a class="nav-link" href="<?=FORM_ADD_PRODUCT_ROUTE;?>">Thêm sản phẩm</a>
             <a class="nav-link" href=<?=(ADMIN_PRODUCT_ROUTE . "1");?>>Danh sách sản phẩm</a>
+            <a class="nav-link" href=<?=(PRODUCT_DELETED_ROUTE . "1");?>>Sản phẩm đã xóa</a>
           </nav>
         </div>
 

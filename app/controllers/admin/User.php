@@ -33,7 +33,7 @@
       $users = $this->__accountModel->selectRowsBy($condition);
 
       $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/users/usersDeleted';
-      $this->_data['pageTitle'] = 'Danh sách người dùng bị xóa';
+      $this->_data['pageTitle'] = 'Danh sách người dùng đã xóa';
       $this->_data["contentOfPage"] = [
         'users' => $users,
         'NUMBERS_OF_ROW' => $NUMBERS_OF_ROW,
