@@ -7,5 +7,6 @@
   $routes['thong-tin-nguoi-dung-(\d+)'] = 'admin/user/info/$1';
   $routes['form-them-nguoi-dung'] = 'admin/user/showFormAddUser';
   $routes['them-nguoi-dung'] = 'admin/user/initAdd';
+  $routes['tim-kiem-nguoi-dung-da-xoa'] = 'admin/user/searchUsersDeletedByNameAndEmail';
   $routes['tim-kiem-nguoi-dung'] = 'admin/user/searchUsersByNameAndEmail';
 ?>

@@ -7,5 +7,6 @@
   define("USER_INFO_ROUTE", "thong-tin-nguoi-dung-");
   define("FORM_ADD_USER_ROUTE", "form-them-nguoi-dung");
   define("ADD_USER_ROUTE", "them-nguoi-dung");
+  define("SEARCH_USER_DELETED_ROUTE", "tim-kiem-nguoi-dung-da-xoa");
   define("SEARCH_USER_ROUTE", "tim-kiem-nguoi-dung");
 ?>
