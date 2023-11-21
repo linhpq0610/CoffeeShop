@@ -26,6 +26,25 @@
       ];
       $this->renderAdminLayout($this->_data);
     }
+    
+    public function showProductsDeleted($currentPage, $wherePhrase = " WHERE is_deleted = 1") {
+      [$currentPage, $NUMBERS_OF_ROW, $condition] = 
+        $this->initPagination($currentPage, $wherePhrase, $this->__productModel);
+      [$prevPageBtn, $nextPageBtn] = 
+        $this->getBtnPagination($currentPage, $NUMBERS_OF_ROW, PRODUCT_DELETED_ROUTE);
+      $products = $this->__productModel->selectRowsBy($condition);
+
+      $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/products/productsDeleted';
+      $this->_data['pageTitle'] = 'Danh sách sản phẩm bị xoá';
+      $this->_data["contentOfPage"] = [
+        'products' => $products,
+        'NUMBERS_OF_ROW' => $NUMBERS_OF_ROW,
+        'currentPage' => $currentPage,
+        'prevPageBtn' => $prevPageBtn,
+        'nextPageBtn' => $nextPageBtn,
+      ];
+      $this->renderAdminLayout($this->_data);
+    }
 
     public function info($id) {
       $product = $this->__productModel->selectOneRowById($id);
