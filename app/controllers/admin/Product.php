@@ -163,5 +163,14 @@
           " is_deleted = 1";
       $this->showProductsDeleted(1, $wherePhrase);
     }
+    public function searchProductsDeletedByNameAndDescription() {
+      $searchMessage = $_POST['search-box'];
+      $wherePhrase = 
+        " WHERE" . 
+          " name LIKE '%$searchMessage%' OR " . 
+          " description LIKE '%$searchMessage%' AND" . 
+          " is_deleted = 1";
+      $this->showProductsDeleted(1, $wherePhrase);
+    }
   }
 ?>
