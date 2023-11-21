@@ -1,4 +1,5 @@
 <?php 
+  define("USER_DELETED_ROUTE", "danh-sach-nguoi-dung-da-xoa-trang-");
   define("USER_ROUTE", "nguoi-dung-trang-");
   define("EDIT_USER_ROUTE", "chinh-sua-nguoi-dung-");
   define("UPDATE_USER_ADMIN_ROUTE", "cap-nhat-nguoi-dung-phia-admin-");
