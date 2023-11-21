@@ -25,6 +25,26 @@
       $this->renderAdminLayout($this->_data);
     }
 
+    public function showUsersDeleted($currentPage, $wherePhrase = " WHERE is_deleted = 1") {
+      [$currentPage, $NUMBERS_OF_ROW, $condition] = 
+        $this->initPagination($currentPage, $wherePhrase, $this->__accountModel);
+      [$prevPageBtn, $nextPageBtn] = 
+        $this->getBtnPagination($currentPage, $NUMBERS_OF_ROW, USER_ROUTE);
+      $users = $this->__accountModel->selectRowsBy($condition);
+
+      $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/users/usersDeleted';
+      $this->_data['pageTitle'] = 'Danh sách người dùng bị xóa';
+      $this->_data["contentOfPage"] = [
+        'users' => $users,
+        'NUMBERS_OF_ROW' => $NUMBERS_OF_ROW,
+        'currentPage' => $currentPage,
+        'prevPageBtn' => $prevPageBtn,
+        'nextPageBtn' => $nextPageBtn,
+      ];
+      $this->renderAdminLayout($this->_data);
+    }
+
+
     public function info($id) {
       $user = $this->__accountModel->selectOneRowById($id);
       $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/users/info';
@@ -122,5 +142,46 @@
           " is_deleted = 0";
       $this->index(1, $wherePhrase);
     }
+   
+    public function searchUsersDeletedByNameAndEmail() {
+      $searchMessage = $_POST['search-box'];
+      $wherePhrase = 
+        " WHERE" . 
+          " (name LIKE '%$searchMessage%' OR" .
+          " email LIKE '%$searchMessage%') AND" . 
+          " is_deleted = 1";
+      $this->showUsersDeleted(1, $wherePhrase);
+    }
+
+    public function restore() {
+      $data = [
+        "is_deleted" => 0,
+      ];
+      $ids = implode(", ", $_POST['id']);
+      $DB = $this->__accountModel->getDB();
+      $tableName = $this->__accountModel->tableFill();
+      $condition = "id IN ($ids)";
+      $DB->update($tableName, $data, $condition);
+      header("Location: " . USER_DELETED_ROUTE . "1");
+    }
+    
+    public function hardDelete() {
+      $ids = implode(", ", $_POST['id']);
+      $DB = $this->__accountModel->getDB();
+      $tableName = $this->__accountModel->tableFill();
+      $condition = "id IN ($ids)";
+      $DB->delete($tableName, $condition);
+      header("Location: " . USER_DELETED_ROUTE . "1");
+    }
+
+    public function handleActionInUsersDeleted() {
+      if ($_POST['action'] == 'restore') {
+        $this->restore();
+        die();
+      }
+
+      $this->hardDelete();
+    }
+
   }
 ?>
