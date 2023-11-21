@@ -18,7 +18,7 @@
       return $condition;
     }
 
-    public function showStatisticComments($currentPage, $wherePhrase = ' WHERE p.is_deleted = 0') {
+    public function showStatisticComments($currentPage, $wherePhrase = ' WHERE p.is_deleted = 0 AND c.is_deleted = 0') {
       $condition = $this->getCondition($currentPage, $wherePhrase);
       [$currentPage, $NUMBERS_OF_ROW] = 
         $this->initPagination($currentPage, $wherePhrase, $this->__commentModel);
@@ -26,13 +26,11 @@
         $this->getBtnPagination($currentPage, $NUMBERS_OF_ROW, STATISTIC_COMMENT_ROUTE);
 
       $statisticComments = $this->__commentModel->statisticComments($condition);
-      $countOfComments = $this->__commentModel->getCountOfComment($condition);
 
       $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/statistics/comment';
       $this->_data['pageTitle'] = 'Thống kê bình luận';
       $this->_data["contentOfPage"] = [
         'statisticComments' => $statisticComments,
-        'countOfComments' => $countOfComments,
         'NUMBERS_OF_ROW' => $NUMBERS_OF_ROW,
         'currentPage' => $currentPage,
         'prevPageBtn' => $prevPageBtn,
@@ -102,7 +100,8 @@
       $wherePhrase = 
         " WHERE" . 
           " p.name LIKE '%$searchMessage%' AND" . 
-          " p.is_deleted = 0";
+          " p.is_deleted = 0 AND" . 
+          " c.is_deleted = 0";
       $this->showStatisticComments(1, $wherePhrase);
     }
     

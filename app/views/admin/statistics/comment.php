@@ -44,9 +44,8 @@
       <tbody>
         <?php 
         $orderNumber = 1;
-        for ($i = 0; $i < count($statisticComments); $i++) {
-          extract($statisticComments[$i]);
-          extract($countOfComments[$i]);
+        foreach ($statisticComments as $statisticComment):
+          extract($statisticComment);
         ?>
           <tr class="border-bottom">
             <td>
@@ -74,7 +73,7 @@
               </div>
             </td>
           </tr>
-        <?php } ?>
+        <?php endforeach; ?>
       </tbody>
     </table>
   </form>

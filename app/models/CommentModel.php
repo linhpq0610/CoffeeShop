@@ -19,20 +19,10 @@
       return $this->_db->selectRows($sql);
     }
 
-    public function getCountOfComment($condition) {
-      $sql = 
-        "SELECT COUNT(c.id) as countOfComment " .
-        " FROM comments c" . 
-        " JOIN products p" . 
-        " ON c.product_id = p.id" .
-        $condition;
-      return $this->_db->selectRows($sql);
-    }
-
     public function statisticComments($condition) {
       $sql = 
         "SELECT " . 
-          "p.id, p.name, c.product_id, " . 
+          "p.id, p.name, c.product_id, COUNT(c.id) as countOfComment, " . 
           "COUNT(c.product_id) AS NUMBERS_OF_COMMENT, " .
           "MAX(c.commented_date) AS NEWEST_DATE, " . 
           "MIN(c.commented_date) AS OLDEST_DATE" .
