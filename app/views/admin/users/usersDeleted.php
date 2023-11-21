@@ -4,7 +4,7 @@
     <div class="table-title border-bottom pb-3">
         <div class="row">
             <div class="col-sm-4">
-                <form class="search-box" method="post" action="<?= SEARCH_USER_ROUTE; ?>">
+                <form class="search-box" method="post" action="<?= SEARCH_USER_DELETED_ROUTE; ?>">
                     <input type="text" class="form-control" name="search-box" placeholder="Tìm kiếm&hellip;"
                         value="<?= ($_POST['search-box'] ?? ''); ?>" />
                 </form>

@@ -142,5 +142,15 @@
           " is_deleted = 0";
       $this->index(1, $wherePhrase);
     }
+   
+    public function searchUsersDeletedByNameAndEmail() {
+      $searchMessage = $_POST['search-box'];
+      $wherePhrase = 
+        " WHERE" . 
+          " (name LIKE '%$searchMessage%' OR" .
+          " email LIKE '%$searchMessage%') AND" . 
+          " is_deleted = 1";
+      $this->showUsersDeleted(1, $wherePhrase);
+    }
   }
 ?>
