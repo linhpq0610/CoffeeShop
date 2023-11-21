@@ -25,6 +25,26 @@
       $this->renderAdminLayout($this->_data);
     }
 
+    public function showUsersDeleted($currentPage, $wherePhrase = " WHERE is_deleted = 1") {
+      [$currentPage, $NUMBERS_OF_ROW, $condition] = 
+        $this->initPagination($currentPage, $wherePhrase, $this->__accountModel);
+      [$prevPageBtn, $nextPageBtn] = 
+        $this->getBtnPagination($currentPage, $NUMBERS_OF_ROW, USER_ROUTE);
+      $users = $this->__accountModel->selectRowsBy($condition);
+
+      $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/users/usersDeleted';
+      $this->_data['pageTitle'] = 'Danh sách người dùng bị xóa';
+      $this->_data["contentOfPage"] = [
+        'users' => $users,
+        'NUMBERS_OF_ROW' => $NUMBERS_OF_ROW,
+        'currentPage' => $currentPage,
+        'prevPageBtn' => $prevPageBtn,
+        'nextPageBtn' => $nextPageBtn,
+      ];
+      $this->renderAdminLayout($this->_data);
+    }
+
+
     public function info($id) {
       $user = $this->__accountModel->selectOneRowById($id);
       $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/users/info';
