@@ -8,7 +8,7 @@
       $this->__categoryModel = $this->getModel("CategoryModel");
     }
 
-    public function index($currentPage, $wherePhrase = "") {
+    public function index($currentPage, $wherePhrase = " WHERE is_deleted = 0") {
       [$currentPage, $NUMBERS_OF_ROW, $condition] = 
         $this->initPagination($currentPage, $wherePhrase, $this->__productModel);
       [$prevPageBtn, $nextPageBtn] = 
@@ -17,6 +17,25 @@
 
       $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/products/list';
       $this->_data['pageTitle'] = 'Danh sách sản phẩm';
+      $this->_data["contentOfPage"] = [
+        'products' => $products,
+        'NUMBERS_OF_ROW' => $NUMBERS_OF_ROW,
+        'currentPage' => $currentPage,
+        'prevPageBtn' => $prevPageBtn,
+        'nextPageBtn' => $nextPageBtn,
+      ];
+      $this->renderAdminLayout($this->_data);
+    }
+    
+    public function showProductsDeleted($currentPage, $wherePhrase = " WHERE is_deleted = 1") {
+      [$currentPage, $NUMBERS_OF_ROW, $condition] = 
+        $this->initPagination($currentPage, $wherePhrase, $this->__productModel);
+      [$prevPageBtn, $nextPageBtn] = 
+        $this->getBtnPagination($currentPage, $NUMBERS_OF_ROW, PRODUCT_DELETED_ROUTE);
+      $products = $this->__productModel->selectRowsBy($condition);
+
+      $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/products/productsDeleted';
+      $this->_data['pageTitle'] = 'Danh sách sản phẩm đã xoá';
       $this->_data["contentOfPage"] = [
         'products' => $products,
         'NUMBERS_OF_ROW' => $NUMBERS_OF_ROW,
@@ -81,11 +100,11 @@
         "is_deleted" => 1,
       ];
       $ids = implode(", ", $_POST['id']);
-      $DB = $this->__accountModel->getDB();
-      $tableName = $this->__accountModel->tableFill();
+      $DB = $this->__productModel->getDB();
+      $tableName = $this->__productModel->tableFill();
       $condition = "id IN ($ids)";
       $DB->update($tableName, $data, $condition);
-      header("Location: " . USER_ROUTE . "1");
+      header("Location: " . ADMIN_PRODUCT_ROUTE . "1");
     }
 
     public function showFormAddProduct() {
@@ -128,8 +147,52 @@
 
     public function searchProductsByNameAndDescription() {
       $searchMessage = $_POST['search-box'];
-      $wherePhrase = " WHERE name LIKE '%$searchMessage%' OR description LIKE '%$searchMessage%'";
+      $wherePhrase = 
+        " WHERE" . 
+          " name LIKE '%$searchMessage%' OR " . 
+          " description LIKE '%$searchMessage%' AND" . 
+          " is_deleted = 0";
       $this->index(1, $wherePhrase);
+    }
+
+    public function searchProductsDeletedByNameAndDescription() {
+      $searchMessage = $_POST['search-box'];
+      $wherePhrase = 
+        " WHERE" . 
+          " name LIKE '%$searchMessage%' OR " . 
+          " description LIKE '%$searchMessage%' AND" . 
+          " is_deleted = 1";
+      $this->showProductsDeleted(1, $wherePhrase);
+    }
+
+    public function restore() {
+      $data = [
+        "is_deleted" => 0,
+      ];
+      $ids = implode(", ", $_POST['id']);
+      $DB = $this->__productModel->getDB();
+      $tableName = $this->__productModel->tableFill();
+      $condition = "id IN ($ids)";
+      $DB->update($tableName, $data, $condition);
+      header("Location: " . PRODUCT_DELETED_ROUTE . "1");
+    }
+    
+    public function hardDelete() {
+      $ids = implode(", ", $_POST['id']);
+      $DB = $this->__productModel->getDB();
+      $tableName = $this->__productModel->tableFill();
+      $condition = "id IN ($ids)";
+      $DB->delete($tableName, $condition);
+      header("Location: " . PRODUCT_DELETED_ROUTE . "1");
+    }
+
+    public function handleActionInProductsDeleted() {
+      if ($_POST['action'] == 'restore') {
+        $this->restore();
+        die();
+      }
+
+      $this->hardDelete();
     }
   }
 ?>

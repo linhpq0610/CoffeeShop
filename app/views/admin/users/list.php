@@ -87,12 +87,7 @@
             </td>
             <td>
               <div class="p-2">
-                <!-- // TODO: delete if condition -->
-                <?php if ($is_deleted) : ?>
-<span class="status text-success">&bull;</span> Kích hoạt</td>
-                <?php else : ?>
-                  <span class="status text-warning">&bull;</span> Không kích hoạt</td>
-                <?php endif; ?>
+                <span class="status text-success">&bull;</span> Tồn tại</td>
               </div>
             </td>
             <td>

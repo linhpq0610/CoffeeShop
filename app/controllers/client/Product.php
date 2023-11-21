@@ -21,17 +21,17 @@
         );
     }
 
-    public function index($currentPage, $wherePhrase = "") {
+    public function index($currentPage, $wherePhrase = " WHERE is_deleted = 0") {
       [$currentPage, $NUMBERS_OF_ROW, $condition] = 
         $this->initPagination($currentPage, $wherePhrase, $this->__productModel);
       [$prevPageBtn, $nextPageBtn] = 
         $this->getBtnPagination($currentPage, $NUMBERS_OF_ROW, SHOP_ROUTE);
       
       $products = $this->__productModel->selectRowsBy($condition);
-      $categories = $this->__categoryModel->selectAllRows();
+      $categories = $this->__categoryModel->getCategories();
       $countOfProducts = $this->__productModel->getCountOfProductOfCategory();
 
-      $countOfAllProducts = $this->__productModel->getCountOfRow();
+      $countOfAllProducts = $this->__productModel->getCountOfRow(" WHERE is_deleted = 0");
       $countOfProductsFound = $countOfAllProducts;
       if ($this->shouldCountProductsFound($wherePhrase, $categories)) {
         $countOfProductsFound = count($products);
@@ -57,10 +57,13 @@
       $product = $this->__productModel->selectOneRowById($id);
       $category_id = $product['category_id'];
       $condition = 
-        " WHERE category_id = $category_id AND id <> $id" .
+        " WHERE" . 
+          " category_id = $category_id AND" . 
+          " id <> $id AND" .
+          " is_deleted = 0" .
         " LIMIT 8";
       $productsRelated = $this->__productModel->selectRowsBy($condition);
-      $comments = $this->__commentModel->getComments($id);
+      $comments = $this->__commentModel->getComments($id, " AND c.is_deleted = 0");
       $NUMBERS_OF_COMMENT = count($comments);
 
       $this->updateView($product['view'], $id);
@@ -89,7 +92,11 @@
 
     public function searchProductsByNameAndDescription() {
       $searchMessage = $_POST['search-box'];
-      $wherePhrase = " WHERE name LIKE '%$searchMessage%' OR description LIKE '%$searchMessage%'";
+      $wherePhrase = 
+        " WHERE" . 
+          " (name LIKE '%$searchMessage%' OR" . 
+          " description LIKE '%$searchMessage%') AND" . 
+          " is_deleted = 0";
       $this->index(1, $wherePhrase);
     }
 
