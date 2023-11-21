@@ -9,4 +9,5 @@
   define("FORM_ADD_PRODUCT_ROUTE", "form-them-san-pham");
   define("ADD_PRODUCT_ROUTE", "them-san-pham");
   define("DELETE_PRODUCT_ROUTE", "xoa-san-pham");
+  define("HANDLE_ACTION_PRODUCTS_DELETED_ROUTE", "xu-ly-hanh-dong-trong-danh-sach-san-pham-da-xoa");
 ?>

@@ -9,4 +9,6 @@
    $routes['them-san-pham'] = 'admin/product/initAdd';
    $routes['tim-kiem-san-pham-da-xoa-phia-admin'] = 'admin/product/searchProductsDeletedByNameAndDescription';
    $routes['tim-kiem-san-pham-phia-admin'] = 'admin/product/searchProductsByNameAndDescription'; 
+   $routes['xu-ly-hanh-dong-trong-danh-sach-san-pham-da-xoa'] = 
+    'admin/product/handleActionInProductsDeleted';
 ?>
