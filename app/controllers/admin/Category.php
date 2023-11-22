@@ -1,9 +1,11 @@
 <?php 
   class Category extends Controller {
     private $__categoryModel;
+    private $__productModel;
 
     function __construct() {
       $this->__categoryModel = $this->getModel("CategoryModel");
+      $this->__productModel = $this->getModel("ProductModel");
     }
 
     public function index($currentPage, $wherePhrase = " WHERE is_deleted = 0") {
@@ -24,7 +26,7 @@
       ];
       $this->renderAdminLayout($this->_data);
     }
-// sửa danh mục
+    
     public function edit($id) {
       $category = $this->__categoryModel->selectOneRowById($id);
       $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/categories/edit';
@@ -45,12 +47,25 @@
       header("Location: " . EDIT_CATEGORY_ROUTE . $id);
     }
 
-    public function delete() {
+    public function styleProducts($categoryIds) {
+      $UNSTYLED_ID = '11';
+      $data = ['category_id' => $UNSTYLED_ID];
+      $DB = $this->__productModel->getDB();
+      $tableName = $this->__productModel->tableFill();
+      $condition = "id IN ($categoryIds)";
+      $DB->update($tableName, $data, $condition);
+    }
+
+    public function softDelete() {
+      $data = [
+        "is_deleted" => 1,
+      ];
       $ids = implode(", ", $_POST['id']);
       $DB = $this->__categoryModel->getDB();
       $tableName = $this->__categoryModel->tableFill();
       $condition = "id IN ($ids)";
-      $DB->delete($tableName, $condition);
+      $DB->update($tableName, $data, $condition);
+      $this->styleProducts($ids);
       header("Location: " . CATEGORY_ROUTE . "1");
     }
 
