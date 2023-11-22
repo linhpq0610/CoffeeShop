@@ -1,4 +1,5 @@
 <?php 
+  define("CATEGORY_DELETED_ROUTE", "danh-sach-loai-hang-da-xoa-trang-");
   define("CATEGORY_ROUTE", "loai-hang-trang-");
   define("SEARCH_CATEGORY_ROUTE", "tim-kiem-loai-hang");
   define("FORM_ADD_CATEGORY_ROUTE", "form-them-loai-hang");

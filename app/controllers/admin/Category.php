@@ -26,6 +26,25 @@
       ];
       $this->renderAdminLayout($this->_data);
     }
+
+    public function showCategoriesDeleted($currentPage, $wherePhrase = " WHERE is_deleted = 1") {
+      [$currentPage, $NUMBERS_OF_ROW, $condition] = 
+        $this->initPagination($currentPage, $wherePhrase, $this->__categoryModel);
+      [$prevPageBtn, $nextPageBtn] = 
+        $this->getBtnPagination($currentPage, $NUMBERS_OF_ROW, CATEGORY_DELETED_ROUTE);
+      $categories = $this->__categoryModel->selectRowsBy($condition);
+
+      $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/categories/categoriesDeleted';
+      $this->_data['pageTitle'] = 'Danh sách loại hàng đã xóa';
+      $this->_data["contentOfPage"] = [
+        'categories' => $categories,
+        'NUMBERS_OF_ROW' => $NUMBERS_OF_ROW,
+        'currentPage' => $currentPage,
+        'prevPageBtn' => $prevPageBtn,
+        'nextPageBtn' => $nextPageBtn,
+      ];
+      $this->renderAdminLayout($this->_data);
+    }
     
     public function edit($id) {
       $category = $this->__categoryModel->selectOneRowById($id);
