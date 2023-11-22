@@ -29,6 +29,7 @@
           <nav class="sb-sidenav-menu-nested nav">
             <a class="nav-link" href="<?=FORM_ADD_CATEGORY_ROUTE;?>">Thêm loại hàng</a>
             <a class="nav-link" href=<?=(CATEGORY_ROUTE . "1");?>>Danh sách loại hàng</a>
+            <a class="nav-link" href=<?=(CATEGORY_DELETED_ROUTE . "1");?>>Loại hàng đã xóa</a>
           </nav>
         </div>
 
