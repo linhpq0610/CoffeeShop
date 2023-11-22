@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 17, 2023 at 04:09 PM
+-- Generation Time: Nov 22, 2023 at 02:55 AM
 -- Server version: 8.0.31
 -- PHP Version: 7.4.33
 
@@ -40,7 +40,8 @@ CREATE TABLE `categories` (
 INSERT INTO `categories` (`id`, `name`, `is_deleted`) VALUES
 (4, 'Cà phê', 0),
 (5, 'Máy móc', 0),
-(6, 'Dụng cụ', 0);
+(6, 'Dụng cụ', 0),
+(11, 'Chưa phân loại', 0);
 
 -- --------------------------------------------------------
 
@@ -123,7 +124,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `price`, `sale`, `image`, `description`, `view`, `entered_date`, `is_deleted`, `category_id`) VALUES
-(3, 'Cà phê Arabica 250g', 250000, 10, 'arabica.png', 'Cà phê Arabica tinh khiết được trồng và chăm sóc tận tâm trên những thửa đất phủ đầy cỏ xanh tươi mát, nằm ẩn mình trong vùng nông thôn hữu cơ của chúng tôi. Những hạt cà phê Arabica này được lựa chọn tỉ mỉ, đảm bảo chất lượng và hương vị tốt nhất.\r\n\r\nChúng tôi tự hào giới thiệu một cốc cà phê độc đáo, thăng hoa vị ngon với hương thơm nồng nàn và vị đắng đặc trưng của Arabica. Sự tinh khiết của sản phẩm là kết quả của quy trình chế biến cẩn thận và đội ngũ nông dân tận tâm của chúng tôi. Đây không chỉ là một cốc cà phê, mà còn là một hành trình khám phá vị ngon và tận hưởng sự thư giãn trong từng ngụm.\r\n\r\nHãy đắm chìm trong thế giới hương vị độc đáo và hãy để cà phê Arabica tinh khiết từ chúng tôi đồng hành cùng bạn mỗi sáng. Một kỳ nghỉ đẳng cấp và trải nghiệm cà phê không giống ai đang chờ bạn.', 550, '2023-10-11 20:11:26', 0, 4),
+(3, 'Cà phê Arabica 250g', 250000, 10, 'arabica.png', 'Cà phê Arabica tinh khiết được trồng và chăm sóc tận tâm trên những thửa đất phủ đầy cỏ xanh tươi mát, nằm ẩn mình trong vùng nông thôn hữu cơ của chúng tôi. Những hạt cà phê Arabica này được lựa chọn tỉ mỉ, đảm bảo chất lượng và hương vị tốt nhất.\r\n\r\nChúng tôi tự hào giới thiệu một cốc cà phê độc đáo, thăng hoa vị ngon với hương thơm nồng nàn và vị đắng đặc trưng của Arabica. Sự tinh khiết của sản phẩm là kết quả của quy trình chế biến cẩn thận và đội ngũ nông dân tận tâm của chúng tôi. Đây không chỉ là một cốc cà phê, mà còn là một hành trình khám phá vị ngon và tận hưởng sự thư giãn trong từng ngụm.\r\n\r\nHãy đắm chìm trong thế giới hương vị độc đáo và hãy để cà phê Arabica tinh khiết từ chúng tôi đồng hành cùng bạn mỗi sáng. Một kỳ nghỉ đẳng cấp và trải nghiệm cà phê không giống ai đang chờ bạn.', 551, '2023-10-11 20:11:26', 0, 4),
 (4, 'Máy pha cà phê đơn giản', 1000000, 0, 'coffee-maker.png', 'Máy pha cà phê cho người yêu cà phê tại nhà\r\nLorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus omnis nesciunt adipisci vel voluptatem libero laborum, modi aperiam et corporis earum perspiciatis officiis placeat itaque. Fuga amet repellat itaque eaque!', 82, '2023-10-11 20:11:26', 0, 5),
 (5, 'Bộ ấm đun nước và pha cà phê', 1500000, 0, 'kettle-coffee.png', 'Bộ sản phẩm đa năng cho cà phê sáng tạo\r\nLorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus omnis nesciunt adipisci vel voluptatem libero laborum, modi aperiam et corporis earum perspiciatis officiis placeat itaque. Fuga amet repellat itaque eaque!', 100, '2023-10-11 20:11:26', 0, 5),
 (6, 'Cà Phê Rang Xay Nguyên Chất Flavor', 150000, 0, 'milk-coffee.png', 'Tây Nguyên Soul là đơn vị sản xuất & cung cấp cà phê chất lượng cao từ vùng đất Tây Nguyên. Mang đến trải nghiệm đáng giá về cà phê Việt Nam. Sản phẩm cà phê rang xay của Tây Nguyên Soul có nguồn gốc từ vùng trồng cà phê nổi tiếng chất lượng là Huyện CưM’Gar – Đăk Lăk và Cầu Đất – Lâm Đồng.\r\n\r\nCà Phê Rang Xay Nguyên Chất Flavor là dòng cà phê rang 100% cà phê Arabica mức rang vừa (medium). Vị ít đắng, hương thơm như trái cây và mật ong hòa quyện, clean (trong, sạch), hậu dịu, ngọt nhẹ tự nhiên. ', 156, '2023-10-11 20:11:26', 0, 4),
@@ -150,7 +151,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `password`, `image`, `email`, `is_admin`, `is_deleted`) VALUES
-(28, 'Nguyen Van C1', '12345678', 'person_2.jpg', 'cnv@gmail.com', 1, 1),
+(28, 'Nguyen Van C1', '12345678', 'person_2.jpg', 'cnv@gmail.com', 1, 0),
 (32, 'Nguyen Van G', '12345678', 'person_1.jpg', 'gnv@gmail.com', 0, 0),
 (34, 'Nguyen Van I', '12345678', 'person_3.jpg', 'inv@gmail.com', 0, 1),
 (35, 'Nguyen Van J', '12345678', 'person_4.jpg', 'jnv@gmail.com', 0, 0),
@@ -212,7 +213,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `comments`
