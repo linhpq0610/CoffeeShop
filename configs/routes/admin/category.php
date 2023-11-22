@@ -6,5 +6,6 @@
   $routes['chinh-sua-loai-hang-(\d+)'] = 'admin/category/edit/$1';
   $routes['form-them-loai-hang'] = 'admin/category/showFormAddCategory';
   $routes['them-loai-hang'] = 'admin/category/initAdd';
+  $routes['tim-kiem-loai-hang-da-xoa'] = 'admin/category/searchCategoriesDeletedByName';
   $routes['tim-kiem-loai-hang'] = 'admin/category/searchCategoriesByName';
 ?>

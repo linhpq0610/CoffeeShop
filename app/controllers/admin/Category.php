@@ -117,5 +117,14 @@
           " is_deleted = 0";
       $this->index(1, $wherePhrase);
     }
+
+    public function searchCategoriesDeletedByName() {
+      $searchMessage = $_POST['search-box'];
+      $wherePhrase = 
+        " WHERE" . 
+          " name LIKE '%$searchMessage%' AND" . 
+          " is_deleted = 1";
+      $this->showCategoriesDeleted(1, $wherePhrase);
+    }
   }
 ?>
