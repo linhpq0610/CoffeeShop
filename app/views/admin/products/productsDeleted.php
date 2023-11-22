@@ -100,7 +100,7 @@
                   <i class="fas fa-undo text-secondary"></i>
                 </label>
                 
-                <label for="delete" class="delete <?= ($is_admin ? "delete-icon-disabled" : ""); ?>" data-bs-toggle="modal" data-bs-target="#deleteEmployeeModal" id="delete-btn" onclick="handleSingleRestore.start(<?=$id;?>)" onclick="handleSingleDelete.start(<?=$id;?>)" style="cursor: pointer">
+                <label for="delete" class="delete <?= ($is_admin ? "delete-icon-disabled" : ""); ?>" data-bs-toggle="modal" data-bs-target="#deleteEmployeeModal" id="delete-btn" onclick="handleSingleDelete.start(<?=$id;?>)" style="cursor: pointer">
                   <i class="fa fa-trash text-danger"></i>
                 </label>
               </div>
