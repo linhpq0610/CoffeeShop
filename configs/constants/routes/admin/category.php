@@ -8,4 +8,5 @@
   define("EDIT_CATEGORY_ROUTE", "chinh-sua-loai-hang-");
   define("UPDATE_CATEGORY_ROUTE", "cap-nhat-loai-hang-");
   define("DELETE_CATEGORY_ROUTE", "xoa-loai-hang");
+  define("HANDLE_ACTION_CATEGORIES_DELETED_ROUTE", "xu-ly-hanh-dong-trong-danh-sach-loai-hang-da-xoa");
 ?>

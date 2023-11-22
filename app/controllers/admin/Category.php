@@ -126,5 +126,35 @@
           " is_deleted = 1";
       $this->showCategoriesDeleted(1, $wherePhrase);
     }
+
+    public function restore() {
+      $data = [
+        "is_deleted" => 0,
+      ];
+      $ids = implode(", ", $_POST['id']);
+      $DB = $this->__categoryModel->getDB();
+      $tableName = $this->__categoryModel->tableFill();
+      $condition = "id IN ($ids)";
+      $DB->update($tableName, $data, $condition);
+      header("Location: " . CATEGORY_DELETED_ROUTE . "1");
+    }
+    
+    public function hardDelete() {
+      $ids = implode(", ", $_POST['id']);
+      $DB = $this->__categoryModel->getDB();
+      $tableName = $this->__categoryModel->tableFill();
+      $condition = "id IN ($ids)";
+      $DB->delete($tableName, $condition);
+      header("Location: " . CATEGORY_DELETED_ROUTE . "1");
+    }
+
+    public function handleActionInCategoriesDeleted() {
+      if ($_POST['action'] == 'restore') {
+        $this->restore();
+        die();
+      }
+
+      $this->hardDelete();
+    }
   }
 ?>

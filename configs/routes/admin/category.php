@@ -8,4 +8,5 @@
   $routes['them-loai-hang'] = 'admin/category/initAdd';
   $routes['tim-kiem-loai-hang-da-xoa'] = 'admin/category/searchCategoriesDeletedByName';
   $routes['tim-kiem-loai-hang'] = 'admin/category/searchCategoriesByName';
+  $routes['xu-ly-hanh-dong-trong-danh-sach-loai-hang-da-xoa'] = 'admin/category/handleActionInCategoriesDeleted';
 ?>
