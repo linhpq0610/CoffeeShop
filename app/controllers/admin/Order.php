@@ -24,5 +24,16 @@
       ];
       $this->renderAdminLayout($this->_data);
     }
+
+    public function searchOrdersByTotalAndDate() {
+      $searchMessage = $_POST['search-box'];
+      $wherePhrase = 
+        " WHERE" . 
+          " total LIKE '%$searchMessage%' OR " . 
+          " created_at LIKE '%$searchMessage%' OR" . 
+          " updated_at LIKE '%$searchMessage%' AND" .
+          " is_deleted = 0";
+      $this->index(1, $wherePhrase);
+    }
   }
 ?>

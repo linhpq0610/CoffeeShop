@@ -4,7 +4,7 @@
   <div class="table-title border-bottom pb-3">
     <div class="row">
       <div class="col-sm-4">
-        <form class="search-box" method="post" action="<?=SEARCH_ADMIN_PRODUCT_ROUTE_ADMIN_SIDE;?>">
+        <form class="search-box" method="post" action="<?=SEARCH_ORDERS_ROUTE;?>">
           <input 
             type="text" 
             class="form-control" 
