@@ -1,11 +1,11 @@
 <?php
-  class ProductModel extends Model {
+  class OrderModel extends Model {
     public function tableFill() {
       return 'orders';
     }
 
     public function fieldsFill() {
-      return 'total, updated_at, is_purchased, user_id';
+      return 'id, total, created_at, updated_at, is_purchased, user_id';
     }
   }
 ?>

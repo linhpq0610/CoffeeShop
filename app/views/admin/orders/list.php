@@ -52,10 +52,10 @@
         </tr>
       </thead>
       <tbody>
-        <!-- <?php 
+        <?php 
           $orderNumber = 1;
-          foreach ($products as $product):
-            extract($product);
+          foreach ($orders as $order):
+            extract($order);
         ?>
           <tr class="border-bottom">
             <td>
@@ -72,31 +72,27 @@
               <div class="p-2"><?=$orderNumber++;?></div>
             </td>
             <td>
-              <div class="p-2 d-flex flex-row align-items-center mb-2">
-                <img
-                  src="<?=(IMAGES_URL . "/" . $image);?>"
-                  width="40"
-                  class="me-3 rounded-circle"
-                />
-                <div class="d-flex flex-column ml-2">
-                  <span class="d-block font-weight-bold"><?=$name;?></span>
-                  <small class="text-muted text-truncate" style="width: 250px;"><?=$description;?></small>
-                </div>
+              <div class="p-2"><?=($this->formatNumber($total));?>₫</div>
+            </td>
+            <td>
+              <div class="p-2"><?=$created_at;?></div>
+            </td>
+            <td>
+              <div class="p-2 d-flex flex-column"><?=$updated_at;?></div>
+            </td>
+            <td>
+              <div class="p-2">
+                <?php if ($is_purchased) { ?>
+                  <span class="status text-success">&bull;</span> Đã thanh toán</td>
+                <?php } else {?>
+                  <span class="status text-warning">&bull;</span> Chưa thanh toán</td>
+                <?php } ?>
               </div>
             </td>
             <td>
-              <div class="p-2"><?=($this->formatNumber($price));?>₫</div>
-            </td>
-            <td>
-              <div class="p-2 d-flex flex-column"><?=$view;?></div>
-            </td>
-            <td>
               <div class="p-2 icons">
-                <a href="<?=(PRODUCT_INFO_ROUTE . $id);?>" class="edit text-decoration-none">
+                <a href="<?=(USER_INFO_ROUTE . $id);?>" class="edit text-decoration-none mx-3">
                   <i class="fas fa-info"></i>
-                </a>
-                <a href="<?=(EDIT_PRODUCT_ROUTE . $id);?>" class="edit text-decoration-none">
-                  <i class="fas fa-pen text-warning mx-2"></i>
                 </a>
                 <a 
                   href="#deleteEmployeeModal" 
@@ -111,7 +107,7 @@
               </div>
             </td>
           </tr>
-        <?php endforeach; ?> -->
+        <?php endforeach; ?>
       </tbody>
     </table>
 
@@ -122,7 +118,7 @@
 </div>
 
 <?php 
-//   require_once ADMIN_COMPONENTS_DIR . "/pagination.php";
+  require_once ADMIN_COMPONENTS_DIR . "/pagination.php";
 ?>
   
 <script src="<?=FEATURES_URL?>/handleSingleDelete.js"></script>
