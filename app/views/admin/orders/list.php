@@ -35,10 +35,10 @@
             <span class="ml-1">STT</span>
           </th>
           <th>
-            <span class="ml-2">Tổng</span>
+            <span class="ml-2">Người mua</span>
           </th>
           <th>
-            <span class="ml-2">Ngày tạo</span>
+            <span class="ml-2">Tổng</span>
           </th>
           <th>
             <span class="ml-2">Ngày thay đổi</span>
@@ -72,10 +72,20 @@
               <div class="p-2"><?=$orderNumber++;?></div>
             </td>
             <td>
-              <div class="p-2"><?=($this->formatNumber($total));?>₫</div>
+              <a href="<?=(USER_INFO_ROUTE . $user_id);?>" class="p-2 d-flex flex-row align-items-center mb-2 text-decoration-none text-reset">
+                <img
+                  src="<?=(IMAGES_URL . "/" . $image);?>"
+                  width="40"
+                  class="me-3 rounded-circle"
+                />
+                <div class="d-flex flex-column ml-2">
+                  <span class="d-block font-weight-bold"><?=$name;?></span>
+                  <small class="text-muted"><?=$email;?></small>
+                </div>
+              </a>
             </td>
             <td>
-              <div class="p-2"><?=$created_at;?></div>
+              <div class="p-2"><?=($this->formatNumber($total));?>₫</div>
             </td>
             <td>
               <div class="p-2 d-flex flex-column"><?=$updated_at;?></div>

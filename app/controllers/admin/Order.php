@@ -11,7 +11,9 @@
         $this->initPagination($currentPage, $wherePhrase, $this->__orderModel);
       [$prevPageBtn, $nextPageBtn] = 
         $this->getBtnPagination($currentPage, $NUMBERS_OF_ROW, ADMIN_PRODUCT_ROUTE);
-      $orders = $this->__orderModel->selectRowsBy($condition);
+      $pos = strpos($condition, 'is_deleted');
+      $condition = substr($condition, 0, $pos) . 'o.' . substr($condition, $pos);
+      $orders = $this->__orderModel->getOrder($condition);
 
       $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/orders/list';
       $this->_data['pageTitle'] = 'Danh sách đơn hàng';
