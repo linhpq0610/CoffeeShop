@@ -19,5 +19,17 @@
         $condition;
       return $this->_db->selectRows($sql); 
     }
+
+    public function getOrderDetail($id) {
+      $sql = 
+        "SELECT" . 
+          " p.image, p.name, p.description," . 
+          " o.price, o.quantity, o.product_id" . 
+        " FROM order_detail o" . 
+        " JOIN products p" . 
+        " ON p.id = o.product_id" . 
+        " WHERE o.order_id = $id";
+      return $this->_db->selectRows($sql);
+    }
   }
 ?>

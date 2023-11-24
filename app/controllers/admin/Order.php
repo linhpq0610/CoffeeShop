@@ -27,6 +27,17 @@
       $this->renderAdminLayout($this->_data);
     }
 
+    public function detail($id, $currentPage, $wherePhrase = '') {
+      $ordersDetail = $this->__orderModel->getOrderDetail($id);
+
+      $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/orders/detail';
+      $this->_data['pageTitle'] = 'Chi tiết đơn hàng';
+      $this->_data["contentOfPage"] = [
+        'ordersDetail' => $ordersDetail,
+      ];
+      $this->renderAdminLayout($this->_data);
+    }
+
     public function searchOrdersByTotalAndDate() {
       $searchMessage = $_POST['search-box'];
       $wherePhrase = 

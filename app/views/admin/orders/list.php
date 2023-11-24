@@ -101,7 +101,7 @@
             </td>
             <td>
               <div class="p-2 icons">
-                <a href="<?=(USER_INFO_ROUTE . $id);?>" class="edit text-decoration-none mx-3">
+                <a href="<?=(ORDER_DETAIL_ROUTE . $id . '-trang-1');?>" class="edit text-decoration-none mx-3">
                   <i class="fas fa-info"></i>
                 </a>
                 <a 
