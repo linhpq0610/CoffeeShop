@@ -175,6 +175,12 @@
       $this->showComments($productId, "1", $wherePhrase);
     }
 
+    public function searchCommentsDeletedInProduct($productId) {
+      $searchMessage = $_POST['search-box'];
+      $wherePhrase = " AND content LIKE '%$searchMessage%'";
+      $this->showCommentsDeletedInProduct($productId, "1", $wherePhrase);
+    }
+
     public function softDeleteCommentInProduct($productId) {
       $data = [
         "is_deleted" => 1,

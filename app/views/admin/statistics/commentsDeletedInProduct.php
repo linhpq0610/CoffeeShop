@@ -7,7 +7,7 @@
   <div class="table-title border-bottom pb-3">
     <div class="row">
       <div class="col-sm-4">
-        <form class="search-box" method="post" action="<?=(SEARCH_COMMENTS_IN_PRODUCT_ROUTE . $productId);?>">
+        <form class="search-box" method="post" action="<?=(SEARCH_COMMENTS_DELETED_IN_PRODUCT_ROUTE . $productId);?>">
           <input 
             type="text" 
             class="form-control" 
