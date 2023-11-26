@@ -1,7 +1,7 @@
 <?php 
   require_once ADMIN_COMPONENTS_DIR . "/backBtn.php";
 ?>
-<h4 class="mt-2">Danh sách bình luận</h4>
+<h4>Danh sách bình luận đã xóa</h4>
 
 <div class="mt-3">
   <div class="table-title border-bottom pb-3">
@@ -97,16 +97,13 @@
             </td>
             <td>
               <div class="p-2 icons">
-                <a 
-                  href="#deleteEmployeeModal" 
-                  class="delete" 
-                  data-bs-toggle="modal" 
-                  data-bs-original-title="Delete" 
-                  data-bs-toggle="tooltip"
-onclick="handleSingleDelete.start(<?=$id;?>)"
-                >
+                <label for="restore" class="restore mx-2" data-bs-toggle="modal" data-bs-target="#restoreEmployeeModal" id="restore-btn" onclick="handleSingleRestore.start(<?= $id; ?>)" style="cursor: pointer">
+                  <i class="fas fa-undo text-secondary"></i>
+                </label>
+                
+                <label for="delete" class="delete <?= ($is_admin ? "delete-icon-disabled" : ""); ?>" data-bs-toggle="modal" data-bs-target="#deleteEmployeeModal" id="delete-btn" onclick="handleSingleDelete.start(<?= $id; ?>)" style="cursor: pointer">
                   <i class="fa fa-trash text-danger"></i>
-                </a>
+                </label>
               </div>
             </td>
           </tr>
@@ -115,24 +112,28 @@ onclick="handleSingleDelete.start(<?=$id;?>)"
     </table>
 
     <?php require_once ADMIN_COMPONENTS_DIR . "/deleteModal.php"; ?>
+    <?php require_once ADMIN_COMPONENTS_DIR . "/restoreModal.php"; ?>
     <?php require_once ADMIN_COMPONENTS_DIR . "/commentModal.php"; ?>
   </form>
 </div>
 
 <?php require_once ADMIN_COMPONENTS_DIR . "/pagination.php"; ?>
 
-<script src="<?=FEATURES_URL?>/handleSingleDelete.js"></script>
-<script src="<?=FEATURES_URL?>/handleCheckboxes.js"></script>
+<script src="<?= FEATURES_URL ?>/handleSingleDelete.js"></script>
+<script src="<?= FEATURES_URL ?>/handleCheckboxes.js"></script>
+<script src="<?= FEATURES_URL ?>/handleSingleRestore.js"></script>
 <script src="<?=FEATURES_URL?>/getCommentContent.js"></script>
 
 <script>
   handleCheckboxes.setCheckboxAllElement("#checkbox-all");
   handleCheckboxes.setCheckboxElements("input[name='id[]']");
   handleCheckboxes.setDeleteBtn("#delete-btn");
+  handleCheckboxes.setDeleteBtn("#restore-btn");
   handleCheckboxes.start();
 
   handleSingleDelete.setDeleteModal("#deleteEmployeeModal");
   handleSingleDelete.setDeleteModalDialog(".modal-dialog.modal-dialog-centered");
-
+  handleSingleRestore.setRestoreModal("#restoreEmployeeModal");
+  handleSingleRestore.setRestoreModalDialog(".modal-dialog.modal-dialog-centered");
   getCommentContent.setCommentModalBody("#commentContentModal .modal-body p");
 </script>

@@ -73,6 +73,40 @@
       $this->renderAdminLayout($this->_data);
     }
 
+    public function showCommentsDeletedInProduct($productId, $currentPage, $wherePhrase = '') {
+      [, , $condition] = 
+        $this->initPagination($currentPage, $wherePhrase, $this->__commentModel);
+
+      $NUMBERS_OF_ROW = 
+        ceil(
+          $this->__commentModel->getCountOfCommentsInProduct($productId, $wherePhrase) / 
+          $this->_ROWS_PER_PAGE
+        );
+      $currentPage = $this->getCurrentPage($currentPage, $NUMBERS_OF_ROW);
+
+      [$prevPageBtn, $nextPageBtn] = 
+        $this->getBtnPagination(
+          $currentPage,
+          $NUMBERS_OF_ROW,
+          COMMENTS_DELETED_ROUTE . $productId . "-trang-"
+        );
+      
+      $condition = ' AND c.is_deleted = 1 ' . $condition;
+      $comments = $this->__commentModel->getComments($productId, $condition);
+
+      $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/statistics/commentsDeletedInProduct';
+      $this->_data['pageTitle'] = 'Danh sách bình luận đã xóa';
+      $this->_data["contentOfPage"] = [
+        "productId" => $productId,
+        "comments" => $comments,
+        'NUMBERS_OF_ROW' => $NUMBERS_OF_ROW,
+        'currentPage' => $currentPage,
+        'prevPageBtn' => $prevPageBtn,
+        'nextPageBtn' => $nextPageBtn,
+      ];
+      $this->renderAdminLayout($this->_data);
+    }
+
     public function showProductChart() {
       $dataForProductChart = $this->__productModel->getDataForProductChart();
 
