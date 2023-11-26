@@ -40,9 +40,8 @@
                   </div>
                   <hr class="my-1">
                   <?php
-                    for ($i = 0; $i < count($categories); $i++) {
-                      extract($categories[$i]);
-                      extract($countOfProducts[$i]);
+                    foreach ($categories as $category):
+                      extract($category);
                   ?>
                     <div class="form-check">
                       <input 
@@ -61,7 +60,7 @@
                       </span>
                     </div>
                   <?php 
-                    }
+                    endforeach;
                   ?>
                   <p class="field-message mb-0"></p>
                 </div>
