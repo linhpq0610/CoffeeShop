@@ -22,7 +22,8 @@
     public function statisticComments($condition) {
       $sql = 
         "SELECT " . 
-          "p.id, p.name, c.product_id, COUNT(c.id) as countOfComment, " . 
+          "p.id, p.name, p.image, p.description," . 
+          "c.product_id, COUNT(c.id) as countOfComment, " . 
           "COUNT(c.product_id) AS NUMBERS_OF_COMMENT, " .
           "MAX(c.commented_date) AS NEWEST_DATE, " . 
           "MIN(c.commented_date) AS OLDEST_DATE" .
