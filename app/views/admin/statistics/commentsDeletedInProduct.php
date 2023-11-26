@@ -18,17 +18,16 @@
         </form>
       </div>
       <div class="col-sm-8 text-sm-end text-center mt-sm-0 mt-3">
-        <a href="<?= (COMMENTS_DELETED_ROUTE . $productId . '-trang-1'); ?>" class="btn btn-secondary me-lg-2">
-          <i class="fas fa-list"></i> <span>Bình luận đã xóa</span>
-        </a>
-        <a href="#deleteEmployeeModal" class="btn btn-danger disabled" data-bs-toggle="modal" id="delete-btn">
+        <label for="delete" class="btn btn-danger disabled" data-bs-toggle="modal" data-bs-target="#deleteEmployeeModal" id="delete-btn">
           <i class="fas fa-minus-circle"></i> <span>Xóa bình luận</span>
-        </a>
+        </label>
       </div>
     </div>
   </div>
 
-  <form action="<?=(DELETE_COMMENTS_IN_PRODUCT_ROUTE . $productId);?>" method="post">
+  <form action="<?=(HANDLE_ACTION_COMMENTS_DELETED_ROUTE . $productId);?>" method="post">
+    <input type="radio" hidden name="action" id="restore" value="restore" />
+    <input type="radio" hidden name="action" id="delete" value="delete" />
     <table class="table table-borderless table-responsive card-1">
       <thead>
         <tr class="border-bottom">

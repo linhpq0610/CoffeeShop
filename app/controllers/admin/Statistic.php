@@ -107,6 +107,36 @@
       $this->renderAdminLayout($this->_data);
     }
 
+    public function restore($productId) {
+      $data = [
+        "is_deleted" => 0,
+      ];
+      $ids = implode(", ", $_POST['id']);
+      $DB = $this->__commentModel->getDB();
+      $tableName = $this->__commentModel->tableFill();
+      $condition = "product_id = $productId AND id IN ($ids)";
+      $DB->update($tableName, $data, $condition);
+      header("Location: " . COMMENTS_DELETED_ROUTE . $productId . "-trang-1");
+    }
+    
+    public function hardDelete($productId) {
+      $ids = implode(", ", $_POST['id']);
+      $DB = $this->__commentModel->getDB();
+      $tableName = $this->__commentModel->tableFill();
+      $condition = "product_id = $productId AND id IN ($ids)";
+      $DB->delete($tableName, $condition);
+      header("Location: " . COMMENTS_DELETED_ROUTE . $productId . "-trang-1");
+    }
+
+    public function handleActionInCommentsDeleted($productId) {
+      if ($_POST['action'] == 'restore') {
+        $this->restore($productId);
+        die();
+      }
+
+      $this->hardDelete($productId);
+    }
+
     public function showProductChart() {
       $dataForProductChart = $this->__productModel->getDataForProductChart();
 

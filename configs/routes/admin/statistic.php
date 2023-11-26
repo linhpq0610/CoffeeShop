@@ -9,4 +9,6 @@
     'admin/statistic/searchCommentsInProduct/$1';
   $routes['xoa-binh-luan-trong-san-pham-(\d+)'] = 'admin/statistic/softDeleteCommentInProduct/$1';
   $routes['xem-bieu-do-san-pham'] = 'admin/statistic/showProductChart';
+  $routes['xu-ly-hanh-dong-trong-danh-sach-binh-luan-da-xoa-cua-san-pham-(\d+)'] = 
+    'admin/statistic/handleActionInCommentsDeleted/$1';
 ?>
