@@ -111,12 +111,15 @@
       $this->showComments($productId, "1", $wherePhrase);
     }
 
-    public function deleteCommentInProduct($productId) {
+    public function softDeleteCommentInProduct($productId) {
+      $data = [
+        "is_deleted" => 1,
+      ];
       $ids = implode(", ", $_POST['id']);
       $DB = $this->__commentModel->getDB();
       $tableName = $this->__commentModel->tableFill();
       $condition = "product_id = $productId AND id IN ($ids)";
-      $DB->delete($tableName, $condition);
+      $DB->update($tableName, $data, $condition);
       header("Location: " . COMMENTS_ROUTE . $productId . "-trang-1");
     }
   }
