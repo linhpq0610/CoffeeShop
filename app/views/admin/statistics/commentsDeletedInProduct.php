@@ -1,13 +1,13 @@
 <?php 
   require_once ADMIN_COMPONENTS_DIR . "/backBtn.php";
 ?>
-<h4 class="mt-2">Danh sách bình luận</h4>
+<h4>Danh sách bình luận đã xóa</h4>
 
 <div class="mt-3">
   <div class="table-title border-bottom pb-3">
     <div class="row">
       <div class="col-sm-4">
-        <form class="search-box" method="post" action="<?=(SEARCH_COMMENTS_IN_PRODUCT_ROUTE . $productId);?>">
+        <form class="search-box" method="post" action="<?=(SEARCH_COMMENTS_DELETED_IN_PRODUCT_ROUTE . $productId);?>">
           <input 
             type="text" 
             class="form-control" 
@@ -18,17 +18,16 @@
         </form>
       </div>
       <div class="col-sm-8 text-sm-end text-center mt-sm-0 mt-3">
-        <a href="<?= (COMMENTS_DELETED_ROUTE . $productId . '-trang-1'); ?>" class="btn btn-secondary me-lg-2">
-          <i class="fas fa-list"></i> <span>Bình luận đã xóa</span>
-        </a>
-        <a href="#deleteEmployeeModal" class="btn btn-danger disabled" data-bs-toggle="modal" id="delete-btn">
+        <label for="delete" class="btn btn-danger disabled" data-bs-toggle="modal" data-bs-target="#deleteEmployeeModal" id="delete-btn">
           <i class="fas fa-minus-circle"></i> <span>Xóa bình luận</span>
-        </a>
+        </label>
       </div>
     </div>
   </div>
 
-  <form action="<?=(DELETE_COMMENTS_IN_PRODUCT_ROUTE . $productId);?>" method="post">
+  <form action="<?=(HANDLE_ACTION_COMMENTS_DELETED_ROUTE . $productId);?>" method="post">
+    <input type="radio" hidden name="action" id="restore" value="restore" />
+    <input type="radio" hidden name="action" id="delete" value="delete" />
     <table class="table table-borderless table-responsive card-1">
       <thead>
         <tr class="border-bottom">
@@ -97,16 +96,13 @@
             </td>
             <td>
               <div class="p-2 icons">
-                <a 
-                  href="#deleteEmployeeModal" 
-                  class="delete" 
-                  data-bs-toggle="modal" 
-                  data-bs-original-title="Delete" 
-                  data-bs-toggle="tooltip"
-onclick="handleSingleDelete.start(<?=$id;?>)"
-                >
+                <label for="restore" class="restore mx-2" data-bs-toggle="modal" data-bs-target="#restoreEmployeeModal" id="restore-btn" onclick="handleSingleRestore.start(<?= $id; ?>)" style="cursor: pointer">
+                  <i class="fas fa-undo text-secondary"></i>
+                </label>
+                
+                <label for="delete" class="delete <?= ($is_admin ? "delete-icon-disabled" : ""); ?>" data-bs-toggle="modal" data-bs-target="#deleteEmployeeModal" id="delete-btn" onclick="handleSingleDelete.start(<?= $id; ?>)" style="cursor: pointer">
                   <i class="fa fa-trash text-danger"></i>
-                </a>
+                </label>
               </div>
             </td>
           </tr>
@@ -115,24 +111,28 @@ onclick="handleSingleDelete.start(<?=$id;?>)"
     </table>
 
     <?php require_once ADMIN_COMPONENTS_DIR . "/deleteModal.php"; ?>
+    <?php require_once ADMIN_COMPONENTS_DIR . "/restoreModal.php"; ?>
     <?php require_once ADMIN_COMPONENTS_DIR . "/commentModal.php"; ?>
   </form>
 </div>
 
 <?php require_once ADMIN_COMPONENTS_DIR . "/pagination.php"; ?>
 
-<script src="<?=FEATURES_URL?>/handleSingleDelete.js"></script>
-<script src="<?=FEATURES_URL?>/handleCheckboxes.js"></script>
+<script src="<?= FEATURES_URL ?>/handleSingleDelete.js"></script>
+<script src="<?= FEATURES_URL ?>/handleCheckboxes.js"></script>
+<script src="<?= FEATURES_URL ?>/handleSingleRestore.js"></script>
 <script src="<?=FEATURES_URL?>/getCommentContent.js"></script>
 
 <script>
   handleCheckboxes.setCheckboxAllElement("#checkbox-all");
   handleCheckboxes.setCheckboxElements("input[name='id[]']");
   handleCheckboxes.setDeleteBtn("#delete-btn");
+  handleCheckboxes.setDeleteBtn("#restore-btn");
   handleCheckboxes.start();
 
   handleSingleDelete.setDeleteModal("#deleteEmployeeModal");
   handleSingleDelete.setDeleteModalDialog(".modal-dialog.modal-dialog-centered");
-
+  handleSingleRestore.setRestoreModal("#restoreEmployeeModal");
+  handleSingleRestore.setRestoreModalDialog(".modal-dialog.modal-dialog-centered");
   getCommentContent.setCommentModalBody("#commentContentModal .modal-body p");
 </script>

@@ -59,8 +59,9 @@
     }
 
     public function edit($id) {
+      $condition = ' WHERE is_deleted = 0';
+      $categories = $this->__categoryModel->selectRowsBy($condition);
       $product = $this->__productModel->selectOneRowById($id);
-      $categories = $this->__categoryModel->selectAllRows();
 
       $product['categories'] = $categories;
       $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/products/edit';
@@ -108,7 +109,8 @@
     }
 
     public function showFormAddProduct() {
-      $categories = $this->__categoryModel->selectAllRows();
+      $condition = ' WHERE is_deleted = 0';
+      $categories = $this->__categoryModel->selectRowsBy($condition);
 
       $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/products/add';
       $this->_data['pageTitle'] = 'Thêm sản phẩm';

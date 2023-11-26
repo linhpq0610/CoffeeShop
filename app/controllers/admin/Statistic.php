@@ -73,6 +73,70 @@
       $this->renderAdminLayout($this->_data);
     }
 
+    public function showCommentsDeletedInProduct($productId, $currentPage, $wherePhrase = '') {
+      [, , $condition] = 
+        $this->initPagination($currentPage, $wherePhrase, $this->__commentModel);
+
+      $NUMBERS_OF_ROW = 
+        ceil(
+          $this->__commentModel->getCountOfCommentsInProduct($productId, $wherePhrase) / 
+          $this->_ROWS_PER_PAGE
+        );
+      $currentPage = $this->getCurrentPage($currentPage, $NUMBERS_OF_ROW);
+
+      [$prevPageBtn, $nextPageBtn] = 
+        $this->getBtnPagination(
+          $currentPage,
+          $NUMBERS_OF_ROW,
+          COMMENTS_DELETED_ROUTE . $productId . "-trang-"
+        );
+      
+      $condition = ' AND c.is_deleted = 1 ' . $condition;
+      $comments = $this->__commentModel->getComments($productId, $condition);
+
+      $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/statistics/commentsDeletedInProduct';
+      $this->_data['pageTitle'] = 'Danh sách bình luận đã xóa';
+      $this->_data["contentOfPage"] = [
+        "productId" => $productId,
+        "comments" => $comments,
+        'NUMBERS_OF_ROW' => $NUMBERS_OF_ROW,
+        'currentPage' => $currentPage,
+        'prevPageBtn' => $prevPageBtn,
+        'nextPageBtn' => $nextPageBtn,
+      ];
+      $this->renderAdminLayout($this->_data);
+    }
+
+    public function restore($productId) {
+      $data = [
+        "is_deleted" => 0,
+      ];
+      $ids = implode(", ", $_POST['id']);
+      $DB = $this->__commentModel->getDB();
+      $tableName = $this->__commentModel->tableFill();
+      $condition = "product_id = $productId AND id IN ($ids)";
+      $DB->update($tableName, $data, $condition);
+      header("Location: " . COMMENTS_DELETED_ROUTE . $productId . "-trang-1");
+    }
+    
+    public function hardDelete($productId) {
+      $ids = implode(", ", $_POST['id']);
+      $DB = $this->__commentModel->getDB();
+      $tableName = $this->__commentModel->tableFill();
+      $condition = "product_id = $productId AND id IN ($ids)";
+      $DB->delete($tableName, $condition);
+      header("Location: " . COMMENTS_DELETED_ROUTE . $productId . "-trang-1");
+    }
+
+    public function handleActionInCommentsDeleted($productId) {
+      if ($_POST['action'] == 'restore') {
+        $this->restore($productId);
+        die();
+      }
+
+      $this->hardDelete($productId);
+    }
+
     public function showProductChart() {
       $dataForProductChart = $this->__productModel->getDataForProductChart();
 
@@ -111,12 +175,21 @@
       $this->showComments($productId, "1", $wherePhrase);
     }
 
-    public function deleteCommentInProduct($productId) {
+    public function searchCommentsDeletedInProduct($productId) {
+      $searchMessage = $_POST['search-box'];
+      $wherePhrase = " AND content LIKE '%$searchMessage%'";
+      $this->showCommentsDeletedInProduct($productId, "1", $wherePhrase);
+    }
+
+    public function softDeleteCommentInProduct($productId) {
+      $data = [
+        "is_deleted" => 1,
+      ];
       $ids = implode(", ", $_POST['id']);
       $DB = $this->__commentModel->getDB();
       $tableName = $this->__commentModel->tableFill();
       $condition = "product_id = $productId AND id IN ($ids)";
-      $DB->delete($tableName, $condition);
+      $DB->update($tableName, $data, $condition);
       header("Location: " . COMMENTS_ROUTE . $productId . "-trang-1");
     }
   }
