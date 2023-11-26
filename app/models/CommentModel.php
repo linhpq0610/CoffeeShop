@@ -10,10 +10,10 @@
 
     public function getComments($productId, $condition = '') {
       $sql = 
-        "SELECT c.*, cus.name user_name, cus.image" .
+        "SELECT c.*, u.name user_name, u.image, u.email" .
         " FROM comments c" .
-        " JOIN users cus" .
-        " ON cus.id = c.user_id" .
+        " JOIN users u" .
+        " ON u.id = c.user_id" .
         " WHERE c.product_id = $productId" . 
         $condition;
       return $this->_db->selectRows($sql);
@@ -22,7 +22,8 @@
     public function statisticComments($condition) {
       $sql = 
         "SELECT " . 
-          "p.id, p.name, c.product_id, COUNT(c.id) as countOfComment, " . 
+          "p.id, p.name, p.image, p.description," . 
+          "c.product_id, COUNT(c.id) as countOfComment, " . 
           "COUNT(c.product_id) AS NUMBERS_OF_COMMENT, " .
           "MAX(c.commented_date) AS NEWEST_DATE, " . 
           "MIN(c.commented_date) AS OLDEST_DATE" .
