@@ -1,7 +1,7 @@
 <?php 
   require_once ADMIN_COMPONENTS_DIR . "/backBtn.php";
 ?>
-<h4 class="mt-2">Thống kê bình luận</h4>
+<h4 class="mt-2">Danh sách bình luận</h4>
 
 <div class="mt-3">
   <div class="table-title border-bottom pb-3">
@@ -38,13 +38,13 @@
             <span class="ml-1">STT</span>
           </th>
           <th>
+            <span class="ml-2">Khách hàng</span>
+          </th>
+          <th>
             <span class="ml-2">Nội dung</span>
           </th>
           <th>
             <span class="ml-2">Ngày bình luận</span>
-          </th>
-          <th>
-            <span class="ml-2">Khách hàng</span>
           </th>
           <th>
             <span class="ml-4">Hành động</span>
@@ -72,15 +72,25 @@
               <div class="p-2"><?=$orderNumber++;?></div>
             </td>
             <td>
-              <div class="p-2 d-flex flex-row align-items-center mb-2">
-                <span class="d-block font-weight-bold text-truncate" style="width: 300px"><?=$content;?></span>
+              <a href="<?=(USER_INFO_ROUTE . $user_id);?>" class="p-2 d-flex flex-row align-items-center mb-2 text-decoration-none text-reset">
+                <img
+                  src="<?=(IMAGES_URL . "/" . $image);?>"
+                  width="40"
+                  class="me-3 rounded-circle"
+                />
+                <div class="d-flex flex-column ml-2">
+                  <span class="d-block font-weight-bold"><?=$user_name;?></span>
+                  <small class="text-muted"><?=$email;?></small>
+                </div>
+              </a>
+            </td>
+            <td>
+              <div class="p-2 d-flex flex-row align-items-center mb-2" href="#commentContentModal" data-bs-toggle="modal" data-bs-original-title="Delete" data-bs-toggle="tooltip" style="cursor: pointer;">
+                <span class="d-block font-weight-bold text-truncate" style="width: 300px" onclick="getCommentContent.start(this);"><?=$content;?></span>
               </div>
             </td>
             <td>
               <div class="p-2"><?=$commented_date;?></div>
-            </td>
-            <td>
-              <div class="p-2 d-flex flex-column"><?=$user_name;?></div>
             </td>
             <td>
               <div class="p-2 icons">
@@ -102,6 +112,7 @@ onclick="handleSingleDelete.start(<?=$id;?>)"
     </table>
 
     <?php require_once ADMIN_COMPONENTS_DIR . "/deleteModal.php"; ?>
+    <?php require_once ADMIN_COMPONENTS_DIR . "/commentModal.php"; ?>
   </form>
 </div>
 
@@ -109,6 +120,7 @@ onclick="handleSingleDelete.start(<?=$id;?>)"
 
 <script src="<?=FEATURES_URL?>/handleSingleDelete.js"></script>
 <script src="<?=FEATURES_URL?>/handleCheckboxes.js"></script>
+<script src="<?=FEATURES_URL?>/getCommentContent.js"></script>
 
 <script>
   handleCheckboxes.setCheckboxAllElement("#checkbox-all");
@@ -118,4 +130,6 @@ onclick="handleSingleDelete.start(<?=$id;?>)"
 
   handleSingleDelete.setDeleteModal("#deleteEmployeeModal");
   handleSingleDelete.setDeleteModalDialog(".modal-dialog.modal-dialog-centered");
+
+  getCommentContent.setCommentModalBody("#commentContentModal .modal-body p");
 </script>

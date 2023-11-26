@@ -10,10 +10,10 @@
 
     public function getComments($productId, $condition = '') {
       $sql = 
-        "SELECT c.*, cus.name user_name, cus.image" .
+        "SELECT c.*, u.name user_name, u.image, u.email" .
         " FROM comments c" .
-        " JOIN users cus" .
-        " ON cus.id = c.user_id" .
+        " JOIN users u" .
+        " ON u.id = c.user_id" .
         " WHERE c.product_id = $productId" . 
         $condition;
       return $this->_db->selectRows($sql);
