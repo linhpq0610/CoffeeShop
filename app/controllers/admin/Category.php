@@ -71,7 +71,7 @@
       $data = ['category_id' => $UNSTYLED_ID];
       $DB = $this->__productModel->getDB();
       $tableName = $this->__productModel->tableFill();
-      $condition = "id IN ($categoryIds)";
+      $condition = "category_id IN ($categoryIds)";
       $DB->update($tableName, $data, $condition);
     }
 
