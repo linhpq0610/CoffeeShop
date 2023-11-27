@@ -1,5 +1,7 @@
 <?php 
-require_once ADMIN_COMPONENTS_DIR . "/backBtn.php";
+  require_once ADMIN_COMPONENTS_DIR . "/backBtn.php";
+  extract($formData);
+  extract($product);
 ?>
 
 <div class="container rounded" style="padding: 50px 0;">
@@ -18,6 +20,12 @@ require_once ADMIN_COMPONENTS_DIR . "/backBtn.php";
       </div> 
       <div class="col-md-6 border-right">
         <div class="px-3 pe-lg-5 py-5">
+          <div class='alert alert-danger border-0 p-0 text-center'>
+            <?=$messageAlert;?>
+          </div>
+          <div class='alert alert-success border-0 p-0 text-center'>
+            <?=$messageSuccess;?>
+          </div>
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="text-right">Thông tin sản phẩm</h4>
           </div>
@@ -71,7 +79,7 @@ require_once ADMIN_COMPONENTS_DIR . "/backBtn.php";
               <select type="text" class="form-control" name="category_id">
                 <option value="">Chọn thể loại</option>
                 <?php
-foreach ($categories as $category):
+                  foreach ($categories as $category):
                     extract($category);
                     $selected = "";
                     if ($id == $category_id) {
@@ -159,4 +167,3 @@ foreach ($categories as $category):
   formValidator.addConstraint(NEW_CONSTRAINTS);
   formValidator.start();
 </script>
-

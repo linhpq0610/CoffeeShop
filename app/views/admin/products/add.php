@@ -1,4 +1,7 @@
-<?php require_once ADMIN_COMPONENTS_DIR . "/backBtn.php"; ?>
+<?php 
+  require_once ADMIN_COMPONENTS_DIR . "/backBtn.php"; 
+  extract($formData);
+?>
 
 <div class="container rounded" style="padding: 50px 0;">
   <div class="bg-white">
@@ -11,28 +14,31 @@
       </div>
       <div class="col-md-6 border-right">
         <div class="px-3 pe-lg-5 py-5">
+          <div class='alert alert-danger border-0 p-0 text-center'>
+            <?=$messageAlert;?>
+          </div>
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="text-right">Thêm sản phẩm</h4>
           </div>
           <div class="row mt-2">
             <div class="col-md-12">
-              <label class="labels">Tên</label><input type="text" class="form-control" placeholder="VD: Cà phê Arabica 250g" name="name" />
+              <label class="labels">Tên</label><input type="text" class="form-control" placeholder="VD: Cà phê Arabica 250g" name="name" value="<?=$name;?>" />
               <p class="field-message mb-0"></p>
             </div>
           </div>
           <div class="row mt-2">
             <div class="col-md-12">
-              <label class="labels">Mô tả</label><textarea class="form-control" cols="30" rows="4" name="description" placeholder="VD: Cà phê Arabica tinh khiết được trồng và chăm sóc tận tâm trên những thửa đất phủ đầy cỏ xanh tươi mát..."></textarea>
+              <label class="labels">Mô tả</label><textarea class="form-control" cols="30" rows="4" name="description" placeholder="VD: Cà phê Arabica tinh khiết được trồng và chăm sóc tận tâm trên những thửa đất phủ đầy cỏ xanh tươi mát..."><?=$description;?></textarea>
               <p class="field-message mb-0"></p>
             </div>
           </div>
           <div class="row mt-2">
             <div class="col-md-6">
-              <label class="labels">Giá</label><input type="number" class="form-control" name="price" placeholder="VD: 100000" />
+              <label class="labels">Giá</label><input type="number" class="form-control" name="price" placeholder="VD: 100000" value="<?=$price;?>" />
               <p class="field-message mb-0"></p>
             </div>
             <div class="col-md-6">
-              <label class="labels">Giảm giá</label><input type="number" class="form-control" name="sale" placeholder="VD: 10" />
+              <label class="labels">Giảm giá</label><input type="number" class="form-control" name="sale" placeholder="VD: 10" value="<?=$sale;?>" />
               <p class="field-message mb-0"></p>
             </div>
           </div>
@@ -41,9 +47,14 @@
               <label class="labels">Thể loại</label>
               <select type="text" class="form-control" name="category_id">
                 <option value="">Chọn thể loại</option>
-                <?php foreach ($categories as $category): extract($category); ?>
+                <?php 
+                  foreach ($categories as $category): 
+                    extract($category); 
+                  ?>
                   <option value="<?= $id; ?>"><?= $name; ?></option>
-                <?php endforeach; ?>
+                <?php 
+                  endforeach; 
+                ?>
               </select>
               <p class="field-message mb-0"></p>
             </div>
