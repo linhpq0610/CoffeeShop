@@ -109,5 +109,12 @@
 
       return $data;
     }
+
+    public function mergeDataIntoDefault($defaultData, $data) {
+      foreach ($data as $key => $value) {
+        $defaultData[$key] = $value;
+      }
+      return $defaultData;
+    }
   }
 ?>

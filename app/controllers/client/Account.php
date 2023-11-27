@@ -30,9 +30,7 @@
         'name' => '',
         'email' => '',
       ];
-      foreach ($data as $key => $value) {
-        $defaultData[$key] = $value;
-      }
+      $defaultData = $this->mergeDataIntoDefault($defaultData, $data);
       return $defaultData;
     }
 
