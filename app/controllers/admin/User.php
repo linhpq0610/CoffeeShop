@@ -60,6 +60,29 @@
       $this->renderAdminLayout($this->_data);
     }
 
+    public function hasUser() {
+      $email = $_POST['email'];
+      $condition = " WHERE email = '$email'";
+
+      $user = $this->__accountModel->selectRowBy($condition);
+      return $this->__accountModel->hasUser($user);
+    }
+
+    public function getFormData() {
+      $messageAlert = 
+        '<p class="p-3">
+          Email đã được sử dụng.
+          <br>
+          Vui lòng dùng email khác.
+        </p>';
+      $formData = [
+        'messageAlert' => $messageAlert,
+        'name' => $_POST['name'],
+        'email' => $_POST['email'],
+      ];
+      return $formData;
+    }
+
     public function update($id) {
       $data = [
         "name" => $_POST['name'],
@@ -125,27 +148,12 @@
       header("Location: " . USER_ROUTE . "1");
     }
     
-    public function checkUser() {
-      $email = $_POST['email'];
-      $condition = " WHERE email = '$email'";
-
-      $user = $this->__accountModel->selectRowBy($condition);
-      $hasUser = $this->__accountModel->hasUser($user); 
-      if (!$hasUser) {
+    public function checkUserWhenAdd() {
+      if (!$this->hasUser()) {
         $this->initAdd();
       }
 
-      $messageAlert = 
-        '<p class="p-3">
-          Email đã được sử dụng.
-          <br>
-          Vui lòng dùng email khác.
-        </p>';
-      $formData = [
-        'messageAlert' => $messageAlert,
-        'name' => $_POST['name'],
-        'email' => $email,
-      ];
+      $formData = $this->getFormData();
       $this->showFormAddUser($formData);
     }
 

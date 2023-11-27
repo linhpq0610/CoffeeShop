@@ -6,7 +6,7 @@
   $routes['xoa-nguoi-dung'] = 'admin/user/softDelete';
   $routes['thong-tin-nguoi-dung-(\d+)'] = 'admin/user/info/$1';
   $routes['form-them-nguoi-dung'] = 'admin/user/showFormAddUser';
-  $routes['them-nguoi-dung'] = 'admin/user/checkUser';
+  $routes['them-nguoi-dung'] = 'admin/user/checkUserWhenAdd';
   $routes['tim-kiem-nguoi-dung-da-xoa'] = 'admin/user/searchUsersDeletedByNameAndEmail';
   $routes['tim-kiem-nguoi-dung'] = 'admin/user/searchUsersByNameAndEmail';
   $routes['xu-ly-hanh-dong-trong-danh-sach-nguoi-dung-da-xoa'] = 'admin/user/handleActionInUsersDeleted';
