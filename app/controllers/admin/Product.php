@@ -8,6 +8,19 @@
       $this->__categoryModel = $this->getModel("CategoryModel");
     }
 
+    public function setDefaultData($data) {
+      $defaultData = [
+        'messageAlert' => '',
+        'messageSuccess' => '',
+        "name" => '',
+        "description" => '',
+        "price" => '',
+        "sale" => '',
+      ];
+      $defaultData = $this->mergeDataIntoDefault($defaultData, $data);
+      return $defaultData;
+    }
+
     public function index($currentPage, $wherePhrase = " WHERE is_deleted = 0") {
       [$currentPage, $NUMBERS_OF_ROW, $condition] = 
         $this->initPagination($currentPage, $wherePhrase, $this->__productModel);
@@ -58,7 +71,8 @@
       $this->renderAdminLayout($this->_data);
     }
 
-    public function edit($id) {
+    public function edit($id, $formData = []) {
+      $formData = $this->setDefaultData($formData);
       $condition = ' WHERE is_deleted = 0';
       $categories = $this->__categoryModel->selectRowsBy($condition);
       $product = $this->__productModel->selectOneRowById($id);
@@ -66,8 +80,35 @@
       $product['categories'] = $categories;
       $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/products/edit';
       $this->_data['pageTitle'] = 'Chỉnh sửa ' . $product['name'];
-      $this->_data["contentOfPage"] = $product;
+      $this->_data["contentOfPage"] = [
+        'product' => $product,
+        'formData' => $formData,
+      ];
       $this->renderAdminLayout($this->_data);
+    }
+
+    public function hasProduct() {
+      $name = $_POST['name'];
+      $condition = " WHERE name = '$name'";
+      $product = $this->__productModel->selectRowBy($condition);
+      return !empty($product);
+    }
+
+    public function getFormData() {
+      $messageAlert = 
+        '<p class="p-3">
+          Sản phẩm đã tồn tại.
+          <br>
+          Vui lòng dùng tên khác.
+        </p>';
+      $formData = [
+        'messageAlert' => $messageAlert,
+        'name' => $_POST['name'],
+        'description' => $_POST['description'],
+        'price' => $_POST['price'],
+        'sale' => $_POST['sale'],
+      ];
+      return $formData;
     }
 
     public function update($id) {
@@ -78,22 +119,28 @@
         "sale" => $_POST['sale'],
         "category_id" => $_POST['category_id'],
       ];
-
-      $avatarImageName = $_FILES['avatar']['name'];
-      if ($avatarImageName != "") {
-        $data["image"] = $avatarImageName;
-      }
-
-      move_uploaded_file(
-        $_FILES['avatar']['tmp_name'], 
-        IMAGES_DIR . "/" . "$avatarImageName"
-      );
       
+      $data = $this->getImageUploaded($data);
       $DB = $this->__productModel->getDB();
       $tableName = $this->__productModel->tableFill();
       $condition = "id = $id";
       $DB->update($tableName, $data, $condition);
-      header("Location: " . EDIT_PRODUCT_ROUTE . $id);
+      
+      $messageSuccess = 
+        '<p class="p-3">
+          Bạn đã cập nhật thành công.
+        </p>';
+      $formData = ['messageSuccess' => $messageSuccess];
+      $this->edit($id, $formData);
+    }
+
+    public function checkProductWhenUpdate($id) {
+      if (!$this->hasProduct()) {
+        $this->update($id);
+      }
+
+      $formData = $this->getFormData();
+      $this->edit($id, $formData);
     }
 
     public function softDelete() {
@@ -108,13 +155,17 @@
       header("Location: " . ADMIN_PRODUCT_ROUTE . "1");
     }
 
-    public function showFormAddProduct() {
+    public function showFormAddProduct($formData = []) {
+      $formData = $this->setDefaultData($formData);
       $condition = ' WHERE is_deleted = 0';
       $categories = $this->__categoryModel->selectRowsBy($condition);
 
       $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/products/add';
       $this->_data['pageTitle'] = 'Thêm sản phẩm';
-      $this->_data["contentOfPage"] = ['categories' => $categories];
+      $this->_data["contentOfPage"] = [
+        'categories' => $categories, 
+        'formData' => $formData, 
+      ];
       $this->renderAdminLayout($this->_data);
     }
 
@@ -128,16 +179,17 @@
         "image" => 'default-product-image.png',
       ];
 
-      $avatarImageName = $_FILES['avatar']['name'];
-      if ($avatarImageName != "") {
-        $data["image"] = $avatarImageName;
+      $data = $this->getImageUploaded($data);
+      $this->add($data);
+    }
+
+    public function checkProductWhenAdd() {
+      if (!$this->hasProduct()) {
+        $this->initAdd();
       }
 
-      move_uploaded_file(
-        $_FILES['avatar']['tmp_name'], 
-        IMAGES_DIR . "/" . "$avatarImageName"
-      );
-      $this->add($data);
+      $formData = $this->getFormData();
+      $this->showFormAddProduct($formData);
     }
 
     public function add($data) {

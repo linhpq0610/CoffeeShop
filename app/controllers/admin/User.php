@@ -6,6 +6,17 @@
       $this->__accountModel = $this->getModel("AccountModel");
     }
 
+    public function setDefaultData($data) {
+      $defaultData = [
+        'messageAlert' => '',
+        'messageSuccess' => '',
+        'name' => '',
+        'email' => '',
+      ];
+      $defaultData = $this->mergeDataIntoDefault($defaultData, $data);
+      return $defaultData;
+    }
+
     public function index($currentPage, $wherePhrase = " WHERE is_deleted = 0") {
       [$currentPage, $NUMBERS_OF_ROW, $condition] = 
         $this->initPagination($currentPage, $wherePhrase, $this->__accountModel);
@@ -44,7 +55,6 @@
       $this->renderAdminLayout($this->_data);
     }
 
-
     public function info($id) {
       $user = $this->__accountModel->selectOneRowById($id);
       $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/users/info';
@@ -53,38 +63,68 @@
       $this->renderAdminLayout($this->_data);
     }
 
-    public function edit($id) {
+    public function edit($id, $formData = []) {
+      $formData = $this->setDefaultData($formData);
       $user = $this->__accountModel->selectOneRowById($id);
       $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/users/edit';
       $this->_data['pageTitle'] = 'Chỉnh sửa người dùng';
-      $this->_data["contentOfPage"] = $user;
+      $this->_data["contentOfPage"] = [
+        'user' => $user, 
+        'formData' => $formData, 
+      ];
       $this->renderAdminLayout($this->_data);
     }
 
+    public function hasUser() {
+      $email = $_POST['email'];
+      $condition = " WHERE email = '$email'";
+
+      $user = $this->__accountModel->selectRowBy($condition);
+      return $this->__accountModel->hasUser($user);
+    }
+
+    public function getFormData() {
+      $messageAlert = 
+        '<p class="p-3">
+          Email đã được sử dụng.
+          <br>
+          Vui lòng dùng email khác.
+        </p>';
+      $formData = [
+        'messageAlert' => $messageAlert,
+        'name' => $_POST['name'],
+        'email' => $_POST['email'],
+      ];
+      return $formData;
+    }
+
+    public function checkUserWhenUpdate($id) {
+      if (!$this->hasUser()) {
+        $this->update($id);
+      }
+
+      $formData = $this->getFormData();
+      $this->edit($id, $formData);
+    }
+
     public function update($id) {
-      $is_deleted = $_POST['is_deleted'] ? 1 : 0;
       $data = [
         "name" => $_POST['name'],
         "email" => $_POST['email'],
-        "password" => $_POST['password'],
-        "is_deleted" => $is_deleted,
       ];
-
-      $avatarImageName = $_FILES['avatar']['name'];
-      if ($avatarImageName != "") {
-        $data["image"] = $avatarImageName;
-      }
-
-      move_uploaded_file(
-        $_FILES['avatar']['tmp_name'], 
-        IMAGES_DIR . "/" . "$avatarImageName"
-      );
+      $data = $this->getImageUploaded($data);
       
       $DB = $this->__accountModel->getDB();
       $tableName = $this->__accountModel->tableFill();
       $condition = "id = $id";
       $DB->update($tableName, $data, $condition);
-      header("Location: " . EDIT_USER_ROUTE . $id);
+      
+      $messageSuccess = 
+        '<p class="p-3">
+          Bạn đã cập nhật thành công.
+        </p>';
+      $formData = ['messageSuccess' => $messageSuccess];
+      $this->edit($id, $formData);
     }
 
     public function softDelete() {
@@ -99,30 +139,23 @@
       header("Location: " . USER_ROUTE . "1");
     }
 
-    public function showFormAddUser() {
+    public function showFormAddUser($formData = []) {
+      $formData = $this->setDefaultData($formData);
       $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/users/add';
       $this->_data['pageTitle'] = 'Thêm người dùng';
-      $this->_data["contentOfPage"] = [];
+      $this->_data["contentOfPage"] = $formData;
       $this->renderAdminLayout($this->_data);
     }
 
     public function initAdd() {
+      $passwordEncrypted = password_hash($_POST['password'], PASSWORD_DEFAULT);
       $data = [
         "name" => $_POST['name'],
         "email" => $_POST['email'],
-        "password" => $_POST['password'],
-        "image" => 'default-user-image.png',
+        "password" => $passwordEncrypted,
+        "image" => 'default-user-image.webp',
       ];
-      
-      $avatarImageName = $_FILES['avatar']['name'];
-      if ($avatarImageName != "") {
-        $data["image"] = $avatarImageName;
-      }
-
-      move_uploaded_file(
-        $_FILES['avatar']['tmp_name'], 
-        IMAGES_DIR . "/" . "$avatarImageName"
-      );
+      $data = $this->getImageUploaded($data);
       $this->add($data);
     }
 
@@ -131,6 +164,15 @@
       $tableName = $this->__accountModel->tableFill();
       $DB->insert($tableName, $data);
       header("Location: " . USER_ROUTE . "1");
+    }
+    
+    public function checkUserWhenAdd() {
+      if (!$this->hasUser()) {
+        $this->initAdd();
+      }
+
+      $formData = $this->getFormData();
+      $this->showFormAddUser($formData);
     }
 
     public function searchUsersByNameAndEmail() {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 22, 2023 at 02:55 AM
+-- Generation Time: Nov 27, 2023 at 07:35 AM
 -- Server version: 8.0.31
 -- PHP Version: 7.4.33
 
@@ -139,7 +139,7 @@ INSERT INTO `products` (`id`, `name`, `price`, `sale`, `image`, `description`, `
 CREATE TABLE `users` (
   `id` int NOT NULL,
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `image` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `is_admin` tinyint(1) NOT NULL DEFAULT '0',
@@ -151,12 +151,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `password`, `image`, `email`, `is_admin`, `is_deleted`) VALUES
-(28, 'Nguyen Van C1', '12345678', 'person_2.jpg', 'cnv@gmail.com', 1, 0),
-(32, 'Nguyen Van G', '12345678', 'person_1.jpg', 'gnv@gmail.com', 0, 0),
-(34, 'Nguyen Van I', '12345678', 'person_3.jpg', 'inv@gmail.com', 0, 1),
-(35, 'Nguyen Van J', '12345678', 'person_4.jpg', 'jnv@gmail.com', 0, 0),
-(55, 'Nguyen Van A', '12345678', 'person_4.jpg', 'anv@gmail.com', 0, 0),
-(59, 'Nguyen Van B', '123456788', 'person_2.jpg', 'bnv@gmail.com', 0, 1);
+(28, 'Nguyen Van C1', '$2y$10$ei9rcCBexFY.Knx73Lwzvu1fbCAtkPFkKR5xB4ERvpqj0Z2.w3zEy', 'person_2.jpg', 'cnv@gmail.com', 1, 0),
+(32, 'Nguyen Van G', '$2y$10$a/rriuXtmZncUlLLva/Qx.B2tnsPGHeG1KdBdYtRdpLWHUWOzEbFe', 'person_1.jpg', 'gnv@gmail.com', 0, 0),
+(34, 'Nguyen Van I', '$2y$10$stN9ZRoa5B0sKcMA9oMnnu3w4I9wYzAgOmrhuG9AtxLp45ha2/Tom', 'person_3.jpg', 'inv@gmail.com', 0, 1),
+(35, 'Nguyen Van J', '$2y$10$T3ZujVduMUKG/OvXv1JNZuk9POXzSajOn57pPb9wr1V7A/k8cmUg6', 'person_4.jpg', 'jnv@gmail.com', 0, 0),
+(55, 'Nguyen Van A', '$2y$10$/uHFjqcwbH57JsMDj4b.gO1izEH0aIAHKk2giBDtlxuIXfyaOLOki', 'person_4.jpg', 'anv@gmail.com', 0, 0),
+(59, 'Nguyen Van B', '$2y$10$kDTUDUuTc/pqtHFtmtX8JOlmLKslAztiCZGEHtjXIJKwXMD69zwsS', 'person_2.jpg', 'bnv@gmail.com', 0, 1),
+(66, 'Nguyen Van D', '$2y$10$DfLANadHSYW6HvwCn5VebOOkVg0/b8VKIttOiWpaVAmDXRSIwjjgm', 'default-user-image.webp', 'dnv@gmail.com', 0, 0);
 
 --
 -- Indexes for dumped tables
@@ -231,7 +232,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- Constraints for dumped tables

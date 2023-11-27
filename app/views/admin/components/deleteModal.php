@@ -9,7 +9,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Xóa người dùng</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Xóa dữ liệu</h5>
         <button
           type="button"
           class="btn-close"
@@ -19,7 +19,7 @@
       </div>
       <div>
         <div class="modal-body">
-          <p>Bạn có chắc khi muốn xóa những hàng này?</p>
+          <p>Bạn có chắc khi muốn thực hiện hành động này?</p>
           <p class="text-warning">
             <small>Hành động này không thể khôi phục.</small>
           </p>

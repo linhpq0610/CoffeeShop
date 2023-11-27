@@ -8,6 +8,16 @@
       $this->__productModel = $this->getModel("ProductModel");
     }
 
+    public function setDefaultData($data) {
+      $defaultData = [
+        'messageAlert' => '',
+        'messageSuccess' => '',
+        'name' => '',
+      ];
+      $defaultData = $this->mergeDataIntoDefault($defaultData, $data);
+      return $defaultData;
+    }
+
     public function index($currentPage, $wherePhrase = " WHERE is_deleted = 0") {
       [$currentPage, $NUMBERS_OF_ROW, $condition] = 
         $this->initPagination($currentPage, $wherePhrase, $this->__categoryModel);
@@ -46,12 +56,37 @@
       $this->renderAdminLayout($this->_data);
     }
     
-    public function edit($id) {
+    public function edit($id, $formData = []) {
+      $formData = $this->setDefaultData($formData);
       $category = $this->__categoryModel->selectOneRowById($id);
       $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/categories/edit';
       $this->_data['pageTitle'] = 'Chỉnh sửa loại hàng';
-      $this->_data["contentOfPage"] = $category;
+      $this->_data["contentOfPage"] = [
+        'category' => $category,
+        'formData' => $formData,
+      ];
       $this->renderAdminLayout($this->_data);
+    }
+
+    public function hasCategory() {
+      $name = $_POST['name'];
+      $condition = " WHERE name = '$name'";
+      $category = $this->__categoryModel->selectRowBy($condition);
+      return !empty($category);
+    }
+
+    public function getFormData() {
+      $messageAlert = 
+        '<p class="p-3">
+          Loại hàng đã tồn tại.
+          <br>
+          Vui lòng dùng tên khác.
+        </p>';
+      $formData = [
+        'messageAlert' => $messageAlert,
+        'name' => $_POST['name'],
+      ];
+      return $formData;
     }
 
     public function update($id) {
@@ -63,7 +98,13 @@
       $tableName = $this->__categoryModel->tableFill();
       $condition = "id = $id";
       $DB->update($tableName, $data, $condition);
-      header("Location: " . EDIT_CATEGORY_ROUTE . $id);
+      
+      $messageSuccess = 
+        '<p class="p-3">
+          Bạn đã cập nhật thành công.
+        </p>';
+      $formData = ['messageSuccess' => $messageSuccess];
+      $this->edit($id, $formData);
     }
 
     public function styleProducts($categoryIds) {
@@ -73,6 +114,15 @@
       $tableName = $this->__productModel->tableFill();
       $condition = "category_id IN ($categoryIds)";
       $DB->update($tableName, $data, $condition);
+    }
+
+    public function checkCategoryWhenUpdate($id) {
+      if (!$this->hasCategory()) {
+        $this->update($id);
+      }
+
+      $formData = $this->getFormData();
+      $this->edit($id, $formData);
     }
 
     public function softDelete() {
@@ -88,10 +138,11 @@
       header("Location: " . CATEGORY_ROUTE . "1");
     }
 
-    public function showFormAddCategory() {
+    public function showFormAddCategory($formData = []) {
+      $formData = $this->setDefaultData($formData);
       $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/categories/add';
       $this->_data['pageTitle'] = 'Thêm loại hàng';
-      $this->_data["contentOfPage"] = [];
+      $this->_data["contentOfPage"] = $formData;
       $this->renderAdminLayout($this->_data);
     }
 
@@ -100,6 +151,15 @@
         "name" => $_POST['name'],
       ];
       $this->add($data);
+    }
+
+    public function checkCategoryWhenAdd() {
+      if (!$this->hasCategory()) {
+        $this->initAdd();
+      }
+
+      $formData = $this->getFormData();
+      $this->showFormAddCategory($formData);
     }
 
     public function add($data) {

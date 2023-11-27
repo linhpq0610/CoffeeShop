@@ -1,5 +1,7 @@
 <?php 
   require_once ADMIN_COMPONENTS_DIR . "/backBtn.php";
+  extract($formData);
+  extract($category);
 ?>
 
 <div class="container rounded" style="padding: 50px 0;">
@@ -13,6 +15,12 @@
 
       <div class="col-md-6 border-right">
         <form action="<?=(UPDATE_CATEGORY_ROUTE . $id);?>" method="post" class="px-3 ps-lg-5 py-5 sign-up-form">
+          <div class='alert alert-danger border-0 p-0 text-center'>
+            <?=$messageAlert;?>
+          </div>
+          <div class='alert alert-success border-0 p-0 text-center'>
+            <?=$messageSuccess;?>
+          </div>
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="text-right">Chỉnh sửa loại hàng</h4>
           </div>

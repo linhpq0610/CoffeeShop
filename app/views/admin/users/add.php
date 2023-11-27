@@ -19,6 +19,9 @@
 
       <div class="col-md-6 border-right">
         <div class="px-3 ps-lg-5 py-5">
+          <div class='alert alert-danger border-0 p-0 text-center'>
+            <?=$messageAlert;?>
+          </div>
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="text-right">Thêm người dùng</h4>
           </div>
@@ -28,8 +31,9 @@
               ><input
                 type="text"
                 class="form-control"
-                placeholder="Linh"
+                placeholder="VD: Linh"
                 name="name"
+                value="<?=$name;?>"
               />
               <p class="field-message mb-0"></p>
             </div>
@@ -40,8 +44,9 @@
               ><input
                 type="email"
                 class="form-control"
-                placeholder="example@gmail.com"
+                placeholder="VD: example@gmail.com"
                 name="email"
+                value="<?=$email;?>"
               />
               <p class="field-message mb-0"></p>
             </div>
@@ -49,7 +54,14 @@
           <div class="row mt-2">
             <div class="col-md-12">
               <label class="labels">Mật khẩu</label>
-              <input type="password" class="form-control" name="password" />
+              <input type="password" class="form-control" name="password" placeholder="Nhập mật khẩu tại đây" />
+              <p class="field-message mb-0"></p>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-12">
+              <label class="labels">Xác nhận mật khẩu</label>
+              <input type="password" class="form-control" name="confirm-password" placeholder="Nhập xác nhận mật khẩu tại đây" />
               <p class="field-message mb-0"></p>
             </div>
           </div>
@@ -78,5 +90,6 @@
   formValidator.addField("name", FORM.elements["name"]);
   formValidator.addField("email", FORM.elements["email"]);
   formValidator.addField("password", FORM.elements["password"]);
+  formValidator.addField("confirmPassword", FORM.elements["confirm-password"]);
   formValidator.start();
 </script>
