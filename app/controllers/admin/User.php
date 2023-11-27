@@ -6,6 +6,19 @@
       $this->__accountModel = $this->getModel("AccountModel");
     }
 
+    public function setDefaultData($data) {
+      $defaultData = [
+        'messageAlert' => '',
+        'messageSuccess' => '',
+        'name' => '',
+        'email' => '',
+      ];
+      foreach ($data as $key => $value) {
+        $defaultData[$key] = $value;
+      }
+      return $defaultData;
+    }
+
     public function index($currentPage, $wherePhrase = " WHERE is_deleted = 0") {
       [$currentPage, $NUMBERS_OF_ROW, $condition] = 
         $this->initPagination($currentPage, $wherePhrase, $this->__accountModel);
@@ -52,11 +65,15 @@
       $this->renderAdminLayout($this->_data);
     }
 
-    public function edit($id) {
+    public function edit($id, $formData = []) {
+      $formData = $this->setDefaultData($formData);
       $user = $this->__accountModel->selectOneRowById($id);
       $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/users/edit';
       $this->_data['pageTitle'] = 'Chỉnh sửa người dùng';
-      $this->_data["contentOfPage"] = $user;
+      $this->_data["contentOfPage"] = [
+        'user' => $user, 
+        'formData' => $formData, 
+      ];
       $this->renderAdminLayout($this->_data);
     }
 
@@ -83,6 +100,15 @@
       return $formData;
     }
 
+    public function checkUserWhenUpdate($id) {
+      if (!$this->hasUser()) {
+        $this->update($id);
+      }
+
+      $formData = $this->getFormData();
+      $this->edit($id, $formData);
+    }
+
     public function update($id) {
       $data = [
         "name" => $_POST['name'],
@@ -94,7 +120,13 @@
       $tableName = $this->__accountModel->tableFill();
       $condition = "id = $id";
       $DB->update($tableName, $data, $condition);
-      header("Location: " . EDIT_USER_ROUTE . $id);
+      
+      $messageSuccess = 
+        '<p class="p-3">
+          Bạn đã cập nhật thành công.
+        </p>';
+      $formData = ['messageSuccess' => $messageSuccess];
+      $this->edit($id, $formData);
     }
 
     public function softDelete() {
@@ -107,18 +139,6 @@
       $condition = "id IN ($ids)";
       $DB->update($tableName, $data, $condition);
       header("Location: " . USER_ROUTE . "1");
-    }
-
-    public function setDefaultData($data) {
-      $defaultData = [
-        'messageAlert' => '',
-        'name' => '',
-        'email' => '',
-      ];
-      foreach ($data as $key => $value) {
-        $defaultData[$key] = $value;
-      }
-      return $defaultData;
     }
 
     public function showFormAddUser($formData = []) {

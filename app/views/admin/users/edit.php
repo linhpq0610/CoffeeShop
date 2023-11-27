@@ -1,5 +1,7 @@
 <?php
-require_once ADMIN_COMPONENTS_DIR . "/backBtn.php";
+  require_once ADMIN_COMPONENTS_DIR . "/backBtn.php";
+  extract($formData);
+  extract($user);
 ?>
 
 <div class="container rounded" style="padding: 50px 0;">
@@ -18,6 +20,12 @@ require_once ADMIN_COMPONENTS_DIR . "/backBtn.php";
       </div>
       <div class="col-md-6 border-right">
         <div class="px-3 pe-lg-5 py-5">
+          <div class='alert alert-danger border-0 p-0 text-center'>
+            <?=$messageAlert;?>
+          </div>
+          <div class='alert alert-success border-0 p-0 text-center'>
+            <?=$messageSuccess;?>
+          </div>
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="text-right">Chỉnh sửa thông tin</h4>
           </div>
@@ -65,7 +73,7 @@ require_once ADMIN_COMPONENTS_DIR . "/backBtn.php";
               style="background-color: #333"
             >
               Lưu
-</button>
+            </button>
           </div>
         </div>
       </div>

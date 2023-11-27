@@ -8,9 +8,16 @@
       return "id, name, image, email, is_deleted, is_admin, password";
     }
 
+    public function isPasswordVerified($user) {
+      $isPasswordVerified = true;
+      if (isset($_POST['password'])) {
+        $isPasswordVerified = password_verify($_POST['password'], $user['password']); 
+      }
+      return $isPasswordVerified;
+    }
+
     public function hasUser($user) {
-      $isPasswordVerified = password_verify($_POST['password'], $user['password']); 
-      if (!empty($user) && $isPasswordVerified) {
+      if (!empty($user) && $this->isPasswordVerified($user)) {
         return true;
       }
       return false;
