@@ -99,10 +99,23 @@
       header("Location: " . USER_ROUTE . "1");
     }
 
-    public function showFormAddUser() {
+    public function setDefaultData($data) {
+      $defaultData = [
+        'messageAlert' => '',
+        'name' => '',
+        'email' => '',
+      ];
+      foreach ($data as $key => $value) {
+        $defaultData[$key] = $value;
+      }
+      return $defaultData;
+    }
+
+    public function showFormAddUser($formData = []) {
+      $formData = $this->setDefaultData($formData);
       $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/users/add';
       $this->_data['pageTitle'] = 'Thêm người dùng';
-      $this->_data["contentOfPage"] = [];
+      $this->_data["contentOfPage"] = $formData;
       $this->renderAdminLayout($this->_data);
     }
 
@@ -111,7 +124,7 @@
         "name" => $_POST['name'],
         "email" => $_POST['email'],
         "password" => $_POST['password'],
-        "image" => 'default-user-image.png',
+        "image" => 'default-user-image.webp',
       ];
       
       $avatarImageName = $_FILES['avatar']['name'];
@@ -131,6 +144,30 @@
       $tableName = $this->__accountModel->tableFill();
       $DB->insert($tableName, $data);
       header("Location: " . USER_ROUTE . "1");
+    }
+    
+    public function checkUser() {
+      $email = $_POST['email'];
+      $condition = " WHERE email = '$email'";
+
+      $user = $this->__accountModel->selectRowBy($condition);
+      $hasUser = $this->__accountModel->hasUser($user); 
+      if (!$hasUser) {
+        $this->initAdd();
+      }
+
+      $messageAlert = 
+        '<p class="p-3">
+          Email đã được sử dụng.
+          <br>
+          Vui lòng dùng email khác.
+        </p>';
+      $formData = [
+        'messageAlert' => $messageAlert,
+        'name' => $_POST['name'],
+        'email' => $email,
+      ];
+      $this->showFormAddUser($formData);
     }
 
     public function searchUsersByNameAndEmail() {
