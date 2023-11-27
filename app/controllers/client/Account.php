@@ -139,15 +139,7 @@
         "image" => 'default-user-image.png',
       ];
 
-      $avatarImageName = $_FILES['avatar']['name'];
-      if ($avatarImageName != "") {
-        $data["image"] = $avatarImageName;
-      }
-      move_uploaded_file(
-        $_FILES['avatar']['tmp_name'], 
-        IMAGES_DIR . "/" . "$avatarImageName"
-      );
-
+      $data = $this->getImageUploaded($data);
       $this->signUp($data);
     }
 
@@ -190,15 +182,8 @@
         "name" => $_POST['name'],
         "email" => $_POST['email'],
       ];
-      $avatarImageName = $_FILES['avatar']['name'];
-      if ($avatarImageName != "") {
-        $data["image"] = $avatarImageName;
-      }
-      move_uploaded_file(
-        $_FILES['avatar']['tmp_name'], 
-        IMAGES_DIR . "/" . "$avatarImageName"
-      );
 
+      $data = $this->getImageUploaded($data);
       $DB = $this->__accountModel->getDB();
       $tableName = $this->__accountModel->tableFill();
       $condition = "id = $id";

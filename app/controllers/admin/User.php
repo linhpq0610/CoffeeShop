@@ -61,23 +61,11 @@
     }
 
     public function update($id) {
-      $is_deleted = $_POST['is_deleted'] ? 1 : 0;
       $data = [
         "name" => $_POST['name'],
         "email" => $_POST['email'],
-        "password" => $_POST['password'],
-        "is_deleted" => $is_deleted,
       ];
-
-      $avatarImageName = $_FILES['avatar']['name'];
-      if ($avatarImageName != "") {
-        $data["image"] = $avatarImageName;
-      }
-
-      move_uploaded_file(
-        $_FILES['avatar']['tmp_name'], 
-        IMAGES_DIR . "/" . "$avatarImageName"
-      );
+      $data = $this->getImageUploaded($data);
       
       $DB = $this->__accountModel->getDB();
       $tableName = $this->__accountModel->tableFill();
@@ -126,16 +114,7 @@
         "password" => $passwordEncrypted,
         "image" => 'default-user-image.webp',
       ];
-      
-      $avatarImageName = $_FILES['avatar']['name'];
-      if ($avatarImageName != "") {
-        $data["image"] = $avatarImageName;
-      }
-
-      move_uploaded_file(
-        $_FILES['avatar']['tmp_name'], 
-        IMAGES_DIR . "/" . "$avatarImageName"
-      );
+      $data = $this->getImageUploaded($data);
       $this->add($data);
     }
 

@@ -78,17 +78,8 @@
         "sale" => $_POST['sale'],
         "category_id" => $_POST['category_id'],
       ];
-
-      $avatarImageName = $_FILES['avatar']['name'];
-      if ($avatarImageName != "") {
-        $data["image"] = $avatarImageName;
-      }
-
-      move_uploaded_file(
-        $_FILES['avatar']['tmp_name'], 
-        IMAGES_DIR . "/" . "$avatarImageName"
-      );
       
+      $data = $this->getImageUploaded($data);
       $DB = $this->__productModel->getDB();
       $tableName = $this->__productModel->tableFill();
       $condition = "id = $id";
@@ -128,15 +119,7 @@
         "image" => 'default-product-image.png',
       ];
 
-      $avatarImageName = $_FILES['avatar']['name'];
-      if ($avatarImageName != "") {
-        $data["image"] = $avatarImageName;
-      }
-
-      move_uploaded_file(
-        $_FILES['avatar']['tmp_name'], 
-        IMAGES_DIR . "/" . "$avatarImageName"
-      );
+      $data = $this->getImageUploaded($data);
       $this->add($data);
     }
 
