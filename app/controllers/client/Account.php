@@ -29,9 +29,6 @@
         'messageAlert' => '',
         'name' => '',
         'email' => '',
-        'password' => '',
-        'oldPassword' => '',
-        'confirmPassword' => '',
       ];
       foreach ($data as $key => $value) {
         $defaultData[$key] = $value;
@@ -49,11 +46,9 @@
 
     public function checkSignIn() {
       $email = $_POST['email'];
-      $password = $_POST['password'];
       $condition = 
         " WHERE" . 
           " email = '$email' AND" . 
-          " password = '$password' AND" . 
           " is_deleted = 0";
 
       $user = $this->__accountModel->selectRowBy($condition);
@@ -71,7 +66,6 @@
       $formData = [
         'messageAlert' => $messageAlert,
         'email' => $email,
-        'password' => $password,
       ];
       $this->showFormSignIn($formData);
     }
@@ -137,10 +131,11 @@
     }
 
     public function initSignUp() {
+      $passwordEncrypted = password_hash($_POST['password'], PASSWORD_DEFAULT);
       $data = [
         "name" => $_POST['name'],
         "email" => $_POST['email'],
-        "password" => $_POST['password'],
+        "password" => $passwordEncrypted,
         "image" => 'default-user-image.png',
       ];
 
@@ -176,7 +171,6 @@
         'messageAlert' => $messageAlert,
         'name' => $_POST['name'],
         'email' => $email,
-        'password' => $_POST['password'],
       ];
       $this->showFormSignUp($formData);
     }
@@ -273,7 +267,9 @@
     }
 
     public function isPasswordExist() {
-      if ($_POST['old-password'] === $_SESSION['user']['password']) {
+      $isPasswordVerified = 
+        password_verify($_POST['old-password'], $_SESSION['user']['password']);
+      if ($isPasswordVerified) {
         return true;
       }
       return false;
@@ -288,16 +284,14 @@
         </p>';
       $formData = [
         'messageAlert' => $messageAlert,
-        'oldPassword' => $_POST['old-password'],
-        'password' => $_POST['password'],
-        'confirmPassword' => $_POST['confirm-password'],
       ];
       $this->showFormChangePassword($formData);
     }
 
     public function setNewPassword($id) {
+      $passwordEncrypted = password_hash($_POST['password'], PASSWORD_DEFAULT);
       $data = [
-        "password" => $_POST['password'],
+        "password" => $passwordEncrypted,
       ];
       $DB = $this->__accountModel->getDB();
       $tableName = $this->__accountModel->tableFill();

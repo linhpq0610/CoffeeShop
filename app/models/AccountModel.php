@@ -9,7 +9,11 @@
     }
 
     public function hasUser($user) {
-      return $user != [] ? true : false;
+      $isPasswordVerified = password_verify($_POST['password'], $user['password']); 
+      if (!empty($user) && $isPasswordVerified) {
+        return true;
+      }
+      return false;
     }
   }
 ?>

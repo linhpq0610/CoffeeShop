@@ -25,7 +25,6 @@
                 class="form-control"
                 placeholder="Nhập mật cũ mới tại đây"
                 name="old-password"
-                value="<?=$oldPassword;?>"
               />
               <p class="field-message mb-0"></p>
             </div>
@@ -38,7 +37,6 @@
                 class="form-control"
                 placeholder="Nhập mật khẩu mới tại đây"
                 name="password"
-                value="<?=$password;?>"
               />
               <p class="field-message mb-0"></p>
             </div>
@@ -51,7 +49,6 @@
                 class="form-control"
                 placeholder="Nhập lại mật khẩu tại đây"
                 name="confirm-password"
-                value="<?=$confirmPassword;?>"
               />
               <p class="field-message mb-0"></p>
             </div>

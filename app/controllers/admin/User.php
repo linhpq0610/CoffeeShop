@@ -44,7 +44,6 @@
       $this->renderAdminLayout($this->_data);
     }
 
-
     public function info($id) {
       $user = $this->__accountModel->selectOneRowById($id);
       $this->_data['pathToPage'] = ADMIN_VIEW_DIR . '/users/info';
@@ -120,10 +119,11 @@
     }
 
     public function initAdd() {
+      $passwordEncrypted = password_hash($_POST['password'], PASSWORD_DEFAULT);
       $data = [
         "name" => $_POST['name'],
         "email" => $_POST['email'],
-        "password" => $_POST['password'],
+        "password" => $passwordEncrypted,
         "image" => 'default-user-image.webp',
       ];
       

@@ -55,7 +55,6 @@
                 class="form-control" 
                 name="password" 
                 placeholder="Nhập mật khẩu tại đây"
-                value="<?=$password;?>"
               />
               <p class="field-message mb-0"></p>
             </div>
