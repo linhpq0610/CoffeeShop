@@ -13,6 +13,9 @@
 
       <div class="col-md-6 border-right">
         <form action="<?=ADD_CATEGORY_ROUTE?>" method="post" class="px-3 ps-lg-5 py-5 sign-up-form">
+          <div class='alert alert-danger border-0 p-0 text-center'>
+            <?=$messageAlert;?>
+          </div>
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="text-right">Thêm loại hàng</h4>
           </div>
@@ -22,8 +25,9 @@
               <input
                 type="text"
                 class="form-control"
-                placeholder="Cà phê hạt nguyên chất"
+                placeholder="VD: Cà phê"
                 name="name"
+                value="<?=$name;?>"
               />
               <p class="field-message mb-0"></p>
             </div>
