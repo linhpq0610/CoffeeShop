@@ -71,8 +71,10 @@
     }
 
     public function softDelete() {
+      date_default_timezone_set('Asia/Ho_Chi_Minh');
       $data = [
         "is_deleted" => 1,
+        "updated_at" => '' . date('Y-m-d H:i:s'),
       ];
       $ids = implode(", ", $_POST['id']);
       $DB = $this->__orderModel->getDB();
@@ -80,6 +82,38 @@
       $condition = "id IN ($ids)";
       $DB->update($tableName, $data, $condition);
       header("Location: " . ORDERS_ROUTE . "1");
+    }
+
+    public function restore() {
+      date_default_timezone_set('Asia/Ho_Chi_Minh');
+      $data = [
+        "is_deleted" => 0,
+        "updated_at" => '' . date('Y-m-d H:i:s'),
+      ];
+      $ids = implode(", ", $_POST['id']);
+      $DB = $this->__orderModel->getDB();
+      $tableName = $this->__orderModel->tableFill();
+      $condition = "id IN ($ids)";
+      $DB->update($tableName, $data, $condition);
+      header("Location: " . ORDERS_DELETED_ROUTE . "1");
+    }
+    
+    public function hardDelete() {
+      $ids = implode(", ", $_POST['id']);
+      $DB = $this->__orderModel->getDB();
+      $tableName = $this->__orderModel->tableFill();
+      $condition = "id IN ($ids)";
+      $DB->delete($tableName, $condition);
+      header("Location: " . ORDERS_DELETED_ROUTE . "1");
+    }
+
+    public function handleActionInOrdersDeleted() {
+      if ($_POST['action'] == 'restore') {
+        $this->restore();
+        die();
+      }
+
+      $this->hardDelete();
     }
   }
 ?>

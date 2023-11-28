@@ -1,4 +1,4 @@
-<h4>Danh sách đơn hàng</h4>
+<h4>Danh sách đơn hàng đã xóa</h4>
 
 <div class="mt-3">
   <div class="table-title border-bottom pb-3">
@@ -15,14 +15,20 @@
         </form>
       </div>
       <div class="col-sm-8 text-sm-end text-center mt-sm-0 mt-3">
-        <a href="#deleteEmployeeModal" class="btn btn-danger disabled" data-bs-toggle="modal" id="delete-btn">
+        <label for="restore" class="btn btn-secondary disabled" data-bs-toggle="modal" data-bs-target="#restoreEmployeeModal" id="restore-btn">
+          <i class="fas fa-undo"></i> <span>Khôi phục đơn hàng</span>
+        </label>
+
+        <label for="delete" class="btn btn-danger disabled" data-bs-toggle="modal" data-bs-target="#deleteEmployeeModal" id="delete-btn">
           <i class="fas fa-minus-circle"></i> <span>Xóa đơn hàng</span>
-        </a>
+        </label>
       </div>
     </div>
   </div>
 
-  <form action="<?=SOFT_DELETE_ORDER_ADMIN_SIDE_ROUTE;?>" method="post">
+  <form action="<?=HANDLE_ACTION_ORDERS_DELETED_ROUTE;?>" method="post">
+    <input type="radio" hidden name="action" id="restore" value="restore">
+    <input type="radio" hidden name="action" id="delete" value="delete">
     <table class="table table-borderless table-responsive card-1">
       <thead>
         <tr class="border-bottom">
@@ -101,19 +107,13 @@
             </td>
             <td>
               <div class="p-2 icons">
-                <a href="<?=(ORDER_DETAIL_ROUTE . $id . '-trang-1');?>" class="edit text-decoration-none mx-3">
-                  <i class="fas fa-info"></i>
-                </a>
-                <a 
-                  href="#deleteEmployeeModal" 
-                  class="delete" 
-                  data-bs-toggle="modal" 
-                  data-bs-original-title="Delete" 
-                  data-bs-toggle="tooltip" 
-                  onclick="handleSingleDelete.start(<?=$id;?>)"
-                >
+                <label for="restore" class="restore mx-2" data-bs-toggle="modal" data-bs-target="#restoreEmployeeModal" id="restore-btn" onclick="handleSingleRestore.start(<?=$id;?>)" style="cursor: pointer">
+                  <i class="fas fa-undo text-secondary"></i>
+                </label>
+                
+                <label for="delete" class="delete <?= ($is_admin ? "delete-icon-disabled" : ""); ?>" data-bs-toggle="modal" data-bs-target="#deleteEmployeeModal" id="delete-btn" onclick="handleSingleDelete.start(<?=$id;?>)" style="cursor: pointer">
                   <i class="fa fa-trash text-danger"></i>
-                </a>
+                </label>
               </div>
             </td>
           </tr>
@@ -123,6 +123,7 @@
 
     <?php 
       require_once ADMIN_COMPONENTS_DIR . "/deleteModal.php";
+      require_once ADMIN_COMPONENTS_DIR . "/restoreModal.php";
     ?>
   </form>
 </div>
@@ -133,13 +134,17 @@
   
 <script src="<?=FEATURES_URL?>/handleSingleDelete.js"></script>
 <script src="<?=FEATURES_URL?>/handleCheckboxes.js"></script>
+<script src="<?= FEATURES_URL ?>/handleSingleRestore.js"></script>
 
 <script>
   handleCheckboxes.setCheckboxAllElement("#checkbox-all");
   handleCheckboxes.setCheckboxElements("input[name='id[]']");
   handleCheckboxes.setDeleteBtn("#delete-btn");
+  handleCheckboxes.setDeleteBtn("#restore-btn");
   handleCheckboxes.start();
 
   handleSingleDelete.setDeleteModal("#deleteEmployeeModal");
   handleSingleDelete.setDeleteModalDialog(".modal-dialog.modal-dialog-centered");
+  handleSingleRestore.setRestoreModal("#restoreEmployeeModal");
+  handleSingleRestore.setRestoreModalDialog(".modal-dialog.modal-dialog-centered");
 </script>
