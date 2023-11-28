@@ -48,5 +48,17 @@
           " is_deleted = 0";
       $this->index(1, $wherePhrase);
     }
+
+    public function softDelete() {
+      $data = [
+        "is_deleted" => 1,
+      ];
+      $ids = implode(", ", $_POST['id']);
+      $DB = $this->__orderModel->getDB();
+      $tableName = $this->__orderModel->tableFill();
+      $condition = "id IN ($ids)";
+      $DB->update($tableName, $data, $condition);
+      header("Location: " . ORDERS_ROUTE . "1");
+    }
   }
 ?>

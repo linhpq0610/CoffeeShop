@@ -22,7 +22,7 @@
     </div>
   </div>
 
-  <form action="<?=DELETE_PRODUCT_ROUTE;?>" method="post">
+  <form action="<?=SOFT_DELETE_ORDER_ADMIN_SIDE_ROUTE;?>" method="post">
     <table class="table table-borderless table-responsive card-1">
       <thead>
         <tr class="border-bottom">
