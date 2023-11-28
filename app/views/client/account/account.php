@@ -49,14 +49,6 @@
             </div>
           </div>
           <div class="row mt-2">
-            <label for="is_deleted" class="labels" style="width: unset">Kích hoạt</label>
-            <input
-              id="is_deleted"
-              type="checkbox"
-              style="width: unset; width: 18px"
-              checked
-              disabled
-            />
             <label for="is_admin" class="labels" style="width: unset">Quản trị</label>
             <input 
               id="is_admin" 

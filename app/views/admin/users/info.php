@@ -49,24 +49,6 @@ require_once ADMIN_COMPONENTS_DIR . "/backBtn.php";
             </div>
           </div>
           <div class="row mt-2">
-            <div class="col-md-12">
-              <label class="labels">Mật khẩu</label
-              ><input
-                readonly type="password" class="form-control" value="<?= $password; ?>" name="password" />
-              <p class="field-message mb-0"></p>
-            </div>
-          </div>
-          <div class="row mt-2">
-            <label for="is_deleted" class="labels" style="width: unset"
-              >Kích hoạt</label
-            >
-            <input
-              id="is_deleted"
-              type="checkbox"
-              style="width: unset; width: 18px"
-              disabled
-              <?= ($is_deleted ? "checked" : ""); ?>
-            />
             <label for="is_admin" class="labels" style="width: unset">Quản trị</label>
             <input
               id="is_admin" 
