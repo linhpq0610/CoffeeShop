@@ -59,15 +59,31 @@
       $this->renderAdminLayout($this->_data);
     }
 
-    public function searchOrdersByTotalAndDate() {
-      $searchMessage = $_POST['search-box'];
-      $wherePhrase = 
-        " WHERE" . 
-          " total LIKE '%$searchMessage%' OR " . 
-          " created_at LIKE '%$searchMessage%' OR" . 
-          " updated_at LIKE '%$searchMessage%' AND" .
-          " is_deleted = 0";
+    public function getWherePhraseWhenFilter() {
+      $status = $_POST['status'];
+      $wherePhrase = " WHERE";
+      switch ($status) {
+        case 'no-purchase':
+          $wherePhrase = " WHERE is_purchased = 0 AND";
+          break;
+
+        case 'purchased':
+          $wherePhrase = " WHERE is_purchased = 1 AND";
+          break;
+      }
+      return $wherePhrase;
+    }
+
+    public function filterOrderByStatus() {
+      $wherePhrase = $this->getWherePhraseWhenFilter();
+      $wherePhrase .= ' is_deleted = 0';
       $this->index(1, $wherePhrase);
+    }
+
+    public function filterOrderDeletedByStatus() {
+      $wherePhrase = $this->getWherePhraseWhenFilter();
+      $wherePhrase .= ' is_deleted = 1';
+      $this->showOrdersDeleted(1, $wherePhrase);
     }
 
     public function softDelete() {

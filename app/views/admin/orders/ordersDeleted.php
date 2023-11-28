@@ -4,14 +4,15 @@
   <div class="table-title border-bottom pb-3">
     <div class="row">
       <div class="col-sm-4">
-        <form class="search-box" method="post" action="<?=SEARCH_ORDERS_ROUTE;?>">
-          <input 
-            type="text" 
-            class="form-control" 
-            name="search-box" 
-            placeholder="Tìm kiếm&hellip;"
-            value="<?=($_POST['search-box'] ?? '');?>"
-          />
+        <form class="search-box d-flex" method="post" action="<?=FILTER_ORDERS_DELETED_ROUTE;?>">
+          <select type="text" class="form-control" name="status">
+            <option value="all">Tất cả</option>
+            <option value="no-purchase">Chưa thanh toán</option>
+            <option value="purchased">Đã thanh toán</option>
+          </select>
+          <button class="btn btn-secondary ms-2" data-bs-toggle="modal" id="delete-btn">
+            <span>Lọc</span>
+          </button>
         </form>
       </div>
       <div class="col-sm-8 text-sm-end text-center mt-sm-0 mt-3">
