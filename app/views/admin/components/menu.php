@@ -54,6 +54,7 @@
         <div class="collapse" id="collapseLayouts4" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
           <nav class="sb-sidenav-menu-nested nav">
             <a class="nav-link" href=<?=(ORDERS_ROUTE . "1");?>>Danh sách đơn hàng</a>
+            <a class="nav-link" href=<?=(ORDERS_DELETED_ROUTE . "1");?>>Đơn hàng đã xóa</a>
           </nav>
         </div>
 
