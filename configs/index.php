@@ -3,5 +3,5 @@
   require_once "database.php";
   require_once "constants/index.php";
   require_once "routes/index.php";
-  require_once "libraries.php";
+  require_once "libraries/index.php";
 ?>
