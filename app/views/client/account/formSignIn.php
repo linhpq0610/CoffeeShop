@@ -20,6 +20,12 @@
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="text-right">Đăng nhập</h4>
           </div>
+          <a href="#" class="btn border-1 w-100 bg-transparent" style="color: #6a6a6a; border-radius: 10px; border-color: #3b5d50">
+            <i class="fab fa-google me-2"></i> Đăng nhập với google
+          </a>
+          <p class="text-center h5 mb-0 mt-2">Hoặc</p>
+          <hr class="m-0">
+
           <div class="row mt-2">
             <div class="col-md-12">
               <label class="labels">Email</label
