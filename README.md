@@ -2,10 +2,11 @@
 
 ## Mục lục
 
-- [Bước 1: Cấu hình đường dẫn](#bước-1-cấu-hình-đường-dẫn)
-- [Bước 2: Cấu hình URL](#bước-2-cấu-hình-url)
-- [Bước 3: Cấu hình database](#bước-3-cấu-hình-database)
-- [Bước 4: Chạy dự án](#bước-4-chạy-dự-án)
+- [Cấu hình đường dẫn](#bước-1-cấu-hình-đường-dẫn)
+- [Cấu hình URL](#bước-2-cấu-hình-url)
+- [Cấu hình database](#bước-3-cấu-hình-database)
+- [Cài đặt thư viện](#bước-4-cài-đặt-thư-viện)
+- [Chạy dự án](#bước-5-chạy-dự-án)
 
 ## Bước 1: Cấu hình đường dẫn
 
@@ -60,6 +61,13 @@
    ```
 3. Import file `CoffeeShop.sql` vào database của bạn.
 
-## Bước 4: Chạy dự án
+## Bước 4: Cài đặt thư viện
+
+1. Tạo thư mục `libs` trong `public`
+2. Giải nén `php-jwt.zip` vào thư mục `libs`
+3. Tải và thư viện Google API [tại đây](https://github.com/googleapis/google-api-php-client/releases/download/v2.15.1/google-api-php-client--PHP7.4.zip)
+4. Đổi tên thư mục sau giải nén thành `google-api` và đặt vào thư mục `libs`.
+
+## Bước 5: Chạy dự án
 
 Bây giờ bạn đã cấu hình xong. Bạn có thể chạy dự án CoffeeShop trên máy tính của bạn.
