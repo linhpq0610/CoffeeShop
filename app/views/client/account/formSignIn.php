@@ -53,7 +53,11 @@
               <p class="field-message mb-0"></p>
             </div>
           </div>
-          <div class="mt-5 text-center">
+          <div class="p-t-12">
+            <span class="txt1">Quên</span>
+            <a class="txt2" href="<?=FORGOT_PASSWORD_ROUTE;?>">mật khẩu?</a>
+          </div>
+          <div class="mt-3 text-center">
             <button
               class="btn btn-primary profile-button"
               style="background-color: #333"
@@ -61,10 +65,6 @@
             >
               Đăng nhập
             </button>
-          </div>
-          <div class="text-center p-t-12">
-            <span class="txt1">Quên</span>
-            <a class="txt2" href="<?=FORGOT_PASSWORD_ROUTE;?>">mật khẩu?</a>
           </div>
           <div class="text-center p-t-136">
             <a class="txt2" href="<?=FORM_SIGN_UP_ROUTE;?>">
