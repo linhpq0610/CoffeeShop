@@ -65,7 +65,7 @@
 
 1. Tạo thư mục `libs` trong `public`
 2. Giải nén `php-jwt.zip` vào thư mục `libs`
-3. Tải và thư viện Google API [tại đây](https://github.com/googleapis/google-api-php-client/releases/download/v2.15.1/google-api-php-client--PHP7.4.zip)
+3. Tải thư viện Google API [tại đây](https://github.com/googleapis/google-api-php-client/releases/download/v2.15.1/google-api-php-client--PHP7.4.zip)
 4. Đổi tên thư mục sau giải nén thành `google-api` và đặt vào thư mục `libs`.
 
 ## Bước 5: Chạy dự án
