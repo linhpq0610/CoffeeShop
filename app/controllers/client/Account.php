@@ -56,32 +56,11 @@
       }
     }
 
-    public function handleSignUpWithGoogle() {
-      if (isset($_GET['code'])) {
-        $token = $this->__client->fetchAccessTokenWithAuthCode($_GET['code']);
-        if(!isset($token["error"])){
-          $googleAccountInfo = $this->getGoogleAccountInfo($token);
-          $this->notifySignUpFail();
-        } else {
-          header('Location: ' . FORM_SIGN_IN_ROUTE);
-          exit;
-        }
-      }
-    }
-
-    public function setRedirectUri() {
-      if (strpos($_SERVER['PATH_INFO'], 'dang-nhap') != false) {
-        $this->__client->setRedirectUri(GOOGLE_APP_SIGN_IN_CALLBACK_URL);
-      } else {
-        $this->__client->setRedirectUri(GOOGLE_APP_SIGN_UP_CALLBACK_URL);
-      }
-    }
-
     public function setGoogleClient() {
       $this->__client = new Google_Client();
       $this->__client->setClientId(GOOGLE_APP_ID);
       $this->__client->setClientSecret(GOOGLE_APP_SECRET);
-      $this->setRedirectUri();
+      $this->__client->setRedirectUri(GOOGLE_APP_SIGN_IN_CALLBACK_URL);
 
       $this->__client->addScope("email");
       $this->__client->addScope("profile");
