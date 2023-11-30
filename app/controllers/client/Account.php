@@ -3,9 +3,11 @@
   use Firebase\JWT\Key;
   class Account extends Controller {
     private $__accountModel;
+    private $__client;
 
     function __construct() {
       $this->__accountModel = $this->getModel("AccountModel");
+      $this->setGoogleClient();
     }
 
     public function index() {
@@ -34,16 +36,55 @@
       return $defaultData;
     }
 
+    public function getGoogleAccountInfo($token) {
+      $this->__client->setAccessToken($token['access_token']);
+      $googleOauth = new Google_Service_Oauth2($this->__client);
+      $googleAccountInfo = $googleOauth->userinfo->get();
+      return $googleAccountInfo;
+    }
+
+    public function handleSignInWithGoogle() {
+      if (isset($_GET['code'])) {
+        $token = $this->__client->fetchAccessTokenWithAuthCode($_GET['code']);
+        if(!isset($token["error"])){
+          $googleAccountInfo = $this->getGoogleAccountInfo($token);
+          $this->checkSignIn($googleAccountInfo->email);
+        } else {
+          header('Location: ' . FORM_SIGN_IN_ROUTE);
+          exit;
+        }
+      }
+    }
+
+    public function setGoogleClient() {
+      $this->__client = new Google_Client();
+      $this->__client->setClientId(GOOGLE_APP_ID);
+      $this->__client->setClientSecret(GOOGLE_APP_SECRET);
+      $this->__client->setRedirectUri(GOOGLE_APP_SIGN_IN_CALLBACK_URL);
+
+      $this->__client->addScope("email");
+      $this->__client->addScope("profile");
+
+      //! If these two lines are deleted, it will cause an error.
+      $guzzleClient = new \GuzzleHttp\Client(array( 'curl' => array( CURLOPT_SSL_VERIFYPEER => false, ), ));
+      $this->__client->setHttpClient($guzzleClient);
+    }
+
     public function showFormSignIn($formData = []) {
       $formData = $this->setDefaultData($formData);
+      $authUrl = $this->__client->createAuthUrl();
+
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/formSignIn';
       $this->_data['pageTitle'] = 'Đăng nhập';
-      $this->_data['contentOfPage'] = $formData;
+      $this->_data['contentOfPage'] = [
+        'formData' => $formData,
+        'authUrl' => $authUrl,
+      ];
       $this->renderClientLayout($this->_data);
     }
 
-    public function checkSignIn() {
-      $email = $_POST['email'];
+    public function checkSignIn($email = '') {
+      $email = $email != '' ? $email : $_POST['email'];
       $condition = 
         " WHERE" . 
           " email = '$email' AND" . 
@@ -66,10 +107,6 @@
         'email' => $email,
       ];
       $this->showFormSignIn($formData);
-    }
-
-    public function generateToken() {
-      return bin2hex(random_bytes(16));
     }
 
     public function addUserToken($user) {
@@ -141,16 +178,16 @@
       $this->signUp($data);
     }
 
-    public function checkSignUp() {
-      $email = $_POST['email'];
+    public function hasUser($email) {
+      $email = $email != '' ? $email : $_POST['email'];
       $condition = " WHERE email = '$email'";
 
       $user = $this->__accountModel->selectRowBy($condition);
       $hasUser = $this->__accountModel->hasUser($user); 
-      if (!$hasUser) {
-        $this->initSignUp();
-      }
+      return $hasUser;
+    }
 
+    public function notifySignUpFail() {
       $messageAlert = 
         '<p class="p-3">
           Email đã được sử dụng.
@@ -160,9 +197,18 @@
       $formData = [
         'messageAlert' => $messageAlert,
         'name' => $_POST['name'],
-        'email' => $email,
+        'email' => $_POST['email'],
       ];
       $this->showFormSignUp($formData);
+    }
+
+    public function checkSignUp($email = '') {
+      $hasUser = $this->hasUser($email); 
+      if (!$hasUser) {
+        $this->initSignUp();
+      }
+
+      $this->notifySignUpFail();
     }
 
     public function handleSignOut() {
