@@ -56,17 +56,33 @@
       }
     }
 
-    public function setGoogleClient() {
-      // Creating new google client instance
-      $this->__client = new Google_Client();
-      // Enter your Client ID
-      $this->__client->setClientId(GOOGLE_APP_ID);
-      // Enter your Client Secrect
-      $this->__client->setClientSecret(GOOGLE_APP_SECRET);
-      // Enter the Redirect URL
-      $this->__client->setRedirectUri(GOOGLE_APP_SIGN_IN_CALLBACK_URL);
+    public function handleSignUpWithGoogle() {
+      if (isset($_GET['code'])) {
+        $token = $this->__client->fetchAccessTokenWithAuthCode($_GET['code']);
+        if(!isset($token["error"])){
+          $googleAccountInfo = $this->getGoogleAccountInfo($token);
+          $this->notifySignUpFail();
+        } else {
+          header('Location: ' . FORM_SIGN_IN_ROUTE);
+          exit;
+        }
+      }
+    }
 
-      // Adding those scopes which we want to get (email & profile) 
+    public function setRedirectUri() {
+      if (strpos($_SERVER['PATH_INFO'], 'dang-nhap') != false) {
+        $this->__client->setRedirectUri(GOOGLE_APP_SIGN_IN_CALLBACK_URL);
+      } else {
+        $this->__client->setRedirectUri(GOOGLE_APP_SIGN_UP_CALLBACK_URL);
+      }
+    }
+
+    public function setGoogleClient() {
+      $this->__client = new Google_Client();
+      $this->__client->setClientId(GOOGLE_APP_ID);
+      $this->__client->setClientSecret(GOOGLE_APP_SECRET);
+      $this->setRedirectUri();
+
       $this->__client->addScope("email");
       $this->__client->addScope("profile");
 
@@ -183,16 +199,16 @@
       $this->signUp($data);
     }
 
-    public function checkSignUp() {
-      $email = $_POST['email'];
+    public function hasUser($email) {
+      $email = $email != '' ? $email : $_POST['email'];
       $condition = " WHERE email = '$email'";
 
       $user = $this->__accountModel->selectRowBy($condition);
       $hasUser = $this->__accountModel->hasUser($user); 
-      if (!$hasUser) {
-        $this->initSignUp();
-      }
+      return $hasUser;
+    }
 
+    public function notifySignUpFail() {
       $messageAlert = 
         '<p class="p-3">
           Email đã được sử dụng.
@@ -202,9 +218,18 @@
       $formData = [
         'messageAlert' => $messageAlert,
         'name' => $_POST['name'],
-        'email' => $email,
+        'email' => $_POST['email'],
       ];
       $this->showFormSignUp($formData);
+    }
+
+    public function checkSignUp($email = '') {
+      $hasUser = $this->hasUser($email); 
+      if (!$hasUser) {
+        $this->initSignUp();
+      }
+
+      $this->notifySignUpFail();
     }
 
     public function handleSignOut() {

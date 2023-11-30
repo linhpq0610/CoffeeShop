@@ -10,7 +10,7 @@
 
     public function isPasswordVerified($user) {
       $isPasswordVerified = true;
-      if (isset($_POST['password'])) {
+      if (isset($_POST['password']) && strpos($_SERVER['PATH_INFO'], 'dang-nhap')) {
         $isPasswordVerified = password_verify($_POST['password'], $user['password']); 
       }
       return $isPasswordVerified;
