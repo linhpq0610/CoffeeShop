@@ -22,7 +22,7 @@
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="text-right">Đăng nhập</h4>
           </div>
-          <a href="<?php echo $client->createAuthUrl(); ?>" class="btn border-1 w-100 bg-transparent" style="color: #6a6a6a; border-radius: 10px; border-color: #3b5d50">
+          <a href="<?=$authUrl;?>" class="btn border-1 w-100 bg-transparent" style="color: #6a6a6a; border-radius: 10px; border-color: #3b5d50">
             <i class="fab fa-google me-2"></i> Đăng nhập với google
           </a>
           <p class="text-center h6 mb-0 mt-2">Hoặc</p>

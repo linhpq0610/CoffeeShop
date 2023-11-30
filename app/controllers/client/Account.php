@@ -36,13 +36,18 @@
       return $defaultData;
     }
 
+    public function getGoogleAccountInfo($token) {
+      $this->__client->setAccessToken($token['access_token']);
+      $googleOauth = new Google_Service_Oauth2($this->__client);
+      $googleAccountInfo = $googleOauth->userinfo->get();
+      return $googleAccountInfo;
+    }
+
     public function handleSignInWithGoogle() {
       if (isset($_GET['code'])) {
         $token = $this->__client->fetchAccessTokenWithAuthCode($_GET['code']);
         if(!isset($token["error"])){
-          $this->__client->setAccessToken($token['access_token']);
-          $googleOauth = new Google_Service_Oauth2($this->__client);
-          $googleAccountInfo = $googleOauth->userinfo->get();
+          $googleAccountInfo = $this->getGoogleAccountInfo($token);
           $this->checkSignIn($googleAccountInfo->email);
         } else {
           header('Location: ' . FORM_SIGN_IN_ROUTE);
@@ -72,12 +77,13 @@
 
     public function showFormSignIn($formData = []) {
       $formData = $this->setDefaultData($formData);
+      $authUrl = $this->__client->createAuthUrl();
 
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/formSignIn';
       $this->_data['pageTitle'] = 'Đăng nhập';
       $this->_data['contentOfPage'] = [
         'formData' => $formData,
-        'client' => $this->__client,
+        'authUrl' => $authUrl,
       ];
       $this->renderClientLayout($this->_data);
     }
