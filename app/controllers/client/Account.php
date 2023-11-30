@@ -3,9 +3,11 @@
   use Firebase\JWT\Key;
   class Account extends Controller {
     private $__accountModel;
+    private $__client;
 
     function __construct() {
       $this->__accountModel = $this->getModel("AccountModel");
+      $this->setGoogleClient();
     }
 
     public function index() {
@@ -34,16 +36,54 @@
       return $defaultData;
     }
 
+    public function handleSignInWithGoogle() {
+      if (isset($_GET['code'])) {
+        $token = $this->__client->fetchAccessTokenWithAuthCode($_GET['code']);
+        if(!isset($token["error"])){
+          $this->__client->setAccessToken($token['access_token']);
+          $googleOauth = new Google_Service_Oauth2($this->__client);
+          $googleAccountInfo = $googleOauth->userinfo->get();
+          $this->checkSignIn($googleAccountInfo->email);
+        } else {
+          header('Location: ' . FORM_SIGN_IN_ROUTE);
+          exit;
+        }
+      }
+    }
+
+    public function setGoogleClient() {
+      // Creating new google client instance
+      $this->__client = new Google_Client();
+      // Enter your Client ID
+      $this->__client->setClientId(GOOGLE_APP_ID);
+      // Enter your Client Secrect
+      $this->__client->setClientSecret(GOOGLE_APP_SECRET);
+      // Enter the Redirect URL
+      $this->__client->setRedirectUri(GOOGLE_APP_SIGN_IN_CALLBACK_URL);
+
+      // Adding those scopes which we want to get (email & profile) 
+      $this->__client->addScope("email");
+      $this->__client->addScope("profile");
+
+      //! If these two lines are deleted, it will cause an error.
+      $guzzleClient = new \GuzzleHttp\Client(array( 'curl' => array( CURLOPT_SSL_VERIFYPEER => false, ), ));
+      $this->__client->setHttpClient($guzzleClient);
+    }
+
     public function showFormSignIn($formData = []) {
       $formData = $this->setDefaultData($formData);
+
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/formSignIn';
       $this->_data['pageTitle'] = 'Đăng nhập';
-      $this->_data['contentOfPage'] = $formData;
+      $this->_data['contentOfPage'] = [
+        'formData' => $formData,
+        'client' => $this->__client,
+      ];
       $this->renderClientLayout($this->_data);
     }
 
-    public function checkSignIn() {
-      $email = $_POST['email'];
+    public function checkSignIn($email = '') {
+      $email = $email != '' ? $email : $_POST['email'];
       $condition = 
         " WHERE" . 
           " email = '$email' AND" . 
@@ -66,10 +106,6 @@
         'email' => $email,
       ];
       $this->showFormSignIn($formData);
-    }
-
-    public function generateToken() {
-      return bin2hex(random_bytes(16));
     }
 
     public function addUserToken($user) {

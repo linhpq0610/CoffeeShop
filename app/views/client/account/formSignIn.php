@@ -1,3 +1,5 @@
+<?php extract($formData); ?>
+
 <div class="container rounded" style="padding-top: 50px; padding-bottom: 50px">
   <div class="bg-white">
     <div class="row align-items-center">
@@ -20,10 +22,10 @@
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="text-right">Đăng nhập</h4>
           </div>
-          <a href="#" class="btn border-1 w-100 bg-transparent" style="color: #6a6a6a; border-radius: 10px; border-color: #3b5d50">
+          <a href="<?php echo $client->createAuthUrl(); ?>" class="btn border-1 w-100 bg-transparent" style="color: #6a6a6a; border-radius: 10px; border-color: #3b5d50">
             <i class="fab fa-google me-2"></i> Đăng nhập với google
           </a>
-          <p class="text-center h5 mb-0 mt-2">Hoặc</p>
+          <p class="text-center h6 mb-0 mt-2">Hoặc</p>
           <hr class="m-0">
 
           <div class="row mt-2">
