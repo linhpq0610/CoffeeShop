@@ -59,6 +59,13 @@
               <p class="field-message mb-0"></p>
             </div>
           </div>
+          <div class="row mt-2">
+            <div class="col-md-12">
+              <label class="labels">Xác nhận mật khẩu</label>
+              <input type="password" class="form-control" name="confirm-password" placeholder="Nhập xác nhận mật khẩu tại đây" />
+              <p class="field-message mb-0"></p>
+            </div>
+          </div>
           <div class="mt-5 text-center">
             <button
               class="btn btn-primary profile-button"
@@ -91,5 +98,6 @@
   formValidator.addField("name", FORM.elements["name"]);
   formValidator.addField("email", FORM.elements["email"]);
   formValidator.addField("password", FORM.elements["password"]);
+  formValidator.addField("confirmPassword", FORM.elements["confirm-password"]);
   formValidator.start();
 </script>

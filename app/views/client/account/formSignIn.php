@@ -1,3 +1,5 @@
+<?php extract($formData); ?>
+
 <div class="container rounded" style="padding-top: 50px; padding-bottom: 50px">
   <div class="bg-white">
     <div class="row align-items-center">
@@ -20,6 +22,12 @@
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="text-right">Đăng nhập</h4>
           </div>
+          <a href="<?=$authUrl;?>" class="btn border-1 w-100 bg-transparent" style="color: #6a6a6a; border-radius: 10px; border-color: #3b5d50">
+            <i class="fab fa-google me-2"></i> Đăng nhập với google
+          </a>
+          <p class="text-center h6 mb-0 mt-2">Hoặc</p>
+          <hr class="m-0">
+
           <div class="row mt-2">
             <div class="col-md-12">
               <label class="labels">Email</label
@@ -45,7 +53,11 @@
               <p class="field-message mb-0"></p>
             </div>
           </div>
-          <div class="mt-5 text-center">
+          <div class="p-t-12">
+            <span class="txt1">Quên</span>
+            <a class="txt2" href="<?=FORGOT_PASSWORD_ROUTE;?>">mật khẩu?</a>
+          </div>
+          <div class="mt-3 text-center">
             <button
               class="btn btn-primary profile-button"
               style="background-color: #333"
@@ -53,10 +65,6 @@
             >
               Đăng nhập
             </button>
-          </div>
-          <div class="text-center p-t-12">
-            <span class="txt1">Quên</span>
-            <a class="txt2" href="<?=FORGOT_PASSWORD_ROUTE;?>">mật khẩu?</a>
           </div>
           <div class="text-center p-t-136">
             <a class="txt2" href="<?=FORM_SIGN_UP_ROUTE;?>">

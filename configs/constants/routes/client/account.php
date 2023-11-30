@@ -12,4 +12,5 @@
   define("FORM_SIGN_UP_ROUTE", "dang-ky");
   define("SIGN_UP_ROUTE", "xu-ly-dang-ky");
   define("UPDATE_USER_ROUTE", "cap-nhat-nguoi-dung-");
+  define("HANDLE_SIGN_IN_WITH_GOOGLE_ROUTE", "xu-ly-dang-nhap-voi-google");
 ?>

@@ -1,4 +1,5 @@
 <?php 
+  $routes['xu-ly-dang-nhap-voi-google'] = 'client/account/handleSignInWithGoogle';
   $routes['quen-mat-khau'] = 'client/account/showFormForgotPassword';
   $routes['kiem-tra-email'] = 'client/account/checkEmail';
   $routes['hien-thi-form-thay-doi-mat-khau'] = 'client/account/showFormChangePassword';
