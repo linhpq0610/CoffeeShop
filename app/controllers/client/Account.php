@@ -171,7 +171,7 @@
         "name" => $_POST['name'],
         "email" => $_POST['email'],
         "password" => $passwordEncrypted,
-        "image" => 'default-user-image.png',
+        "image" => 'default-user-image.webp',
       ];
 
       $data = $this->getImageUploaded($data);
