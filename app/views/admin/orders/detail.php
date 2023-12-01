@@ -35,7 +35,7 @@
             <td>
               <a href="<?=(PRODUCT_INFO_ROUTE . $product_id);?>" class="p-2 d-flex flex-row align-items-center mb-2 text-decoration-none text-reset">
                 <img
-                  src="<?=(IMAGES_URL . "/" . $image);?>"
+                  src="<?=(PRODUCTS_UPLOADS_URL . "/$image");?>"
                   width="40"
                   class="me-3 rounded-circle"
                 />

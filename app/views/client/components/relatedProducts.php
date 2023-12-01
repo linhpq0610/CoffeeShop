@@ -10,7 +10,7 @@
           ?>
             <div class="d-flex align-items-center mb-3">
               <a href="<?= (PRODUCT_DETAIL_ROUTE . $id); ?>" class="me-3">
-                <img src="<?= (IMAGES_URL . "/" . $image); ?>" style="max-width: 96px; height: 96px; object-fit: cover" class="img-md img-thumbnail" />
+                <img src="<?= (PRODUCTS_UPLOADS_URL . "/$image"); ?>" style="max-width: 96px; height: 96px; object-fit: cover" class="img-md img-thumbnail" />
               </a>
               <div class="info">
                 <a href="<?= (PRODUCT_DETAIL_ROUTE . $id); ?>" class="nav-link mb-1 p-0 text-truncate-2 text-black fs-6">

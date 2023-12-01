@@ -75,7 +75,7 @@
             <td>
               <a href="<?=(USER_INFO_ROUTE . $user_id);?>" class="p-2 d-flex flex-row align-items-center mb-2 text-decoration-none text-reset">
                 <img
-                  src="<?=(IMAGES_URL . "/" . $image);?>"
+                  src="<?=(USERS_UPLOADS_URL . "/$image");?>"
                   width="40"
                   class="me-3 rounded-circle"
                 />

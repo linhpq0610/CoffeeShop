@@ -11,7 +11,7 @@
         <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
           <a class="product-item" href="<?= (PRODUCT_DETAIL_ROUTE . $id); ?>">
             <img
-              src="<?= (IMAGES_URL . "/" . $image); ?>"
+              src="<?= (PRODUCTS_UPLOADS_URL . "/$image"); ?>"
               class="img-fluid product-thumbnail"
             />
             <h3 class="product-title"><?= $name; ?></h3>

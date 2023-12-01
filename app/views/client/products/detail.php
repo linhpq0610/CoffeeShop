@@ -13,12 +13,12 @@
             class="rounded-4" 
             target="_blank" 
             data-type="image" 
-            href="<?= IMAGES_URL . "/" . $image; ?>"
+            href="<?= PRODUCTS_UPLOADS_URL . "/$image"; ?>"
           >
             <img 
               style="max-width: 100%; max-height: 100vh; margin: auto;" 
               class="rounded-4 fit" 
-              src="<?= IMAGES_URL . "/" . $image; ?>" 
+              src="<?= PRODUCTS_UPLOADS_URL . "/$image"; ?>" 
             />
           </a>
         </div>
