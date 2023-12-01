@@ -120,7 +120,7 @@
         "category_id" => $_POST['category_id'],
       ];
       
-      $data = $this->getImageUploaded($data);
+      $data = $this->getImageUploaded($data, PRODUCTS_UPLOAD_DIR);
       $DB = $this->__productModel->getDB();
       $tableName = $this->__productModel->tableFill();
       $condition = "id = $id";
@@ -179,7 +179,7 @@
         "image" => 'default-product-image.png',
       ];
 
-      $data = $this->getImageUploaded($data);
+      $data = $this->getImageUploaded($data, PRODUCTS_UPLOAD_DIR);
       $this->add($data);
     }
 

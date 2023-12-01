@@ -95,7 +95,7 @@
       call_user_func_array([$this, $action], $params);
     }
     
-    public function getImageUploaded($data) {
+    public function getImageUploaded($data, $dir) {
       $imageName = $_FILES['avatar']['name'];
       
       if ($imageName != "") {
@@ -103,7 +103,7 @@
 
         move_uploaded_file(
           $_FILES['avatar']['tmp_name'], 
-          IMAGES_DIR . "/" . "$imageName"
+          $dir . "/$imageName"
         );
       }
 
