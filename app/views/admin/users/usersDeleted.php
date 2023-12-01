@@ -57,7 +57,7 @@
             </td>
             <td>
               <div class="p-2 d-flex flex-row align-items-center mb-2">
-                <img src="<?= (IMAGES_URL . "/" . $image); ?>" width="40" class="me-3 rounded-circle" />
+                <img src="<?= (USERS_UPLOADS_URL . "/$image"); ?>" width="40" class="me-3 rounded-circle" />
                 <div class="d-flex flex-column ml-2">
                   <span class="d-block font-weight-bold"><?= $name; ?></span>
                   <small class="text-muted"><?= $email; ?></small>

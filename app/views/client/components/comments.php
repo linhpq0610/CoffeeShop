@@ -20,7 +20,7 @@
       <div>
         <img
           width="40px"
-          src="<?php echo IMAGES_URL . "/" . $image; ?>"
+          src="<?= (USERS_UPLOADS_URL . "/$image"); ?>"
           class="rounded-circle me-2"
         /><a class="fw-semibold text-decoration-none"><?=$user_name;?></a>
         <span class="ms-3 small text-muted">

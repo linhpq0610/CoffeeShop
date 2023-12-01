@@ -11,7 +11,7 @@
             class="rounded-circle"
             width="300px"
             id="avatar"
-            src="<?=(IMAGES_URL . "/" . $image);?>"
+            src="<?=(PRODUCTS_UPLOADS_URL . "/$image");?>"
           />
         </div>
       </div> 

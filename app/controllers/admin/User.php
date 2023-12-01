@@ -112,7 +112,7 @@
         "name" => $_POST['name'],
         "email" => $_POST['email'],
       ];
-      $data = $this->getImageUploaded($data);
+      $data = $this->getImageUploaded($data, USERS_UPLOAD_DIR);
       
       $DB = $this->__accountModel->getDB();
       $tableName = $this->__accountModel->tableFill();
@@ -155,7 +155,7 @@
         "password" => $passwordEncrypted,
         "image" => 'default-user-image.webp',
       ];
-      $data = $this->getImageUploaded($data);
+      $data = $this->getImageUploaded($data, USERS_UPLOAD_DIR);
       $this->add($data);
     }
 

@@ -3,7 +3,7 @@
     <div class="row align-items-center">
       <div class="col-md-6 border-right">
         <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-          <img width="250px" src="https://colorlib.com/etc/cf/ContactFrom_v12/images/img-01.png" />
+          <img width="250px" src="<?=IMAGES_URL?>/contact.png" />
         </div>
       </div>
       <form method="post" class="col-md-6 border-right contact-form">

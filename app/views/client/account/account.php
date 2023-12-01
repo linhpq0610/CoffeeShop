@@ -7,7 +7,7 @@
             class="rounded-circle"
             width="250px"
             id="avatar"
-            src="<?= (IMAGES_URL . "/" . $image); ?>"
+            src="<?= (USERS_UPLOADS_URL . "/$image"); ?>"
           />
           <input 
             type="file" 
