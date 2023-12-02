@@ -8,7 +8,7 @@
             <div class="row">
 
               <div class="col-lg-8">
-                <h5 class="mb-3"><a href="#!" class="text-body"><i class="fas fa-long-arrow-alt-left me-2"></i>Tiếp tục mua sắm</a></h5>
+                <h5 class="mb-3"><a href="<?=(SHOP_ROUTE . "1")?>" class="text-body text-decoration-none"><i class="fas fa-long-arrow-alt-left me-2"></i>Tiếp tục mua sắm</a></h5>
                 <hr>
 
                 <!-- <div class="d-flex justify-content-between align-items-center mb-4">
@@ -20,151 +20,46 @@
                     <p class="mb-0"><span class="text-muted">Sort by:</span> <a href="#!" class="text-body">price <i class="fas fa-angle-down mt-1"></i></a></p>
                   </div>
                 </div> -->
+                <?php 
+                  foreach ($itemsInOrder as $item):
+                    extract($item);
+                ?>
 
                 <div class="card mb-3">
                   <div class="card-body">
                     <div class="d-flex justify-content-between">
-                      <div class="d-flex flex-row align-items-center">
+                      <a href="<?=(PRODUCT_DETAIL_ROUTE . $product_id);?>" class="d-flex flex-row align-items-center text-decoration-none">
                         <div>
-                          <img src="<?= IMAGES_URL; ?>/arabica.png" class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
+                          <img src="<?= (PRODUCTS_UPLOADS_URL . "/$image"); ?>" class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
                         </div>
                         <div class="ms-3">
-                          <h5 class="text-truncate" style="width: 250px;">Cà phê Arabica 250g</h5>
-                          <p class="small mb-0 text-truncate" style="width: 250px;">Cà phê Arabica tinh khiết được trồng và chăm sóc tận tâm trên những thửa đất phủ đầy cỏ xanh tươi mát, nằm ẩn mình trong vùng nông thôn hữu cơ của chúng tôi. Những hạt cà phê Arabica này được lựa chọn tỉ mỉ, đảm bảo chất lượng và hương vị tốt nhất.
-
-                            Chúng tôi tự hào giới thiệu một cốc cà phê độc đáo, thăng hoa vị ngon với hương thơm nồng nàn và vị đắng đặc trưng của Arabica. Sự tinh khiết của sản phẩm là kết quả của quy trình chế biến cẩn thận và đội ngũ nông dân tận tâm của chúng tôi. Đây không chỉ là một cốc cà phê, mà còn là một hành trình khám phá vị ngon và tận hưởng sự thư giãn trong từng ngụm.
-
-                            Hãy đắm chìm trong thế giới hương vị độc đáo và hãy để cà phê Arabica tinh khiết từ chúng tôi đồng hành cùng bạn mỗi sáng. Một kỳ nghỉ đẳng cấp và trải nghiệm cà phê không giống ai đang chờ bạn.</p>
+                          <h5 class="text-truncate" style="width: 250px;"><?=$name;?></h5>
+                          <p class="small mb-0 text-truncate" style="width: 250px;"><?=$description;?></p>
                         </div>
-                      </div>
+                      </a>
                       <div class="d-flex flex-row align-items-center">
                         <div class="d-flex me-4" style="width: 140px;">
                           <button class="btn btn-link px-2 border-0 bg-transparent text-black" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
                             <i class="fas fa-minus"></i>
                           </button>
 
-                          <input id="form1" min="0" name="quantity" value="2" type="number" class="form-control form-control-sm mx-2" />
+                          <input id="form1" min="0" name="quantity" value="<?=$quantity;?>" type="number" class="form-control form-control-sm mx-2" />
 
                           <button class="btn btn-link px-2 border-0 bg-transparent text-black" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
                             <i class="fas fa-plus"></i>
                           </button>
                         </div>
                         <div style="width: 120px;">
-                          <h5 class="mb-0">250,000</h5>
+                          <h5 class="mb-0"><?=($this->formatNumber($price));?>₫</h5>
                         </div>
-                        <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
+                        <a href="#!"><i class="fas fa-trash text-danger"></i></a>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="card mb-3">
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                      <div class="d-flex flex-row align-items-center">
-                        <div>
-                          <img src="<?= IMAGES_URL; ?>/arabica.png" class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
-                        </div>
-                        <div class="ms-3">
-                          <h5 class="text-truncate" style="width: 250px;">Cà phê Arabica 250g</h5>
-                          <p class="small mb-0 text-truncate" style="width: 250px;">Cà phê Arabica tinh khiết được trồng và chăm sóc tận tâm trên những thửa đất phủ đầy cỏ xanh tươi mát, nằm ẩn mình trong vùng nông thôn hữu cơ của chúng tôi. Những hạt cà phê Arabica này được lựa chọn tỉ mỉ, đảm bảo chất lượng và hương vị tốt nhất.
-
-                            Chúng tôi tự hào giới thiệu một cốc cà phê độc đáo, thăng hoa vị ngon với hương thơm nồng nàn và vị đắng đặc trưng của Arabica. Sự tinh khiết của sản phẩm là kết quả của quy trình chế biến cẩn thận và đội ngũ nông dân tận tâm của chúng tôi. Đây không chỉ là một cốc cà phê, mà còn là một hành trình khám phá vị ngon và tận hưởng sự thư giãn trong từng ngụm.
-
-                            Hãy đắm chìm trong thế giới hương vị độc đáo và hãy để cà phê Arabica tinh khiết từ chúng tôi đồng hành cùng bạn mỗi sáng. Một kỳ nghỉ đẳng cấp và trải nghiệm cà phê không giống ai đang chờ bạn.</p>
-                        </div>
-                      </div>
-                      <div class="d-flex flex-row align-items-center">
-                        <div class="d-flex me-4" style="width: 140px;">
-                          <button class="btn btn-link px-2 border-0 bg-transparent text-black" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                            <i class="fas fa-minus"></i>
-                          </button>
-
-                          <input id="form1" min="0" name="quantity" value="2" type="number" class="form-control form-control-sm mx-2" />
-
-                          <button class="btn btn-link px-2 border-0 bg-transparent text-black" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                            <i class="fas fa-plus"></i>
-                          </button>
-                        </div>
-                        <div style="width: 120px;">
-                          <h5 class="mb-0">250,000</h5>
-                        </div>
-                        <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card mb-3">
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                      <div class="d-flex flex-row align-items-center">
-                        <div>
-                          <img src="<?= IMAGES_URL; ?>/arabica.png" class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
-                        </div>
-                        <div class="ms-3">
-                          <h5 class="text-truncate" style="width: 250px;">Cà phê Arabica 250g</h5>
-                          <p class="small mb-0 text-truncate" style="width: 250px;">Cà phê Arabica tinh khiết được trồng và chăm sóc tận tâm trên những thửa đất phủ đầy cỏ xanh tươi mát, nằm ẩn mình trong vùng nông thôn hữu cơ của chúng tôi. Những hạt cà phê Arabica này được lựa chọn tỉ mỉ, đảm bảo chất lượng và hương vị tốt nhất.
-
-                            Chúng tôi tự hào giới thiệu một cốc cà phê độc đáo, thăng hoa vị ngon với hương thơm nồng nàn và vị đắng đặc trưng của Arabica. Sự tinh khiết của sản phẩm là kết quả của quy trình chế biến cẩn thận và đội ngũ nông dân tận tâm của chúng tôi. Đây không chỉ là một cốc cà phê, mà còn là một hành trình khám phá vị ngon và tận hưởng sự thư giãn trong từng ngụm.
-
-                            Hãy đắm chìm trong thế giới hương vị độc đáo và hãy để cà phê Arabica tinh khiết từ chúng tôi đồng hành cùng bạn mỗi sáng. Một kỳ nghỉ đẳng cấp và trải nghiệm cà phê không giống ai đang chờ bạn.</p>
-                        </div>
-                      </div>
-                      <div class="d-flex flex-row align-items-center">
-                        <div class="d-flex me-4" style="width: 140px;">
-                          <button class="btn btn-link px-2 border-0 bg-transparent text-black" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                            <i class="fas fa-minus"></i>
-                          </button>
-
-                          <input id="form1" min="0" name="quantity" value="2" type="number" class="form-control form-control-sm mx-2" />
-
-                          <button class="btn btn-link px-2 border-0 bg-transparent text-black" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                            <i class="fas fa-plus"></i>
-                          </button>
-                        </div>
-                        <div style="width: 120px;">
-                          <h5 class="mb-0">250,000</h5>
-                        </div>
-                        <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card mb-3">
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                      <div class="d-flex flex-row align-items-center">
-                        <div>
-                          <img src="<?= IMAGES_URL; ?>/arabica.png" class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
-                        </div>
-                        <div class="ms-3">
-                          <h5 class="text-truncate" style="width: 250px;">Cà phê Arabica 250g</h5>
-                          <p class="small mb-0 text-truncate" style="width: 250px;">Cà phê Arabica tinh khiết được trồng và chăm sóc tận tâm trên những thửa đất phủ đầy cỏ xanh tươi mát, nằm ẩn mình trong vùng nông thôn hữu cơ của chúng tôi. Những hạt cà phê Arabica này được lựa chọn tỉ mỉ, đảm bảo chất lượng và hương vị tốt nhất.
-
-                            Chúng tôi tự hào giới thiệu một cốc cà phê độc đáo, thăng hoa vị ngon với hương thơm nồng nàn và vị đắng đặc trưng của Arabica. Sự tinh khiết của sản phẩm là kết quả của quy trình chế biến cẩn thận và đội ngũ nông dân tận tâm của chúng tôi. Đây không chỉ là một cốc cà phê, mà còn là một hành trình khám phá vị ngon và tận hưởng sự thư giãn trong từng ngụm.
-
-                            Hãy đắm chìm trong thế giới hương vị độc đáo và hãy để cà phê Arabica tinh khiết từ chúng tôi đồng hành cùng bạn mỗi sáng. Một kỳ nghỉ đẳng cấp và trải nghiệm cà phê không giống ai đang chờ bạn.</p>
-                        </div>
-                      </div>
-                      <div class="d-flex flex-row align-items-center">
-                        <div class="d-flex me-4" style="width: 140px;">
-                          <button class="btn btn-link px-2 border-0 bg-transparent text-black" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                            <i class="fas fa-minus"></i>
-                          </button>
-
-                          <input id="form1" min="0" name="quantity" value="2" type="number" class="form-control form-control-sm mx-2" />
-
-                          <button class="btn btn-link px-2 border-0 bg-transparent text-black" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                            <i class="fas fa-plus"></i>
-                          </button>
-                        </div>
-                        <div style="width: 120px;">
-                          <h5 class="mb-0">250,000</h5>
-                        </div>
-                        <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <?php 
+                  endforeach;
+                ?>
 
               </div>
               <div class="col-lg-4">
@@ -173,7 +68,7 @@
                   <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-4">
                       <h5 class="mb-0">Chi tiết thẻ</h5>
-                      <img src="<?= IMAGES_URL; ?>/person_1.jpg" class="img-fluid rounded-3" style="width: 45px;" alt="Avatar">
+                      <img src="<?= USERS_UPLOADS_URL; ?>/person_1.jpg" class="img-fluid rounded-3" style="width: 45px;" alt="Avatar">
                     </div>
 
                     <p class="h6 mb-2">Loại thẻ</p>

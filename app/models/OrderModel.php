@@ -31,5 +31,14 @@
         " WHERE o.order_id = $id";
       return $this->_db->selectRows($sql);
     }
+
+    public function getOrderId($userId, $isPurchased) {
+      $sql = 
+        "SELECT id" . 
+        " FROM orders" . 
+        " WHERE user_id = $userId AND" . 
+        " is_purchased = $isPurchased";
+      return $this->_db->getValue($sql);
+    }
   }
 ?>
