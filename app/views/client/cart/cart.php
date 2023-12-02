@@ -11,7 +11,7 @@
                 <h5 class="mb-3"><a href="<?= (SHOP_ROUTE . "1") ?>" class="text-body text-decoration-none"><i class="fas fa-long-arrow-alt-left me-2"></i>Tiếp tục mua sắm</a></h5>
                 <hr>
                 <?php
-                if ($this->isSignedIn()) {
+                if (count($itemsInOrder) > 0) {
                   require CLIENT_COMPONENTS_DIR . '/itemsInOrder.php';
                 } else {
                   require CLIENT_COMPONENTS_DIR . '/emptyCart.php';
