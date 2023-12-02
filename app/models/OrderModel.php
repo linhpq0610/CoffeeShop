@@ -40,5 +40,13 @@
         " is_purchased = $isPurchased";
       return $this->_db->getValue($sql);
     }
+
+    public function getTotal($orderId) {
+      $sql =
+       "SELECT total" . 
+       " FROM orders" .
+       " WHERE id = $orderId";
+      return $this->_db->getValue($sql);
+    }
   }
 ?>

@@ -119,7 +119,7 @@
 
                     <div class="d-flex justify-content-between mb-4 h6">
                       <p class="mb-2">Thành tiền</p>
-                      <p class="mb-2">1,000,000₫</p>
+                      <p class="mb-2"><?=($this->formatNumber($total));?>₫</p>
                     </div>
 
                     <button type="button" class="btn btn-info btn-block btn-lg">
