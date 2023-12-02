@@ -74,9 +74,9 @@
       return $rows;
     }
 
-    function  getValue($sql) {
+    function getValue($sql) {
       $query = $this->query($sql);
-      return $query->fetchObject();
+      return $query->fetchColumn();
     }
 
     function lastInsertId() {
