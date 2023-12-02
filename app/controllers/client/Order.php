@@ -4,13 +4,12 @@
 
     function __construct() {
       $this->__orderModel = $this->getModel('OrderModel');
-    }
-
-    public function index() {
       if (!$this->isSignedIn()) {
         ErrorHandler::isNotSignedIn();
       }
+    }
 
+    public function index() {
       $isPurchased = 0;
       $userId = $_SESSION['user']['id'];
       $orderId = $this->__orderModel->getOrderId($userId, $isPurchased);
@@ -24,6 +23,19 @@
         'itemsInOrder' => $itemsInOrder,
         'total' => $total,
       ];
+      $this->renderClientLayout($this->_data);
+    }
+
+    public function showBills() {
+      $userId = $_SESSION['user']['id'];
+      $condition = " WHERE is_purchased = 1 AND user_id = $userId";
+      $bills = $this->__orderModel->selectRowsBy($condition);
+
+      $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/cart/bills';
+      $this->_data['pageTitle'] = 'Hóa đơn';
+      $this->_data['contentOfPage'] = [
+        'bills' => $bills,
+      ];    
       $this->renderClientLayout($this->_data);
     }
   }
