@@ -2,7 +2,7 @@
   <header class="card-header border-0 bg-transparent">
     <img
       width="40px"
-      src="<?php echo IMAGES_URL . "/" . $user['image']; ?>"
+      src="<?=(USERS_UPLOADS_URL . "/" . $user['image']); ?>"
       class="rounded-circle me-2"
     />
     <a class="fw-semibold text-decoration-none"><?php echo $user['name']; ?></a>

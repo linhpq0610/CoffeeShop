@@ -4,13 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?=(isset($pageTitle) ? $pageTitle : "Admin");?></title>
-    <!-- <link 
-    href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" 
-    rel="stylesheet" 
-    /> -->
     <!-- Bootstrap CSS 5.1.3 -->
-    <link href="<?=CSS_URL;?>/bootstrap.min.css" rel="stylesheet" />
-    <link href="<?=CSS_URL;?>/admin-style.css" rel="stylesheet" />
+    <link href="<?=PLUGINS_URL;?>/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="<?=ADMIN_CSS_URL;?>/style.css" rel="stylesheet" />
     <script 
       src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" 
       crossorigin="anonymous"
@@ -31,7 +27,7 @@
         </div>
     </div>
 
-    <script src="<?=JS_URL;?>/bootstrap.bundle.min.js"></script>
-    <script src="<?=JS_URL;?>/scripts.js"></script>
+    <script src="<?=PLUGINS_URL;?>/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="<?=ADMIN_JS_URL;?>/scripts.js"></script>
   </body>
 </html>

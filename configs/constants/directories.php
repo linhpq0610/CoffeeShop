@@ -5,6 +5,9 @@
   define("CONFIGS_DIR", ROOT_DIR . "configs/");
   define("ROUTES_CONFIG_DIR", CONFIGS_DIR . "routes/");
   define("LIBRARY_DIR", ROOT_DIR . "public/libs/");
+  define("UPLOADS_DIR", ROOT_DIR . "uploads/");
+  define("USERS_UPLOAD_DIR", UPLOADS_DIR . "users");
+  define("PRODUCTS_UPLOAD_DIR", UPLOADS_DIR . "products");
 
   // In app dir
   define("MODELS_DIR", APP_DIR . "models/");

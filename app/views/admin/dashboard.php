@@ -60,5 +60,5 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-<script src="<?=JS_URL;?>/chart-area-demo.js"></script>
-<script src="<?=JS_URL;?>/chart-bar-demo.js"></script>
+<script src="<?=ADMIN_JS_URL;?>/chart-area-demo.js"></script>
+<script src="<?=ADMIN_JS_URL;?>/chart-bar-demo.js"></script>

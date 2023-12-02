@@ -4,5 +4,5 @@
   require_once "product.php";
   require_once "account.php";
   define("CONTACT_ROUTE", "lien-he");
-  define("CART_ROUTE", "gio-hang");
+  require_once "orders.php";
 ?>

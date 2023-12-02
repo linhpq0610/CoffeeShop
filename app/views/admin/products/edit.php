@@ -13,7 +13,7 @@
             class="rounded-circle"
             width="300px"
             id="avatar"
-            src="<?= (IMAGES_URL . "/" . $image); ?>"
+            src="<?= (PRODUCTS_UPLOADS_URL . "/$image"); ?>"
           />
           <input type="file" style="width: 200px;" class="mt-4" name="avatar" />
         </div>
