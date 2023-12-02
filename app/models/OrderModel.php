@@ -48,5 +48,13 @@
        " WHERE id = $orderId";
       return $this->_db->getValue($sql);
     }
+
+    public function getDatePurchased($orderId) {
+      $sql =
+       "SELECT updated_at" . 
+       " FROM orders" .
+       " WHERE id = $orderId";
+      return $this->_db->getValue($sql);
+    }
   }
 ?>

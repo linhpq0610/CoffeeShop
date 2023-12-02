@@ -38,5 +38,20 @@
       ];    
       $this->renderClientLayout($this->_data);
     }
+
+    public function showBillDetail($id) {
+      $itemsInOrder = $this->__orderModel->getOrderDetail($id);
+      $total = $this->__orderModel->getTotal($id);
+      $datePurchased = $this->__orderModel->getDatePurchased($id);
+
+      $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/cart/detailBill';
+      $this->_data['pageTitle'] = 'Chi tiết hóa đơn';
+      $this->_data['contentOfPage'] = [
+        'itemsInOrder' => $itemsInOrder,
+        'total' => $total,
+        'datePurchased' => $datePurchased,
+      ];    
+      $this->renderClientLayout($this->_data);
+    }
   }
 ?>
