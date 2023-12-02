@@ -25,9 +25,14 @@
       </ul>
 
       <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-        <li>
+        <li class="me-0">
           <a class="nav-link" href="<?=CART_ROUTE;?>">
             <img src="<?=IMAGES_URL;?>/cart.svg" />
+          </a>
+        </li>
+        <li>
+          <a class="nav-link" href="<?=BILLS_ROUTE;?>">
+            <img src="<?=IMAGES_URL;?>/order-history.svg" />
           </a>
         </li>
         <li>
