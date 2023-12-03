@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 02, 2023 at 04:57 AM
+-- Generation Time: Dec 03, 2023 at 02:40 PM
 -- Server version: 8.0.31
 -- PHP Version: 7.4.33
 
@@ -90,7 +90,7 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `total`, `created_at`, `updated_at`, `is_purchased`, `is_deleted`, `user_id`) VALUES
-(1, 500000, '2023-11-28 08:49:42', '2023-11-28 14:06:41', 0, 0, 28),
+(1, 500000, '2023-11-28 08:49:42', '2023-11-28 14:06:41', 1, 0, 28),
 (2, 400000, '2023-11-28 08:49:53', '2023-11-28 08:49:53', 0, 0, 28);
 
 -- --------------------------------------------------------
