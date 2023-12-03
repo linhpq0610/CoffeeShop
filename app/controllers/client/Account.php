@@ -119,8 +119,8 @@
         'HS256'
       );
 
-      $SECONDS_PER_MONTH = 86400;
-      $EXPIRATION_DATE = time() + $SECONDS_PER_MONTH;
+      $SECONDS_PER_WEEK = 86400 * 7;
+      $EXPIRATION_DATE = time() + $SECONDS_PER_WEEK;
       setcookie('userToken', $jwt, $EXPIRATION_DATE);
     }
 
