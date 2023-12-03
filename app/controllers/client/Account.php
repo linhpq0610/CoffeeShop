@@ -15,12 +15,13 @@
         ErrorHandler::isNotSignedIn();
         die();
       }
+
+      $userId = $_SESSION['user']['id'];
+      $user = $this->__accountModel->selectOneRowById($userId);
+      $user['is_admin'] = $user['is_admin'] ? 'checked' : '';
       
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/account';
       $this->_data['pageTitle'] = 'Tài khoản';
-
-      $user = $_SESSION['user'];
-      $user['is_admin'] = $user['is_admin'] ? 'checked' : '';
       $this->_data['contentOfPage'] = $user;
       $this->renderClientLayout($this->_data);
     }
