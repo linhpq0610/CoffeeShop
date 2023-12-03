@@ -378,5 +378,17 @@
 
       $this->handleWhenPasswordNotExist();
     }
+
+    public function softDelete($id) {
+      $data = [
+        "is_deleted" => 1,
+      ];
+      $DB = $this->__accountModel->getDB();
+      $tableName = $this->__accountModel->tableFill();
+      $condition = "id IN ($id)";
+      $DB->update($tableName, $data, $condition);
+      $this->handleSignOut();
+      header("Location: " . FORM_SIGN_IN_ROUTE);
+    }
   }
 ?>
