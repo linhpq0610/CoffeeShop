@@ -10,19 +10,23 @@
       $this->setGoogleClient();
     }
 
-    public function index() {
+    public function index($formData = []) {
       if (!$this->isSignedIn()) {
         ErrorHandler::isNotSignedIn();
         die();
       }
 
+      $formData = $this->setDefaultData($formData);
       $userId = $_SESSION['user']['id'];
       $user = $this->__accountModel->selectOneRowById($userId);
       $user['is_admin'] = $user['is_admin'] ? 'checked' : '';
-      
+
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/account';
       $this->_data['pageTitle'] = 'Tài khoản';
-      $this->_data['contentOfPage'] = $user;
+      $this->_data['contentOfPage'] = [
+        'formData' => $formData,
+        'user' => $user,
+      ];
       $this->renderClientLayout($this->_data);
     }
 
@@ -233,7 +237,42 @@
       $tableName = $this->__accountModel->tableFill();
       $condition = "id = $id";
       $DB->update($tableName, $data, $condition);
-      header("Location: " . ACCOUNT_ROUTE);
+      
+      $messageSuccess = 
+        '<p class="p-3">
+          Bạn đã cập nhật thành công.
+        </p>';
+      $formData = [
+        'messageSuccess' => $messageSuccess,
+      ];
+      $this->index($formData);
+    }
+
+    public function checkWhenUpdate($id) {
+      $id = $_POST['id'];
+      $email = $_POST['email'];
+      $condition = 
+        " WHERE" . 
+          " email = '$email' AND" . 
+          " id <> $id AND" . 
+          " is_deleted = 0";
+
+      $user = $this->__accountModel->selectRowBy($condition);
+      $hasUser = $this->__accountModel->hasUser($user);
+      if (!$hasUser) {
+        $this->update($id);
+      }
+
+      $messageAlert = 
+        '<p class="p-3">
+          Email đã được sử dụng.
+          <br>
+          Vui lòng dùng email khác.
+        </p>';
+      $formData = [
+        'messageAlert' => $messageAlert,
+      ];
+      $this->index($formData);
     }
 
     public function showFormForgotPassword($formData = []) {
