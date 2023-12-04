@@ -88,7 +88,7 @@
       $this->renderClientLayout($this->_data);
     }
 
-    public function notifyAccountNotExist() {
+    public function notifyAccountNotExist($email) {
       $messageAlert = 
         '<p class="p-3">
           Tài khoản không tồn tại.
@@ -115,7 +115,7 @@
         $this->signIn($user);
       }
 
-      $this->notifyAccountNotExist();
+      $this->notifyAccountNotExist($email);
     }
 
     public function addUserToken($user) {
