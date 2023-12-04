@@ -88,6 +88,20 @@
       $this->renderClientLayout($this->_data);
     }
 
+    public function notifyAccountNotExist() {
+      $messageAlert = 
+        '<p class="p-3">
+          Tài khoản không tồn tại.
+          <br>
+          Nếu quên mật khẩu bạn có thể thay đổi <a href="' . FORGOT_PASSWORD_ROUTE .'">tại đây</a>.
+        </p>';
+      $formData = [
+        'messageAlert' => $messageAlert,
+        'email' => $email,
+      ];
+      $this->showFormSignIn($formData);
+    }
+
     public function checkSignIn($email = '') {
       $email = $email != '' ? $email : $_POST['email'];
       $condition = 
@@ -101,17 +115,7 @@
         $this->signIn($user);
       }
 
-      $messageAlert = 
-        '<p class="p-3">
-          Tài khoản không tồn tại.
-          <br>
-          Nếu quên mật khẩu bạn có thể thay đổi <a href="' . FORGOT_PASSWORD_ROUTE .'">tại đây</a>.
-        </p>';
-      $formData = [
-        'messageAlert' => $messageAlert,
-        'email' => $email,
-      ];
-      $this->showFormSignIn($formData);
+      $this->notifyAccountNotExist();
     }
 
     public function addUserToken($user) {
@@ -155,11 +159,7 @@
       $this->renderClientLayout($this->_data);
     }
 
-    public function signUp($data) {
-      $DB = $this->__accountModel->getDB();
-      $tableName = $this->__accountModel->tableFill();
-      $DB->insert($tableName, $data);
-      
+    public function notifySuccessSignUp() {
       $messageSuccess = 
         '<p class="p-3">
           Bạn đã đăng ký thành công.
@@ -168,6 +168,13 @@
         'messageSuccess' => $messageSuccess,
       ];
       $this->showFormSignIn($formData);
+    }
+
+    public function signUp($data) {
+      $DB = $this->__accountModel->getDB();
+      $tableName = $this->__accountModel->tableFill();
+      $DB->insert($tableName, $data);
+      $this->notifySuccessSignUp();
     }
 
     public function initSignUp() {
@@ -222,8 +229,7 @@
       setcookie('userToken');
     }
 
-    public function signOut() {
-      $this->handleSignOut();
+    public function notifySuccessSignOut() {
       $messageSuccess = 
         '<p class="p-3">
           Bạn đã đăng xuất thành công.
@@ -232,6 +238,22 @@
         'messageSuccess' => $messageSuccess,
       ];
       $this->showFormSignIn($formData);
+    }
+
+    public function signOut() {
+      $this->handleSignOut();
+      $this->notifySuccessSignOut();
+    }
+
+    public function notifySuccessUpdate() {
+      $messageSuccess = 
+        '<p class="p-3">
+          Bạn đã cập nhật thành công.
+        </p>';
+      $formData = [
+        'messageSuccess' => $messageSuccess,
+      ];
+      $this->index($formData);
     }
 
     public function update($id) {
@@ -246,12 +268,18 @@
       $condition = "id = $id";
       $DB->update($tableName, $data, $condition);
       
-      $messageSuccess = 
+      $this->notifySuccessUpdate();
+    }
+
+    public function notifyEmailExist() {
+      $messageAlert = 
         '<p class="p-3">
-          Bạn đã cập nhật thành công.
+          Email đã được sử dụng.
+          <br>
+          Vui lòng dùng email khác.
         </p>';
       $formData = [
-        'messageSuccess' => $messageSuccess,
+        'messageAlert' => $messageAlert,
       ];
       $this->index($formData);
     }
@@ -271,16 +299,7 @@
         $this->update($id);
       }
 
-      $messageAlert = 
-        '<p class="p-3">
-          Email đã được sử dụng.
-          <br>
-          Vui lòng dùng email khác.
-        </p>';
-      $formData = [
-        'messageAlert' => $messageAlert,
-      ];
-      $this->index($formData);
+      $this->notifyEmailExist();
     }
 
     public function showFormForgotPassword($formData = []) {
@@ -289,6 +308,20 @@
       $this->_data['pageTitle'] = 'Quên mật khẩu';
       $this->_data["contentOfPage"] = $formData;
       $this->renderClientLayout($this->_data);
+    }
+
+    public function notifyEmailNotExist() {
+      $messageAlert = 
+        '<p class="p-3">
+          Tài khoản không tồn tại.
+          <br>
+          Vui lòng kiểm tra lại.
+        </p>';
+      $formData = [
+        'messageAlert' => $messageAlert,
+        'email' => $_POST['email'],
+      ];
+      $this->showFormForgotPassword($formData);
     }
 
     public function checkEmail() {
@@ -304,17 +337,7 @@
         $this->showFormNewPassword($user);
       }
 
-      $messageAlert = 
-        '<p class="p-3">
-          Tài khoản không tồn tại.
-          <br>
-          Vui lòng kiểm tra lại.
-        </p>';
-      $formData = [
-        'messageAlert' => $messageAlert,
-        'email' => $_POST['email'],
-      ];
-      $this->showFormForgotPassword($formData);
+      $this->notifyEmailNotExist();
     }
 
     public function showFormNewPassword($user) {
@@ -387,6 +410,17 @@
       $this->handleWhenPasswordNotExist();
     }
 
+    public function notifySuccessDeleteAccount() {
+      $messageSuccess = 
+        '<p class="p-3">
+            Bạn đã xóa tài khoản thành công.
+        </p>';
+      $formData = [
+        'messageSuccess' => $messageSuccess,
+      ];
+      $this->showFormSignIn($formData);
+    }
+
     public function softDelete($id) {
       $data = [
         "is_deleted" => 1,
@@ -396,15 +430,7 @@
       $condition = "id IN ($id)";
       $DB->update($tableName, $data, $condition);
       $this->handleSignOut();
-
-      $messageSuccess = 
-        '<p class="p-3">
-            Bạn đã xóa tài khoản thành công.
-        </p>';
-      $formData = [
-        'messageSuccess' => $messageSuccess,
-      ];
-      $this->showFormSignIn($formData);
+      $this->notifySuccessDeleteAccount();     
     }
   }
 ?>
