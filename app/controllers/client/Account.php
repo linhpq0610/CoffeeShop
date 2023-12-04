@@ -218,12 +218,20 @@
 
     public function handleSignOut() {
       $_SESSION = [];
-      setcookie('userToken', '', time() - 3600);
+      unset($_COOKIE['userToken']);
+      setcookie('userToken');
     }
 
     public function signOut() {
       $this->handleSignOut();
-      header("Location: " . HOME_ROUTE);
+      $messageSuccess = 
+        '<p class="p-3">
+          Bạn đã đăng xuất thành công.
+        </p>';
+      $formData = [
+        'messageSuccess' => $messageSuccess,
+      ];
+      $this->showFormSignIn($formData);
     }
 
     public function update($id) {
@@ -367,8 +375,8 @@
       $condition = "id = $id";
       $DB->update($tableName, $data, $condition);
       
-      $this->notifySuccessChangePassword();
       $this->handleSignOut();
+      $this->notifySuccessChangePassword();
     }
     
     public function changePassword() {
@@ -388,7 +396,15 @@
       $condition = "id IN ($id)";
       $DB->update($tableName, $data, $condition);
       $this->handleSignOut();
-      header("Location: " . FORM_SIGN_IN_ROUTE);
+
+      $messageSuccess = 
+        '<p class="p-3">
+            Bạn đã xóa tài khoản thành công.
+        </p>';
+      $formData = [
+        'messageSuccess' => $messageSuccess,
+      ];
+      $this->showFormSignIn($formData);
     }
   }
 ?>
