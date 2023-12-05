@@ -102,8 +102,7 @@
       $this->showFormSignIn($formData);
     }
 
-    public function checkSignIn($email = '') {
-      $email = $email != '' ? $email : $_POST['email'];
+    public function progressSignIn($email) {
       $condition = 
         " WHERE" . 
           " email = '$email' AND" . 
@@ -113,8 +112,13 @@
       $hasUser = $this->__accountModel->hasUser($user); 
       if ($hasUser) {
         $this->signIn($user);
+        die();
       }
+    }
 
+    public function checkSignIn($email = '') {
+      $email = $email != '' ? $email : $_POST['email'];
+      $this->progressSignIn($email);
       $this->notifyAccountNotExist();
     }
 
