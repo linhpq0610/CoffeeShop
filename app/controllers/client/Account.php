@@ -48,12 +48,35 @@
       return $googleAccountInfo;
     }
 
+    public function insertAccountWithDefaultPassword($googleAccountInfo) {
+      $passwordEncrypted = password_hash('12345678', PASSWORD_DEFAULT);
+      $data = [
+        "image" => 'default-user-image.webp',
+        'name' => $googleAccountInfo->name,
+        'email' => $googleAccountInfo->email,
+        'password' => $passwordEncrypted,
+      ];
+      $DB = $this->__accountModel->getDB();
+      $tableName = $this->__accountModel->tableFill();
+      $DB->insert($tableName, $data);
+    }
+
+    public function handleSignInWhenAccountNotExist($googleAccountInfo) {
+      $this->insertAccountWithDefaultPassword($googleAccountInfo);
+    }
+
+    public function checkSignInWithGoogle($googleAccountInfo) {
+      $email = $googleAccountInfo->email;
+      $this->handleSignIn($email);
+      $this->handleSignInWhenAccountNotExist($googleAccountInfo);
+    }
+
     public function handleSignInWithGoogle() {
       if (isset($_GET['code'])) {
         $token = $this->__client->fetchAccessTokenWithAuthCode($_GET['code']);
         if(!isset($token["error"])){
           $googleAccountInfo = $this->getGoogleAccountInfo($token);
-          $this->checkSignIn($googleAccountInfo->email);
+          $this->checkSignInWithGoogle($googleAccountInfo);
         } else {
           header('Location: ' . FORM_SIGN_IN_ROUTE);
           exit;
@@ -116,8 +139,8 @@
       }
     }
 
-    public function checkSignIn($email = '') {
-      $email = $email != '' ? $email : $_POST['email'];
+    public function checkSignIn() {
+      $email = $_POST['email'];
       $this->handleSignIn($email);
       $this->notifyAccountNotExist();
     }
@@ -392,7 +415,7 @@
       $this->showFormChangePassword($formData);
     }
 
-    public function setNewPassword($id) {
+    public function handleSetNewPassword($id) {
       $passwordEncrypted = password_hash($_POST['password'], PASSWORD_DEFAULT);
       $data = [
         "password" => $passwordEncrypted,
@@ -401,7 +424,10 @@
       $tableName = $this->__accountModel->tableFill();
       $condition = "id = $id";
       $DB->update($tableName, $data, $condition);
-      
+    }
+
+    public function setNewPassword($id) {
+      $this->handleSetNewPassword($id);
       $this->handleSignOut();
       $this->notifySuccessChangePassword();
     }
