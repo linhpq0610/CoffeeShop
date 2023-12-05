@@ -7,7 +7,7 @@
     <div class="row align-items-center">
       <div class="col-md-6 border-right">
         <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-          <img width="250px" src="<?=IMAGES_URL;?>/default-product-image.png" />
+          <img width="250px" src="<?=(IMAGES_URL . "/" . DEFAULT_PRODUCT_IMAGE_NAME);?>" />
         </div>
       </div>
 
