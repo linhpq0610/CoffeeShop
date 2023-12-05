@@ -7,7 +7,7 @@
             class="rounded-circle"
             width="250px"
             id="avatar"
-            src="<?=IMAGES_URL;?>/default-user-image.webp"
+            src="<?=(IMAGES_URL . "/" . DEFAULT_USER_IMAGE_NAME);?>"
           />
           <input type="file" style="width: 200px;" class="mt-4" name="avatar" />
         </div>

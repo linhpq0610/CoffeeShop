@@ -7,7 +7,7 @@
         <div class="d-flex flex-column align-items-center text-center p-3 py-5">
           <img
             width="250px"
-            src="<?=IMAGES_URL;?>/default-user-image.webp"
+            src="<?=(IMAGES_URL . "/" . DEFAULT_USER_IMAGE_NAME);?>"
           />
         </div>
       </div>

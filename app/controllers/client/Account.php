@@ -51,7 +51,7 @@
     public function insertAccountWithDefaultPassword($googleAccountInfo) {
       $passwordEncrypted = password_hash('12345678', PASSWORD_DEFAULT);
       $data = [
-        "image" => 'default-user-image.webp',
+        "image" => DEFAULT_USER_IMAGE_NAME,
         'name' => $googleAccountInfo->name,
         'email' => $googleAccountInfo->email,
         'password' => $passwordEncrypted,
@@ -240,7 +240,7 @@
         "name" => $_POST['name'],
         "email" => $_POST['email'],
         "password" => $passwordEncrypted,
-        "image" => 'default-user-image.webp',
+        "image" => DEFAULT_USER_IMAGE_NAME,
       ];
 
       $data = $this->getImageUploaded($data, USERS_UPLOAD_DIR);
