@@ -61,8 +61,20 @@
       $DB->insert($tableName, $data);
     }
 
+    public function createNewPassword() {
+      
+    }
+
+    public function showFormCreatePassword() {
+      $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/createPasswordForm';
+      $this->_data['pageTitle'] = 'Tạo mật khẩu';
+      $this->_data['contentOfPage'] = [];
+      $this->renderClientLayout($this->_data);
+    }
+
     public function handleSignInWhenAccountNotExist($googleAccountInfo) {
       $this->insertAccountWithDefaultPassword($googleAccountInfo);
+      $this->showFormCreatePassword();
     }
 
     public function checkSignInWithGoogle($googleAccountInfo) {
