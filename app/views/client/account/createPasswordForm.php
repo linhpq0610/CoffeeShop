@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="col-md-6 border-right">
-        <form action="<?=(SET_NEW_PASSWORD_ROUTE . $userId);?>" method="post" class="px-3 pe-lg-5 py-5 new-password-form">
+        <form action="<?=(CREATE_PASSWORD_ROUTE . $userId);?>" method="post" class="px-3 pe-lg-5 py-5 new-password-form">
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="text-right">Tạo mật khẩu</h4>
           </div>
@@ -20,7 +20,7 @@
               ><input
                 type="password"
                 class="form-control"
-                placeholder="Nhập mật khẩu tại đây"
+                placeholder="Nhập mật khẩu mới tại đây"
                 name="password"
               />
               <p class="field-message mb-0"></p>

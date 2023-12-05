@@ -61,20 +61,38 @@
       $DB->insert($tableName, $data);
     }
 
-    public function createNewPassword() {
-      
+    public function createNewPassword($userId) {
+      $passwordEncrypted = password_hash($_POST['password'], PASSWORD_DEFAULT);
+      $data = [
+        "password" => $passwordEncrypted,
+      ];
+      $DB = $this->__accountModel->getDB();
+      $tableName = $this->__accountModel->tableFill();
+      $condition = "id = $userId";
+      $DB->update($tableName, $data, $condition);
+
+      $user = $this->__accountModel->selectOneRowById($userId);
+      $this->signIn($user);
     }
 
-    public function showFormCreatePassword() {
+    public function getUserId($googleAccountInfo) {
+      $email = $googleAccountInfo->email;
+      $condition = " WHERE email = '$email'";
+      $userId = $this->__accountModel->selectRowBy($condition)['id'];
+      return $userId;
+    }
+
+    public function showFormCreatePassword($googleAccountInfo) {
+      $userId = $this->getUserId($googleAccountInfo);
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/createPasswordForm';
       $this->_data['pageTitle'] = 'Tạo mật khẩu';
-      $this->_data['contentOfPage'] = [];
+      $this->_data['contentOfPage'] = ['userId' => $userId];
       $this->renderClientLayout($this->_data);
     }
 
     public function handleSignInWhenAccountNotExist($googleAccountInfo) {
       $this->insertAccountWithDefaultPassword($googleAccountInfo);
-      $this->showFormCreatePassword();
+      $this->showFormCreatePassword($googleAccountInfo);
     }
 
     public function checkSignInWithGoogle($googleAccountInfo) {

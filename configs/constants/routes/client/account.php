@@ -3,6 +3,7 @@
   define("CHECK_EMAIL_ROUTE", "kiem-tra-email");
   define("SHOW_FORM_CHANGE_PASSWORD_ROUTE", "hien-thi-form-thay-doi-mat-khau");
   define("CHANGE_PASSWORD_ROUTE", "thay-doi-mat-khau");
+  define("CREATE_PASSWORD_ROUTE", "tao-mat-khau-");
   define("SET_NEW_PASSWORD_ROUTE", "tao-mat-khau-moi-cho-nguoi-dung-");
   define("ACCOUNT_ROUTE", "tai-khoan");
   define("FORM_SIGN_IN_ROUTE", "dang-nhap");
