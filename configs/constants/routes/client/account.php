@@ -15,4 +15,5 @@
   define("UPDATE_USER_ROUTE", "cap-nhat-nguoi-dung-");
   define("HANDLE_SIGN_IN_WITH_GOOGLE_ROUTE", "xu-ly-dang-nhap-voi-google");
   define("DELETE_USER_CLIENT_SIDE", "xoa-tai-khoan-phia-client-");
+  define("SEND_EMAIL_FOR_USER_ROUTE", "gui-mat-khau-cho-nguoi-dung");
 ?>

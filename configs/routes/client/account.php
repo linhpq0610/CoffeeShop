@@ -15,4 +15,5 @@
   $routes['dang-ky'] = 'client/account/showFormSignUp';
   $routes['dang-xuat'] = 'client/account/signOut';
   $routes['cap-nhat-nguoi-dung-(\d+)'] = 'client/account/checkWhenUpdate/$1';
+  $routes['gui-mat-khau-cho-nguoi-dung'] = 'client/account/sendPasswordForUser';
 ?>

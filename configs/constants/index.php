@@ -6,4 +6,5 @@
   require_once "directories.php";
   require_once "urls.php";
   require_once "google-api.php";
+  require_once "php-mailer.php";
 ?>

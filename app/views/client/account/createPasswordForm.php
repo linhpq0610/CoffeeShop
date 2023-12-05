@@ -46,12 +46,20 @@
             >
               Gửi
             </button>
+            <a href="#warningSkipCreatePassword"
+              data-bs-toggle="modal"
+              data-bs-original-title="Delete"
+              data-bs-toggle="tooltip" class="btn border-0" type="button" style="background: #dc3545;">
+                Bỏ qua
+            </a>
           </div>
         </form>
       </div>
     </div>
   </div>
 </div>
+
+<?php require_once CLIENT_COMPONENTS_DIR . "/warningSkipCreatePassword.php"; ?>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
 <script src="<?=FEATURES_URL;?>/Validator.js"></script>

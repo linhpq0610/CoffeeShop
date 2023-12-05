@@ -41,6 +41,30 @@
       return $defaultData;
     }
 
+    public function getEmailAddresses() {
+      $mailSend = 'linhpqpc05353@fpt.edu.vn';
+      $mailReceive = $_POST['mail-receive'];
+      $emailAddresses = [$mailSend, $mailReceive];
+      return $emailAddresses;
+    }
+
+    public function getContentEmail() {
+      $subject = mb_encode_mimeheader('THÔNG TIN ĐĂNG NHẬP - ĐÂY LÀ MẬT KHẨU CỦA BẠN', 'utf-8');
+      $body = require_once CLIENT_VIEW_DIR . "/emails/passwordEmail.php" ;
+      $content = [$subject, $body];
+      return $content;
+    }
+
+    public function sendPasswordForUser() {
+      $userId = $_POST['user-id'];
+      $user = $this->__accountModel->selectOneRowById($userId);
+      $this->signIn($user);
+
+      $emailAddresses = $this->getEmailAddresses();
+      $content = $this->getContentEmail();
+      Mail::send($emailAddresses, $content);
+    }
+
     public function getGoogleAccountInfo($token) {
       $this->__client->setAccessToken($token['access_token']);
       $googleOauth = new Google_Service_Oauth2($this->__client);
@@ -49,7 +73,9 @@
     }
 
     public function insertAccountWithDefaultPassword($googleAccountInfo) {
-      $passwordEncrypted = password_hash('12345678', PASSWORD_DEFAULT);
+      $defaultPassword = bin2hex(random_bytes(16));
+      $_SESSION['default-password'] = $defaultPassword;
+      $passwordEncrypted = password_hash($defaultPassword, PASSWORD_DEFAULT);
       $data = [
         "image" => DEFAULT_USER_IMAGE_NAME,
         'name' => $googleAccountInfo->name,
@@ -84,9 +110,13 @@
 
     public function showFormCreatePassword($googleAccountInfo) {
       $userId = $this->getUserId($googleAccountInfo);
+      $email = $googleAccountInfo->email;
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/createPasswordForm';
       $this->_data['pageTitle'] = 'Tạo mật khẩu';
-      $this->_data['contentOfPage'] = ['userId' => $userId];
+      $this->_data['contentOfPage'] = [
+        'userId' => $userId,
+        'email' => $email,
+      ];
       $this->renderClientLayout($this->_data);
     }
 
