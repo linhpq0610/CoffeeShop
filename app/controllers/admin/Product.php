@@ -176,7 +176,7 @@
         "price" => $_POST['price'],
         "sale" => $_POST['sale'],
         "category_id" => $_POST['category_id'],
-        "image" => 'default-product-image.png',
+        "image" => DEFAULT_PRODUCT_IMAGE_NAME,
       ];
 
       $data = $this->getImageUploaded($data, PRODUCTS_UPLOAD_DIR);

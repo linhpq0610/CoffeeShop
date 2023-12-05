@@ -10,28 +10,13 @@
         </div>
       </div>
       <div class="col-md-6 border-right">
-        <form action="<?=CHANGE_PASSWORD_ROUTE;?>" method="post" class="px-3 pe-lg-5 py-5 new-password-form">
-          <div class='alert alert-danger border-0 p-0 text-center'>
-            <?=$messageAlert;?>
-          </div>
+        <form action="<?=(CREATE_PASSWORD_ROUTE . $userId);?>" method="post" class="px-3 pe-lg-5 py-5 new-password-form">
           <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4 class="text-right">Thay đổi mật khẩu</h4>
+            <h4 class="text-right">Tạo mật khẩu</h4>
           </div>
           <div class="row mt-2">
             <div class="col-md-12">
-              <label class="labels">Mật khẩu cũ</label
-              ><input
-                type="password"
-                class="form-control"
-                placeholder="Nhập mật cũ mới tại đây"
-                name="old-password"
-              />
-              <p class="field-message mb-0"></p>
-            </div>
-          </div>
-          <div class="row mt-2">
-            <div class="col-md-12">
-              <label class="labels">Mật khẩu mới</label
+              <label class="labels">Mật khẩu</label
               ><input
                 type="password"
                 class="form-control"
@@ -61,6 +46,12 @@
             >
               Gửi
             </button>
+            <a href="#warningSkipCreatePassword"
+              data-bs-toggle="modal"
+              data-bs-original-title="Delete"
+              data-bs-toggle="tooltip" class="btn border-0" type="button" style="background: #dc3545;">
+                Bỏ qua
+            </a>
           </div>
         </form>
       </div>
@@ -68,23 +59,15 @@
   </div>
 </div>
 
+<?php require_once CLIENT_COMPONENTS_DIR . "/warningSkipCreatePassword.php"; ?>
+
 <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
 <script src="<?=FEATURES_URL;?>/Validator.js"></script>
 
 <script>
   formValidator.setForm(".new-password-form");
   const FORM = formValidator.getForm();
-  formValidator.addField("oldPassword", FORM.elements["old-password"]);
   formValidator.addField("password", FORM.elements["password"]);
   formValidator.addField("confirmPassword", FORM.elements["confirm-password"]);
-  const OLD_PASSWORD_CONSTRAINT = {
-    oldPassword: {
-      presence: {
-        allowEmpty: false,
-        message: "Vui lòng nhập mật khẩu cũ",
-      },
-    },
-  };
-  formValidator.addConstraint(OLD_PASSWORD_CONSTRAINT);
   formValidator.start();
 </script>

@@ -8,7 +8,7 @@
     <form action="<?= ADD_PRODUCT_ROUTE; ?>" method="post" class="row align-items-center edit-form" enctype="multipart/form-data">
       <div class="col-md-6 border-right">
         <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-          <img class="rounded-circle" width="300px" id="avatar" src="<?= PRODUCTS_UPLOADS_URL . "/default-product-image.png"; ?>" />
+          <img class="rounded-circle" width="300px" id="avatar" src="<?= (PRODUCTS_UPLOADS_URL . "/" . DEFAULT_PRODUCT_IMAGE_NAME); ?>" />
           <input type="file" style="width: 200px;" class="mt-4" name="avatar" />
         </div>
       </div>
