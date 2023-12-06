@@ -47,7 +47,7 @@
             <span class="text-muted">/mỗi sản phẩm</span>
           </div>
 
-          <p style="text-align: justify;"><?= $description; ?></p>
+          <div style="text-align: justify;"><?= $description; ?></div>
           <hr />
 
           <div class="row mb-4">
