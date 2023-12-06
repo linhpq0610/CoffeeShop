@@ -14,8 +14,23 @@
               src="<?= (PRODUCTS_UPLOADS_URL . "/$image"); ?>"
               class="img-fluid product-thumbnail"
             />
+            <p><i class="fas fa-eye"></i>: <?=$view;?></p>
             <h3 class="product-title"><?= $name; ?></h3>
-            <strong class="product-price"><?= ($this->formatNumber($price)); ?>₫</strong>
+            <strong class="product-price">
+              <?php 
+                $priceAfterSale = $price - ($price * $sale / 100);
+                echo $this->formatNumber($priceAfterSale);
+              ?>₫
+            </strong>
+            <?php
+              if ($sale > 0) {
+            ?>
+              <span class="text-danger">
+                <s><?=($this->formatNumber($price));?>₫</s>
+              </span>
+            <?php 
+              }
+            ?>
 
             <span class="icon-cross">
               <img src="<?= IMAGES_URL; ?>/cross.svg" class="img-fluid" />
