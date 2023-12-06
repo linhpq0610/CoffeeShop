@@ -125,6 +125,10 @@
 
   const NEW_CONSTRAINTS = {
     name: {
+      presence: {
+        allowEmpty: false,
+        message: "Vui lòng nhập tên",
+      },
       format: {
         pattern: /^[a-zA-Z0-9\sàáạãảăắằẵặấầẩẫậđèéẹẻẽêếềểễệìíịỉĩòóọỏõôốồổỗộơớờởỡợùúụủũưứừửữựỳýỵỷỹ]+$/,
         message: "Vui lòng không nhập gì ngoài alphabet, ký tự trắng và số",
