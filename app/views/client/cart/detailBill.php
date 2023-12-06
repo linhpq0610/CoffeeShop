@@ -28,7 +28,7 @@
                           </div>
                           <div class="ms-3">
                             <h5 class="text-truncate" style="width: 250px;"><?= $name; ?></h5>
-                            <p class="small mb-0 text-truncate" style="width: 250px;"><?= $description; ?></p>
+                            <div class="small mb-0 text-truncate" style="width: 250px;"><?= $description; ?></div>
                           </div>
                         </a>
                         <div class="d-flex flex-row align-items-center justify-content-start">
