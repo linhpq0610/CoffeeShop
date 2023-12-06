@@ -198,6 +198,9 @@
       }
     }
 
+    public function checkSignIn() {
+      $email = $_POST['email'];
+      $this->handleSignIn($email);
       $this->notifyAccountNotExist($email);
     }
 
