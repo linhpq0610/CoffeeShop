@@ -12,8 +12,7 @@
 
     public function index($formData = []) {
       if (!$this->isSignedIn()) {
-        ErrorHandler::isNotSignedIn();
-        die();
+        header("Location: " . FORM_SIGN_IN_ROUTE);
       }
 
       $formData = $this->setDefaultData($formData);

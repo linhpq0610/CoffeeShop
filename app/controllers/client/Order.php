@@ -5,7 +5,7 @@
     function __construct() {
       $this->__orderModel = $this->getModel('OrderModel');
       if (!$this->isSignedIn()) {
-        ErrorHandler::isNotSignedIn();
+        header("Location: " . FORM_SIGN_IN_ROUTE);
       }
     }
 
