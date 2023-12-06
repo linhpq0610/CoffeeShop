@@ -28,25 +28,25 @@
                           </div>
                           <div class="ms-3">
                             <h5 class="text-truncate" style="width: 250px;"><?= $name; ?></h5>
-                            <p class="small mb-0 text-truncate" style="width: 250px;"><?= $description; ?></p>
+                            <div class="small mb-0 text-truncate" style="width: 250px;"><?= $description; ?></div>
                           </div>
                         </a>
-                        <div class="d-flex flex-row align-items-center">
-                          <div class="d-flex me-4" style="width: 140px;">
+                        <div class="d-flex flex-row align-items-center justify-content-start">
+                          <div class="d-flex me-4" style="width: 100px;">
                             <input id="form1" min="0" name="quantity" value="<?= $quantity; ?>" type="number" class="form-control form-control-sm mx-2" readonly />
                           </div>
-                          <div style="width: 120px;">
-                            <h5 class="mb-0"><?= ($this->formatNumber($price)); ?>₫</h5>
+                          <div style="width: 100px;">
+                            <h6 class="mb-0"><?= ($this->formatNumber($price)); ?>₫</h6>
                           </div>
                           <div>
-                            <h5 class="mb-0">
+                            <h6 class="mb-0">
                               =>
                               <?php
                               $subtotal = $quantity * $price;
                               echo $this->formatNumber($subtotal);
                               ?>
                               ₫
-                            </h5>
+                            </h6>
                           </div>
                         </div>
                       </div>
@@ -62,15 +62,15 @@
                 <div class="card bg-transparent rounded-3">
                   <div class="card-body">
                     <div class="">
-                      <h5 class="mb-1">Người thanh toán: <?=$_SESSION['user']['name'];?></h5>
-                      <h5 class="mb-0">Thanh toán lúc: <?=$datePurchased;?></h5>
+                      <h6 class="mb-1">Người thanh toán: <?=$_SESSION['user']['name'];?></h6>
+                      <h6 class="mb-0">Thanh toán lúc: <?=$datePurchased;?></h6>
                     </div>
 
                     <hr>
 
                     <div class="d-flex justify-content-between h6">
-                      <h5 class="mb-2 fw-bold">Tổng:</h5>
-                      <h5 class="mb-2"><?= ($this->formatNumber($total)); ?>₫</h5>
+                      <h6 class="mb-2 fw-bold">Tổng:</h6>
+                      <h6 class="mb-2"><?= ($this->formatNumber($total)); ?>₫</h6>
                     </div>
 
 

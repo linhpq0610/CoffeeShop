@@ -116,7 +116,7 @@ const formValidator = (function () {
         e.preventDefault();
         for (let fieldName in FIELDS) {
           let field = FIELDS[fieldName];
-          let fieldMessage = field.nextElementSibling;
+          let fieldMessage = getFieldMessage(field);
           handleValidateField(fieldName, field, fieldMessage);
         }
         if (shouldSubmit) {

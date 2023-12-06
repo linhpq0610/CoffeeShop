@@ -8,7 +8,7 @@
     <form action="<?= ADD_PRODUCT_ROUTE; ?>" method="post" class="row align-items-center edit-form" enctype="multipart/form-data">
       <div class="col-md-6 border-right">
         <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-          <img class="rounded-circle" width="300px" id="avatar" src="<?= PRODUCTS_UPLOADS_URL . "/default-product-image.png"; ?>" />
+          <img class="rounded-circle" width="300px" id="avatar" src="<?= (PRODUCTS_UPLOADS_URL . "/" . DEFAULT_PRODUCT_IMAGE_NAME); ?>" />
           <input type="file" style="width: 200px;" class="mt-4" name="avatar" />
         </div>
       </div>
@@ -68,7 +68,8 @@
   </div>
 </div>
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
+<!-- Validatejs 0.13.1 -->
+<script src="<?=PLUGINS_URL;?>/validatejs/validate.min.js"></script>
 <script src="<?= FEATURES_URL; ?>/Validator.js"></script>
 <script src="<?= FEATURES_URL; ?>/loadImageFromInput.js"></script>
 
@@ -84,6 +85,10 @@
 
   const NEW_CONSTRAINTS = {
     name: {
+      presence: {
+        allowEmpty: false,
+        message: "Vui lòng nhập tên",
+      },
       format: {
         pattern: /^[a-zA-Z0-9\sàáạãảăắằẵặấầẩẫậđèéẹẻẽêếềểễệìíịỉĩòóọỏõôốồổỗộơớờởỡợùúụủũưứừửữựỳýỵỷỹ]+$/,
         message: "Vui lòng không nhập gì ngoài alphabet, ký tự trắng và số",

@@ -71,6 +71,12 @@
     public function hasCategory() {
       $name = $_POST['name'];
       $condition = " WHERE name = '$name'";
+      
+      if (isset($_POST['id'])) {
+        $id = $_POST['id'];
+        $condition .= " AND id <> $id";
+      }
+      
       $category = $this->__categoryModel->selectRowBy($condition);
       return !empty($category);
     }

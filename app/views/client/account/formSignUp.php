@@ -7,7 +7,7 @@
             class="rounded-circle"
             width="250px"
             id="avatar"
-            src="<?=IMAGES_URL;?>/default-user-image.webp"
+            src="<?=(IMAGES_URL . "/" . DEFAULT_USER_IMAGE_NAME);?>"
           />
           <input type="file" style="width: 200px;" class="mt-4" name="avatar" />
         </div>
@@ -86,7 +86,8 @@
   </div>
 </div>
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
+<!-- Validatejs 0.13.1 -->
+<script src="<?=PLUGINS_URL;?>/validatejs/validate.min.js"></script>
 <script src="<?=FEATURES_URL;?>/Validator.js"></script>
 <script src="<?=FEATURES_URL;?>/loadImageFromInput.js"></script>
 

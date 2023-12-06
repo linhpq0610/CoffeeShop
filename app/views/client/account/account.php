@@ -1,6 +1,12 @@
+<?php 
+  extract($formData);
+  extract($user);
+?>
+
 <div class="container rounded" style="padding-top: 50px; padding-bottom: 50px">
   <div class="bg-white">
     <form action="<?= (UPDATE_USER_ROUTE . $id) ?>" method="post" class="row align-items-center account-form" enctype="multipart/form-data">
+      <input type="text" hidden name="id" value="<?=$id;?>" />
       <div class="col-md-6 border-right">
         <div class="d-flex flex-column align-items-center text-center p-3 py-5">
           <img
@@ -19,6 +25,12 @@
       </div> 
       <div class="col-md-6 border-right">
         <div class="px-3 pe-lg-5 py-5">
+          <div class='alert alert-danger border-0 p-0 text-center'>
+            <?=$messageAlert;?>
+          </div>
+          <div class='alert alert-success border-0 p-0 text-center'>
+            <?=$messageSuccess;?>
+          </div>
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="text-right">Chỉnh sửa thông tin</h4>
           </div>
@@ -72,6 +84,12 @@
             >
               Lưu
             </button>
+            <a href="#deleteEmployeeModal"
+              data-bs-toggle="modal"
+              data-bs-original-title="Delete"
+              data-bs-toggle="tooltip" class="btn border-0" type="button" style="background: #dc3545;">
+              Xóa
+            </a>
           </div>
         </div>
       </div>
@@ -79,7 +97,12 @@
   </div>
 </div>
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
+<?php 
+  require_once CLIENT_COMPONENTS_DIR . "/deleteModal.php";
+?>
+
+<!-- Validatejs 0.13.1 -->
+<script src="<?=PLUGINS_URL;?>/validatejs/validate.min.js"></script>
 <script src="<?= FEATURES_URL; ?>/Validator.js"></script>
 <script src="<?= FEATURES_URL; ?>/loadImageFromInput.js"></script>
 

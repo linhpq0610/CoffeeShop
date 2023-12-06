@@ -90,6 +90,12 @@
     public function hasProduct() {
       $name = $_POST['name'];
       $condition = " WHERE name = '$name'";
+
+      if (isset($_POST['id'])) {
+        $id = $_POST['id'];
+        $condition .= " AND id <> $id";
+      }
+      
       $product = $this->__productModel->selectRowBy($condition);
       return !empty($product);
     }
@@ -176,7 +182,7 @@
         "price" => $_POST['price'],
         "sale" => $_POST['sale'],
         "category_id" => $_POST['category_id'],
-        "image" => 'default-product-image.png',
+        "image" => DEFAULT_PRODUCT_IMAGE_NAME,
       ];
 
       $data = $this->getImageUploaded($data, PRODUCTS_UPLOAD_DIR);

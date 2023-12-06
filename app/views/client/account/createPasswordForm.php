@@ -10,9 +10,9 @@
         </div>
       </div>
       <div class="col-md-6 border-right">
-        <form action="<?=(SET_NEW_PASSWORD_ROUTE . $userId);?>" method="post" class="px-3 pe-lg-5 py-5 new-password-form">
+        <form action="<?=(CREATE_PASSWORD_ROUTE . $userId);?>" method="post" class="px-3 pe-lg-5 py-5 new-password-form">
           <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4 class="text-right">Mật khẩu mới</h4>
+            <h4 class="text-right">Tạo mật khẩu</h4>
           </div>
           <div class="row mt-2">
             <div class="col-md-12">
@@ -46,12 +46,20 @@
             >
               Gửi
             </button>
+            <a href="#warningSkipCreatePassword"
+              data-bs-toggle="modal"
+              data-bs-original-title="Delete"
+              data-bs-toggle="tooltip" class="btn border-0" type="button" style="background: #dc3545;">
+                Bỏ qua
+            </a>
           </div>
         </form>
       </div>
     </div>
   </div>
 </div>
+
+<?php require_once CLIENT_COMPONENTS_DIR . "/warningSkipCreatePassword.php"; ?>
 
 <!-- Validatejs 0.13.1 -->
 <script src="<?=PLUGINS_URL;?>/validatejs/validate.min.js"></script>

@@ -5,7 +5,7 @@
         <div class="d-flex flex-column align-items-center text-center p-3 py-5">
           <img
             width="250px"
-            src="<?=IMAGES_URL;?>/default-user-image.webp"
+            src="<?=(IMAGES_URL . "/" . DEFAULT_USER_IMAGE_NAME);?>"
           />
         </div>
       </div>
@@ -68,7 +68,8 @@
   </div>
 </div>
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
+<!-- Validatejs 0.13.1 -->
+<script src="<?=PLUGINS_URL;?>/validatejs/validate.min.js"></script>
 <script src="<?=FEATURES_URL;?>/Validator.js"></script>
 
 <script>

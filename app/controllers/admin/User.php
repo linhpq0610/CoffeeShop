@@ -79,6 +79,11 @@
       $email = $_POST['email'];
       $condition = " WHERE email = '$email'";
 
+      if (isset($_POST['id'])) {
+        $id = $_POST['id'];
+        $condition .= " AND id <> $id";
+      }
+
       $user = $this->__accountModel->selectRowBy($condition);
       return $this->__accountModel->hasUser($user);
     }
@@ -153,7 +158,7 @@
         "name" => $_POST['name'],
         "email" => $_POST['email'],
         "password" => $passwordEncrypted,
-        "image" => 'default-user-image.webp',
+        "image" => DEFAULT_USER_IMAGE_NAME,
       ];
       $data = $this->getImageUploaded($data, USERS_UPLOAD_DIR);
       $this->add($data);

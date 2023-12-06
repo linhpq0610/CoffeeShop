@@ -10,18 +10,22 @@
       $this->setGoogleClient();
     }
 
-    public function index() {
+    public function index($formData = []) {
       if (!$this->isSignedIn()) {
-        ErrorHandler::isNotSignedIn();
-        die();
+        header("Location: " . FORM_SIGN_IN_ROUTE);
       }
-      
+
+      $formData = $this->setDefaultData($formData);
+      $userId = $_SESSION['user']['id'];
+      $user = $this->__accountModel->selectOneRowById($userId);
+      $user['is_admin'] = $user['is_admin'] ? 'checked' : '';
+
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/account';
       $this->_data['pageTitle'] = 'Tài khoản';
-
-      $user = $_SESSION['user'];
-      $user['is_admin'] = $user['is_admin'] ? 'checked' : '';
-      $this->_data['contentOfPage'] = $user;
+      $this->_data['contentOfPage'] = [
+        'formData' => $formData,
+        'user' => $user,
+      ];
       $this->renderClientLayout($this->_data);
     }
 
@@ -36,6 +40,30 @@
       return $defaultData;
     }
 
+    public function getEmailAddresses() {
+      $mailSend = 'linhpqpc05353@fpt.edu.vn';
+      $mailReceive = $_POST['mail-receive'];
+      $emailAddresses = [$mailSend, $mailReceive];
+      return $emailAddresses;
+    }
+
+    public function getContentEmail() {
+      $subject = mb_encode_mimeheader('THÔNG TIN ĐĂNG NHẬP - ĐÂY LÀ MẬT KHẨU CỦA BẠN', 'utf-8');
+      $body = require_once CLIENT_VIEW_DIR . "/emails/passwordEmail.php" ;
+      $content = [$subject, $body];
+      return $content;
+    }
+
+    public function sendPasswordForUser() {
+      $userId = $_POST['user-id'];
+      $user = $this->__accountModel->selectOneRowById($userId);
+      $this->signIn($user);
+
+      $emailAddresses = $this->getEmailAddresses();
+      $content = $this->getContentEmail();
+      Mail::send($emailAddresses, $content);
+    }
+
     public function getGoogleAccountInfo($token) {
       $this->__client->setAccessToken($token['access_token']);
       $googleOauth = new Google_Service_Oauth2($this->__client);
@@ -43,12 +71,71 @@
       return $googleAccountInfo;
     }
 
+    public function insertAccountWithDefaultPassword($googleAccountInfo) {
+      $defaultPassword = bin2hex(random_bytes(16));
+      $_SESSION['default-password'] = $defaultPassword;
+      $passwordEncrypted = password_hash($defaultPassword, PASSWORD_DEFAULT);
+      $data = [
+        "image" => DEFAULT_USER_IMAGE_NAME,
+        'name' => $googleAccountInfo->name,
+        'email' => $googleAccountInfo->email,
+        'password' => $passwordEncrypted,
+      ];
+      $DB = $this->__accountModel->getDB();
+      $tableName = $this->__accountModel->tableFill();
+      $DB->insert($tableName, $data);
+    }
+
+    public function createNewPassword($userId) {
+      $passwordEncrypted = password_hash($_POST['password'], PASSWORD_DEFAULT);
+      $data = [
+        "password" => $passwordEncrypted,
+      ];
+      $DB = $this->__accountModel->getDB();
+      $tableName = $this->__accountModel->tableFill();
+      $condition = "id = $userId";
+      $DB->update($tableName, $data, $condition);
+
+      $user = $this->__accountModel->selectOneRowById($userId);
+      $this->signIn($user);
+    }
+
+    public function getUserId($googleAccountInfo) {
+      $email = $googleAccountInfo->email;
+      $condition = " WHERE email = '$email'";
+      $userId = $this->__accountModel->selectRowBy($condition)['id'];
+      return $userId;
+    }
+
+    public function showFormCreatePassword($googleAccountInfo) {
+      $userId = $this->getUserId($googleAccountInfo);
+      $email = $googleAccountInfo->email;
+      $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/createPasswordForm';
+      $this->_data['pageTitle'] = 'Tạo mật khẩu';
+      $this->_data['contentOfPage'] = [
+        'userId' => $userId,
+        'email' => $email,
+      ];
+      $this->renderClientLayout($this->_data);
+    }
+
+    public function handleSignInWhenAccountNotExist($googleAccountInfo) {
+      $this->insertAccountWithDefaultPassword($googleAccountInfo);
+      $this->showFormCreatePassword($googleAccountInfo);
+    }
+
+    public function checkSignInWithGoogle($googleAccountInfo) {
+      $email = $googleAccountInfo->email;
+      $this->handleSignIn($email);
+      $this->handleSignInWhenAccountNotExist($googleAccountInfo);
+    }
+
     public function handleSignInWithGoogle() {
       if (isset($_GET['code'])) {
         $token = $this->__client->fetchAccessTokenWithAuthCode($_GET['code']);
         if(!isset($token["error"])){
           $googleAccountInfo = $this->getGoogleAccountInfo($token);
-          $this->checkSignIn($googleAccountInfo->email);
+          $this->checkSignInWithGoogle($googleAccountInfo);
         } else {
           header('Location: ' . FORM_SIGN_IN_ROUTE);
           exit;
@@ -83,19 +170,7 @@
       $this->renderClientLayout($this->_data);
     }
 
-    public function checkSignIn($email = '') {
-      $email = $email != '' ? $email : $_POST['email'];
-      $condition = 
-        " WHERE" . 
-          " email = '$email' AND" . 
-          " is_deleted = 0";
-
-      $user = $this->__accountModel->selectRowBy($condition);
-      $hasUser = $this->__accountModel->hasUser($user); 
-      if ($hasUser) {
-        $this->signIn($user);
-      }
-
+    public function notifyAccountNotExist($email) {
       $messageAlert = 
         '<p class="p-3">
           Tài khoản không tồn tại.
@@ -109,6 +184,26 @@
       $this->showFormSignIn($formData);
     }
 
+    public function handleSignIn($email) {
+      $condition = 
+        " WHERE" . 
+          " email = '$email' AND" . 
+          " is_deleted = 0";
+
+      $user = $this->__accountModel->selectRowBy($condition);
+      $hasUser = $this->__accountModel->hasUser($user); 
+      if ($hasUser) {
+        $this->signIn($user);
+        die();
+      }
+    }
+
+    public function checkSignIn() {
+      $email = $_POST['email'];
+      $this->handleSignIn($email);
+      $this->notifyAccountNotExist($email);
+    }
+
     public function addUserToken($user) {
       $secretKey = 'bGS6lzFqvvSQ8ALbOxatm7/Vk7mLQyzqaS34Q4oR1ew=';
       $data = $user;
@@ -119,8 +214,8 @@
         'HS256'
       );
 
-      $SECONDS_PER_MONTH = 86400;
-      $EXPIRATION_DATE = time() + $SECONDS_PER_MONTH;
+      $SECONDS_PER_WEEK = 86400 * 7;
+      $EXPIRATION_DATE = time() + $SECONDS_PER_WEEK;
       setcookie('userToken', $jwt, $EXPIRATION_DATE);
     }
 
@@ -150,11 +245,7 @@
       $this->renderClientLayout($this->_data);
     }
 
-    public function signUp($data) {
-      $DB = $this->__accountModel->getDB();
-      $tableName = $this->__accountModel->tableFill();
-      $DB->insert($tableName, $data);
-      
+    public function notifySuccessSignUp() {
       $messageSuccess = 
         '<p class="p-3">
           Bạn đã đăng ký thành công.
@@ -165,13 +256,20 @@
       $this->showFormSignIn($formData);
     }
 
+    public function signUp($data) {
+      $DB = $this->__accountModel->getDB();
+      $tableName = $this->__accountModel->tableFill();
+      $DB->insert($tableName, $data);
+      $this->notifySuccessSignUp();
+    }
+
     public function initSignUp() {
       $passwordEncrypted = password_hash($_POST['password'], PASSWORD_DEFAULT);
       $data = [
         "name" => $_POST['name'],
         "email" => $_POST['email'],
         "password" => $passwordEncrypted,
-        "image" => 'default-user-image.webp',
+        "image" => DEFAULT_USER_IMAGE_NAME,
       ];
 
       $data = $this->getImageUploaded($data, USERS_UPLOAD_DIR);
@@ -213,12 +311,35 @@
 
     public function handleSignOut() {
       $_SESSION = [];
-      setcookie('userToken', '', time() - 3600);
+      unset($_COOKIE['userToken']);
+      setcookie('userToken');
+    }
+
+    public function notifySuccessSignOut() {
+      $messageSuccess = 
+        '<p class="p-3">
+          Bạn đã đăng xuất thành công.
+        </p>';
+      $formData = [
+        'messageSuccess' => $messageSuccess,
+      ];
+      $this->showFormSignIn($formData);
     }
 
     public function signOut() {
       $this->handleSignOut();
-      header("Location: " . HOME_ROUTE);
+      $this->notifySuccessSignOut();
+    }
+
+    public function notifySuccessUpdate() {
+      $messageSuccess = 
+        '<p class="p-3">
+          Bạn đã cập nhật thành công.
+        </p>';
+      $formData = [
+        'messageSuccess' => $messageSuccess,
+      ];
+      $this->index($formData);
     }
 
     public function update($id) {
@@ -232,7 +353,39 @@
       $tableName = $this->__accountModel->tableFill();
       $condition = "id = $id";
       $DB->update($tableName, $data, $condition);
-      header("Location: " . ACCOUNT_ROUTE);
+      
+      $this->notifySuccessUpdate();
+    }
+
+    public function notifyEmailExist() {
+      $messageAlert = 
+        '<p class="p-3">
+          Email đã được sử dụng.
+          <br>
+          Vui lòng dùng email khác.
+        </p>';
+      $formData = [
+        'messageAlert' => $messageAlert,
+      ];
+      $this->index($formData);
+    }
+
+    public function checkWhenUpdate($id) {
+      $id = $_POST['id'];
+      $email = $_POST['email'];
+      $condition = 
+        " WHERE" . 
+          " email = '$email' AND" . 
+          " id <> $id AND" . 
+          " is_deleted = 0";
+
+      $user = $this->__accountModel->selectRowBy($condition);
+      $hasUser = $this->__accountModel->hasUser($user);
+      if (!$hasUser) {
+        $this->update($id);
+      }
+
+      $this->notifyEmailExist();
     }
 
     public function showFormForgotPassword($formData = []) {
@@ -241,6 +394,20 @@
       $this->_data['pageTitle'] = 'Quên mật khẩu';
       $this->_data["contentOfPage"] = $formData;
       $this->renderClientLayout($this->_data);
+    }
+
+    public function notifyEmailNotExist() {
+      $messageAlert = 
+        '<p class="p-3">
+          Tài khoản không tồn tại.
+          <br>
+          Vui lòng kiểm tra lại.
+        </p>';
+      $formData = [
+        'messageAlert' => $messageAlert,
+        'email' => $_POST['email'],
+      ];
+      $this->showFormForgotPassword($formData);
     }
 
     public function checkEmail() {
@@ -256,17 +423,7 @@
         $this->showFormNewPassword($user);
       }
 
-      $messageAlert = 
-        '<p class="p-3">
-          Tài khoản không tồn tại.
-          <br>
-          Vui lòng kiểm tra lại.
-        </p>';
-      $formData = [
-        'messageAlert' => $messageAlert,
-        'email' => $_POST['email'],
-      ];
-      $this->showFormForgotPassword($formData);
+      $this->notifyEmailNotExist();
     }
 
     public function showFormNewPassword($user) {
@@ -317,7 +474,7 @@
       $this->showFormChangePassword($formData);
     }
 
-    public function setNewPassword($id) {
+    public function handleSetNewPassword($id) {
       $passwordEncrypted = password_hash($_POST['password'], PASSWORD_DEFAULT);
       $data = [
         "password" => $passwordEncrypted,
@@ -326,9 +483,12 @@
       $tableName = $this->__accountModel->tableFill();
       $condition = "id = $id";
       $DB->update($tableName, $data, $condition);
-      
-      $this->notifySuccessChangePassword();
+    }
+
+    public function setNewPassword($id) {
+      $this->handleSetNewPassword($id);
       $this->handleSignOut();
+      $this->notifySuccessChangePassword();
     }
     
     public function changePassword() {
@@ -337,6 +497,29 @@
       }
 
       $this->handleWhenPasswordNotExist();
+    }
+
+    public function notifySuccessDeleteAccount() {
+      $messageSuccess = 
+        '<p class="p-3">
+            Bạn đã xóa tài khoản thành công.
+        </p>';
+      $formData = [
+        'messageSuccess' => $messageSuccess,
+      ];
+      $this->showFormSignIn($formData);
+    }
+
+    public function softDelete($id) {
+      $data = [
+        "is_deleted" => 1,
+      ];
+      $DB = $this->__accountModel->getDB();
+      $tableName = $this->__accountModel->tableFill();
+      $condition = "id IN ($id)";
+      $DB->update($tableName, $data, $condition);
+      $this->handleSignOut();
+      $this->notifySuccessDeleteAccount();     
     }
   }
 ?>
