@@ -153,7 +153,7 @@
         "name" => $_POST['name'],
         "email" => $_POST['email'],
         "password" => $passwordEncrypted,
-        "image" => 'default-user-image.webp',
+        "image" => DEFAULT_USER_IMAGE_NAME,
       ];
       $data = $this->getImageUploaded($data, USERS_UPLOAD_DIR);
       $this->add($data);

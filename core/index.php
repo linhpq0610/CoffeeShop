@@ -6,4 +6,5 @@
   require_once "Route.php";
   require_once "ErrorHandler.php";
   require_once "Router.php";
+  require_once "Mail.php";
 ?>
