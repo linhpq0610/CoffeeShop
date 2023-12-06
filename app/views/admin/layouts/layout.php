@@ -6,6 +6,8 @@
     <title><?=(isset($pageTitle) ? $pageTitle : "Admin");?></title>
     <!-- Bootstrap CSS 5.1.3 -->
     <link href="<?=PLUGINS_URL;?>/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <!-- wysiwyg-editor 4.1.3 -->
+    <link href="<?=PLUGINS_URL;?>/froala-editor/froala_editor.pkgd.min.css" rel="stylesheet" />
     <link href="<?=ADMIN_CSS_URL;?>/style.css" rel="stylesheet" />
     <script 
       src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" 
@@ -27,7 +29,13 @@
         </div>
     </div>
 
+    <!-- Bootstrap CSS 5.1.3 -->
     <script src="<?=PLUGINS_URL;?>/bootstrap/bootstrap.bundle.min.js"></script>
+    <!-- wysiwyg-editor 4.1.3 -->
+    <script src="<?=PLUGINS_URL;?>/froala-editor/froala_editor.pkgd.min.js"></script>
     <script src="<?=ADMIN_JS_URL;?>/scripts.js"></script>
+    <script>
+      new FroalaEditor('textarea');
+    </script>
   </body>
 </html>
