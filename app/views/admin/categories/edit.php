@@ -15,6 +15,7 @@
 
       <div class="col-md-6 border-right">
         <form action="<?=(UPDATE_CATEGORY_ROUTE . $id);?>" method="post" class="px-3 ps-lg-5 py-5 sign-up-form">
+          <input type="text" hidden name="id" value="<?=$id;?>" />
           <div class='alert alert-danger border-0 p-0 text-center'>
             <?=$messageAlert;?>
           </div>
@@ -48,7 +49,8 @@
   </div>
 </div>
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
+<!-- Validatejs 0.13.1 -->
+<script src="<?=PLUGINS_URL;?>/validatejs/validate.min.js"></script>
 <script src="<?=FEATURES_URL;?>/Validator.js"></script>
 <script>
   formValidator.setForm(".sign-up-form");

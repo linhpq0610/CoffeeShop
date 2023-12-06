@@ -90,6 +90,12 @@
     public function hasProduct() {
       $name = $_POST['name'];
       $condition = " WHERE name = '$name'";
+
+      if (isset($_POST['id'])) {
+        $id = $_POST['id'];
+        $condition .= " AND id <> $id";
+      }
+      
       $product = $this->__productModel->selectRowBy($condition);
       return !empty($product);
     }

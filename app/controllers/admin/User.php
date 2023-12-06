@@ -79,6 +79,11 @@
       $email = $_POST['email'];
       $condition = " WHERE email = '$email'";
 
+      if (isset($_POST['id'])) {
+        $id = $_POST['id'];
+        $condition .= " AND id <> $id";
+      }
+
       $user = $this->__accountModel->selectRowBy($condition);
       return $this->__accountModel->hasUser($user);
     }
