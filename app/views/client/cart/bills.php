@@ -11,34 +11,18 @@
                 <h5 class="mb-3"><a href="<?= (SHOP_ROUTE . "1") ?>" class="text-body text-decoration-none"><i class="fas fa-long-arrow-alt-left me-2"></i>Tiếp tục mua sắm</a></h5>
                 <hr>
                 <?php
-                foreach ($bills as $bill) :
-                  extract($bill);
-                ?>
-                  <div class="card mb-3">
-                    <div class="card-body">
-                      <div class="d-flex justify-content-between">
-                        <a href="<?=(BILL_DETAIL_ROUTE . $id);?>" class="d-flex flex-row align-items-center text-decoration-none h5 mb-0">
-                          Hóa đơn ngày
-                          <?= $updated_at; ?>
-                        </a>
-                        <div class="d-flex flex-row align-items-center">
-                          <div style="width: 120px;">
-                            <h5 class="mb-0"><?= ($this->formatNumber($total)); ?>₫</h5>
-                          </div>
-                          <a href="#!"><i class="fas fa-trash text-danger"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                <?php
-                endforeach;
+                if (count($bills) > 0) {
+                  require CLIENT_COMPONENTS_DIR . '/bills.php';
+                } else {
+                  require CLIENT_COMPONENTS_DIR . '/noBill.php';
+                }
                 ?>
 
               </div>
-              <div class="col-lg-4">
+              <div class="col-lg-4" style="height: 450px;">
 
-                <div class="card text-white rounded-3 border-0">
-                  <a href="<?= CART_ROUTE; ?>" type="button" class="btn btn-info btn-block btn-sm w-50 mx-auto">
+                <div class="card text-white rounded-3 border-0 h-100 position-relative" style="background: linear-gradient(0, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(<?= IMAGES_URL; ?>/shopping-cart-full-item.avif) no-repeat; background-size: cover">
+                  <a href="<?= CART_ROUTE; ?>" type="button" class="btn btn-info btn-block btn-sm w-50 position-absolute top-50 start-50 translate-middle">
                     <span>Xem giỏ hàng</span>
                   </a>
                 </div>
