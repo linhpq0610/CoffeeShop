@@ -41,7 +41,7 @@
     }
 
     public function getEmailAddresses() {
-      $mailSend = 'linhpqpc05353@fpt.edu.vn';
+      $mailSend = WEB_MAIL;
       $mailReceive = $_POST['mail-receive'];
       $emailAddresses = [$mailSend, $mailReceive];
       return $emailAddresses;
