@@ -3,11 +3,22 @@
     <div class="row align-items-center">
       <div class="col-md-6 border-right">
         <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-          <img width="250px" src="<?=IMAGES_URL?>/contact.png" />
+          <img width="250px" src="<?= IMAGES_URL ?>/contact.png" />
         </div>
       </div>
-      <form method="post" class="col-md-6 border-right contact-form">
+      <form method="post" action="<?= SEND_MAIL ?>" class="col-md-6 border-right contact-form">
         <div class="px-3 pe-lg-5 py-5">
+          <?php if (!empty($messageSuccess)): ?>
+            <div class="alert alert-success border-0 p-0 text-center">
+              <?= $messageSuccess ?>
+            </div>
+          <?php endif; ?>
+          <?php if (!empty($messageAlert)): ?>
+            <div class='alert alert-danger border-0 p-0 text-center'>
+              <?= $messageAlert; ?>
+            </div>
+          <?php endif; ?>
+
           <div class="row mt-2">
             <div class="col-md-12">
               <label class="labels">Tên</label><input type="text" class="form-control" placeholder="Linh" name="name" />
@@ -16,14 +27,16 @@
           </div>
           <div class="row mt-2">
             <div class="col-md-12">
-              <label class="labels">Email</label><input type="email" class="form-control" placeholder="example@gmail.com" name="email" />
+              <label class="labels">Email</label><input type="email" class="form-control"
+                placeholder="example@gmail.com" name="email" />
               <p class="field-message mb-0"></p>
             </div>
           </div>
           <div class="row mt-2">
             <div class="col-md-12">
               <label class="labels">Lời nhắn</label>
-              <textarea name="" class="form-control" id="message" cols="30" rows="4" placeholder="Tôi gửi lời nhắn này với mục đích ..." name="message"></textarea>
+              <textarea class="form-control" id="message" cols="30" rows="4"
+                placeholder="Tôi gửi lời nhắn này với mục đích ..." name="message"></textarea>
               <p class="field-message mb-0"></p>
             </div>
           </div>
@@ -37,7 +50,7 @@
 </div>
 
 <!-- Validatejs 0.13.1 -->
-<script src="<?=PLUGINS_URL;?>/validatejs/validate.min.js"></script>
+<script src="<?= PLUGINS_URL; ?>/validatejs/validate.min.js"></script>
 <script src="<?= FEATURES_URL; ?>/Validator.js"></script>
 <script>
   formValidator.setForm(".contact-form");
