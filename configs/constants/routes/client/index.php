@@ -4,5 +4,6 @@
   require_once "product.php";
   require_once "account.php";
   define("CONTACT_ROUTE", "lien-he");
+  define("SEND_MAIL", "gui-mail");
   require_once "orders.php";
 ?>
