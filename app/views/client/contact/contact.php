@@ -7,18 +7,18 @@
         </div>
       </div>
       <form method="post" action="<?= SEND_MAIL ?>" class="col-md-6 border-right contact-form">
-      <div class="px-3 pe-lg-5 py-5">
-      <?php if (!empty($messageSuccess)): ?>
-        <div class="alert alert-success border-0 p-0 text-center">
-          <?= $messageSuccess ?>
-        </div>
-      <?php endif; ?>
-      <?php if (!empty($messageAlert)): ?>
-        <div class='alert alert-danger border-0 p-0 text-center'>
-            <?=$messageAlert;?>
-          </div>
-      <?php endif; ?>
-       
+        <div class="px-3 pe-lg-5 py-5">
+          <?php if (!empty($messageSuccess)): ?>
+            <div class="alert alert-success border-0 p-0 text-center">
+              <?= $messageSuccess ?>
+            </div>
+          <?php endif; ?>
+          <?php if (!empty($messageAlert)): ?>
+            <div class='alert alert-danger border-0 p-0 text-center'>
+              <?= $messageAlert; ?>
+            </div>
+          <?php endif; ?>
+
           <div class="row mt-2">
             <div class="col-md-12">
               <label class="labels">Tên</label><input type="text" class="form-control" placeholder="Linh" name="name" />

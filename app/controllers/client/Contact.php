@@ -4,8 +4,6 @@ use PHPMailer\PHPMailer\Exception;
 
 class Contact extends Controller
 {
-
-
   private $__client;
   public function index()
   {
@@ -20,11 +18,9 @@ class Contact extends Controller
     $name = $_POST['name'];
     $email = $_POST['email'];
     $message = $_POST['message'];
-    // Tạo một đối tượng PHPMailer
     $mail = new PHPMailer(true);
 
     try {
-      // Cấu hình SMTP
       $mail->isSMTP();
       $mail->Host = SMTP_SERVER;
       ;
@@ -41,7 +37,6 @@ class Contact extends Controller
       $mail->Subject = utf8_encode($subject);
       $mail->Body = $message;
 
-      // Gửi email
       $mail->send();
       $this->sendMailSuccess();
       exit;
@@ -49,9 +44,7 @@ class Contact extends Controller
       $messageAlert = $mail->ErrorInfo;
       $this->sendMailFailure($messageAlert);
     }
-
   }
-
   public function setDefaultData($data)
   {
     $defaultData = [
@@ -71,9 +64,6 @@ class Contact extends Controller
     $this->_data['contentOfPage'] = $formData;
     $this->renderClientLayout($this->_data);
   }
-
-
-
   public function sendMailSuccess()
   {
     $messageSuccess =
@@ -85,7 +75,6 @@ class Contact extends Controller
     ];
     $this->showFormContact($formData);
   }
-
   public function sendMailFailure($messageAlert)
   {
     $messageFailure =
