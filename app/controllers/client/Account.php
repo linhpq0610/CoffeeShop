@@ -42,7 +42,7 @@
 
     public function getEmailAddresses() {
       $mailSend = WEB_MAIL;
-      $mailReceive = $_POST['mail-receive'];
+      $mailReceive = $_POST['email'];
       $emailAddresses = [$mailSend, $mailReceive];
       return $emailAddresses;
     }
@@ -410,7 +410,62 @@
       $this->showFormForgotPassword($formData);
     }
 
-    public function checkEmail() {
+    public function getContentForEmailSendCode() {
+      $code = random_int(100000, 999999);
+      $_SESSION['code'] = $code;
+
+      $subject = mb_encode_mimeheader('MÃ XÁC THỰC KHÔI PHỤC MẬT KHẨU', 'utf-8');
+      $body = 
+        "<meta charset='UTF-8'>" .
+        "<strong>$code</strong> là mã xác thực khôi phục mật khẩu của bạn." ;
+      $content = [$subject, $body];
+      return $content;
+    }
+
+    public function sendCodeForUser() {
+      $emailAddresses = $this->getEmailAddresses();
+      $content = $this->getContentForEmailSendCode();
+      MAIL::send($emailAddresses, $content);
+    }
+
+    public function setMessageForFormAuthentication($formData) {
+      if ($formData['messageAlert'] == '') {
+        $formData['messageSuccess'] = 
+          '<p class="p-3">Mã xác thực đâ được gửi đến mail của bạn.</p>';
+      }
+
+      return $formData;
+    }
+
+    public function showFormAuthentication($formData = []) {
+      $formData = $this->setDefaultData($formData);
+      $formData= $this->setMessageForFormAuthentication($formData);
+
+      $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/authenticationForm';
+      $this->_data['pageTitle'] = 'Xác thực';
+      $this->_data["contentOfPage"] = $formData;
+      $this->renderClientLayout($this->_data);
+    }
+
+    public function authenticationWhenForgotPassword() {
+      if ($_POST['code'] == $_SESSION['code']) {
+        $this->showFormNewPassword($_SESSION['userId']);
+        unset($_SESSION['userId']);
+        unset($_SESSION['code']);
+      }
+
+      $messageAlert = 
+        '<p class="p-3">
+          Vui lòng nhập chính mã xác thực.
+        </p>';
+      $formData = [
+        'messageAlert' => $messageAlert,
+        'code' => $_POST['code'],
+      ];
+      $this->showFormAuthentication($formData);
+    }
+
+    public function checkUserWhenForgotPassword() {
       $email = $_POST['email'];
       $condition = 
         " WHERE" . 
@@ -420,16 +475,18 @@
       $user = $this->__accountModel->selectRowBy($condition);
       $hasUser = $this->__accountModel->hasUser($user); 
       if ($hasUser) {
-        $this->showFormNewPassword($user);
+        $_SESSION['userId'] = $user['id'];
+        $this->sendCodeForUser();
+        header("Location: " . SHOW_FORM_AUTHENTICATION_WHEN_FORGOT_PASSWORD_ROUTE);
       }
 
       $this->notifyEmailNotExist();
     }
 
-    public function showFormNewPassword($user) {
+    public function showFormNewPassword($userId) {
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/newPassword';
       $this->_data['pageTitle'] = 'Mật khẩu mới';
-      $this->_data["contentOfPage"] = ['userId' => $user['id']];
+      $this->_data["contentOfPage"] = ['userId' => $userId];
       $this->renderClientLayout($this->_data);
     }
 

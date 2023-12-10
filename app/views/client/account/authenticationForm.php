@@ -10,27 +10,31 @@
         </div>
       </div>
       <div class="col-md-6 border-right">
-        <form action="<?=CHECK_USER_WHEN_FORGOT_PASSWORD_ROUTE;?>" method="post" class="px-3 pe-lg-5 py-5 forgot-password-form">
+        <form action="<?=AUTHENTICATION_WHEN_FORGOT_PASSWORD_ROUTE;?>" method="post" class="px-3 pe-lg-5 py-5 authentication-form">
           <div class='alert alert-danger border-0 p-0 text-center'>
             <?=$messageAlert;?>
           </div>
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4 class="text-right">Quên mật khẩu</h4>
+          <div class='alert alert-success border-0 p-0 text-center'>
+            <?=$messageSuccess;?>
           </div>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="text-right">Xác thực</h4>
+          </div>
+
           <div class="row mt-2">
             <div class="col-md-12">
-              <label class="labels">Email</label
+              <label class="labels">Mã xác thực</label
               ><input
-                type="email"
+                type="number"
                 class="form-control"
-                placeholder="VD: example@gmail.com"
-                name="email"
-                value="<?=$email;?>"
+                placeholder="XXXXXX"
+                name="code"
+                value="<?=$code;?>"
               />
               <p class="field-message mb-0"></p>
             </div>
           </div>
-          <div class="mt-5 text-center">
+          <div class="mt-3 text-center">
             <button
               class="btn btn-primary profile-button"
               style="background-color: #333"
@@ -50,8 +54,21 @@
 <script src="<?=FEATURES_URL;?>/Validator.js"></script>
 
 <script>
-  formValidator.setForm(".forgot-password-form");
+  formValidator.setForm(".authentication-form");
   const FORM = formValidator.getForm();
-  formValidator.addField("email", FORM.elements["email"]);
+  formValidator.addField("code", FORM.elements["code"]);
+  const CODE_CONSTRAINT = {
+    code: {
+      presence: {
+        allowEmpty: false,
+        message: "Vui lòng nhập mã xác thực",
+      },
+      length: {
+        maximum: 6,
+        tooLong: "Vui lòng không nhập quá 6 chữ số",
+      },
+    },
+  };
+  formValidator.addConstraint(CODE_CONSTRAINT);
   formValidator.start();
 </script>

@@ -1,6 +1,6 @@
 <?php 
   define("FORGOT_PASSWORD_ROUTE", "quen-mat-khau");
-  define("CHECK_EMAIL_ROUTE", "kiem-tra-email");
+  define("CHECK_USER_WHEN_FORGOT_PASSWORD_ROUTE", "kiem-tra-nguoi-dung-khi-quen-mat-khau");
   define("SHOW_FORM_CHANGE_PASSWORD_ROUTE", "hien-thi-form-thay-doi-mat-khau");
   define("CHANGE_PASSWORD_ROUTE", "thay-doi-mat-khau");
   define("CREATE_PASSWORD_ROUTE", "tao-mat-khau-");
@@ -16,4 +16,6 @@
   define("HANDLE_SIGN_IN_WITH_GOOGLE_ROUTE", "xu-ly-dang-nhap-voi-google");
   define("DELETE_USER_CLIENT_SIDE", "xoa-tai-khoan-phia-client-");
   define("SEND_EMAIL_FOR_USER_ROUTE", "gui-mat-khau-cho-nguoi-dung");
+  define("SHOW_FORM_AUTHENTICATION_WHEN_FORGOT_PASSWORD_ROUTE", "hien-thi-form-xac-thuc-nguoi-dung-doi-mat-khau");
+  define("AUTHENTICATION_WHEN_FORGOT_PASSWORD_ROUTE", "xac-thuc-nguoi-dung-doi-mat-khau");
 ?>
