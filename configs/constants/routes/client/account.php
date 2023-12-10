@@ -17,4 +17,5 @@
   define("DELETE_USER_CLIENT_SIDE", "xoa-tai-khoan-phia-client-");
   define("SEND_EMAIL_FOR_USER_ROUTE", "gui-mat-khau-cho-nguoi-dung");
   define("SHOW_FORM_AUTHENTICATION_WHEN_FORGOT_PASSWORD_ROUTE", "hien-thi-form-xac-thuc-nguoi-dung-doi-mat-khau");
+  define("AUTHENTICATION_WHEN_FORGOT_PASSWORD_ROUTE", "xac-thuc-nguoi-dung-doi-mat-khau");
 ?>

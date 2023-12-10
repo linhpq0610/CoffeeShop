@@ -447,6 +447,24 @@
       $this->renderClientLayout($this->_data);
     }
 
+    public function authenticationWhenForgotPassword() {
+      if ($_POST['code'] == $_SESSION['code']) {
+        $this->showFormNewPassword($_SESSION['userId']);
+        unset($_SESSION['userId']);
+        unset($_SESSION['code']);
+      }
+
+      $messageAlert = 
+        '<p class="p-3">
+          Vui lòng nhập chính mã xác thực.
+        </p>';
+      $formData = [
+        'messageAlert' => $messageAlert,
+        'code' => $_POST['code'],
+      ];
+      $this->showFormAuthentication($formData);
+    }
+
     public function checkUserWhenForgotPassword() {
       $email = $_POST['email'];
       $condition = 
@@ -457,6 +475,7 @@
       $user = $this->__accountModel->selectRowBy($condition);
       $hasUser = $this->__accountModel->hasUser($user); 
       if ($hasUser) {
+        $_SESSION['userId'] = $user['id'];
         $this->sendCodeForUser();
         header("Location: " . SHOW_FORM_AUTHENTICATION_WHEN_FORGOT_PASSWORD_ROUTE);
       }
@@ -464,10 +483,10 @@
       $this->notifyEmailNotExist();
     }
 
-    public function showFormNewPassword($user) {
+    public function showFormNewPassword($userId) {
       $this->_data['pathToPage'] = CLIENT_VIEW_DIR . '/account/newPassword';
       $this->_data['pageTitle'] = 'Mật khẩu mới';
-      $this->_data["contentOfPage"] = ['userId' => $user['id']];
+      $this->_data["contentOfPage"] = ['userId' => $userId];
       $this->renderClientLayout($this->_data);
     }
 

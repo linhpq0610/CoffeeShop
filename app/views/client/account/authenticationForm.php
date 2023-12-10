@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="col-md-6 border-right">
-        <form action="<?=SIGN_IN_ROUTE;?>" method="post" class="px-3 pe-lg-5 py-5 authentication-form">
+        <form action="<?=AUTHENTICATION_WHEN_FORGOT_PASSWORD_ROUTE;?>" method="post" class="px-3 pe-lg-5 py-5 authentication-form">
           <div class='alert alert-danger border-0 p-0 text-center'>
             <?=$messageAlert;?>
           </div>
@@ -29,6 +29,7 @@
                 class="form-control"
                 placeholder="XXXXXX"
                 name="code"
+                value="<?=$code;?>"
               />
               <p class="field-message mb-0"></p>
             </div>
