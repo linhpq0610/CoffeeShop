@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="col-md-6 border-right">
-        <form action="<?=CHECK_EMAIL_ROUTE;?>" method="post" class="px-3 pe-lg-5 py-5 forgot-password-form">
+        <form action="<?=CHECK_USER_WHEN_FORGOT_PASSWORD_ROUTE;?>" method="post" class="px-3 pe-lg-5 py-5 forgot-password-form">
           <div class='alert alert-danger border-0 p-0 text-center'>
             <?=$messageAlert;?>
           </div>

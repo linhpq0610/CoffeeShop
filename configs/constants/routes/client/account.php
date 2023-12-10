@@ -1,6 +1,6 @@
 <?php 
   define("FORGOT_PASSWORD_ROUTE", "quen-mat-khau");
-  define("CHECK_EMAIL_ROUTE", "kiem-tra-email");
+  define("CHECK_USER_WHEN_FORGOT_PASSWORD_ROUTE", "kiem-tra-nguoi-dung-khi-quen-mat-khau");
   define("SHOW_FORM_CHANGE_PASSWORD_ROUTE", "hien-thi-form-thay-doi-mat-khau");
   define("CHANGE_PASSWORD_ROUTE", "thay-doi-mat-khau");
   define("CREATE_PASSWORD_ROUTE", "tao-mat-khau-");

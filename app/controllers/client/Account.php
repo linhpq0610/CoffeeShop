@@ -410,7 +410,7 @@
       $this->showFormForgotPassword($formData);
     }
 
-    public function checkEmail() {
+    public function checkUserWhenForgotPassword() {
       $email = $_POST['email'];
       $condition = 
         " WHERE" . 
