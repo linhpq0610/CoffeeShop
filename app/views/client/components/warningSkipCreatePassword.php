@@ -8,7 +8,7 @@
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
 >
-  <input type="email" hidden value="<?=$email;?>" name="mail-receive" />
+  <input type="email" hidden value="<?=$email;?>" name="email" />
   <input type="text" hidden value="<?=$userId;?>" name="user-id" />
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
