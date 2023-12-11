@@ -8,7 +8,7 @@
 
     public function __construct() {
       $this->mailInstance = new PHPMailer(true);
-      $this->mailInstance->SMTPDebug = SMTP::DEBUG_SERVER;
+      // $this->mailInstance->SMTPDebug = SMTP::DEBUG_SERVER;
       $this->mailInstance->isSMTP();
       $this->mailInstance->Host = SMTP_SERVER;
       $this->mailInstance->SMTPAuth = true;
@@ -32,10 +32,16 @@
     }
 
     static public function send($emailAddresses, $content) {
-      $mail = new self();
-      $mail->setRecipients($emailAddresses);
-      $mail->setContent($content);
-      $mail->mailInstance->send();
+      try {
+        $mail = new self();
+        $mail->setRecipients($emailAddresses);
+        $mail->setContent($content);
+        $mail->mailInstance->send();
+      } catch (EXception $e) {
+        $error = $mail->mailInstance->ErrorInfo;
+        ErrorHandler::mailCanNotSend($error);
+        die();
+      }
     }
   }
 ?>
