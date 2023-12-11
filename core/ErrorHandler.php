@@ -15,5 +15,9 @@
     static public function isNotSignedIn() {
       require_once ERRORS_DIR . "isNotSignedIn.php";
     }
+    
+    static public function mailCanNotSend($error) {
+      require_once ERRORS_DIR . "mailCanNotSend.php";
+    }
   }
 ?>
