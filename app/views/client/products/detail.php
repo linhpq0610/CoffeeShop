@@ -87,3 +87,22 @@
     ?>
   </div>
 </section>
+
+<!-- Validatejs 0.13.1 -->
+<script src="<?= PLUGINS_URL; ?>/validatejs/validate.min.js"></script>
+<script src="<?= FEATURES_URL; ?>/Validator.js"></script>
+<script>
+  formValidator.setForm(".comment-form");
+  const FORM = formValidator.getForm();
+  formValidator.addField("content", FORM.elements["content"]);
+  const MESSAGE_CONSTRAINT = {
+    content: {
+      presence: {
+        allowEmpty: false,
+        message: "Vui lòng nhập lời nhắn",
+      },
+    }
+  }
+  formValidator.addConstraint(MESSAGE_CONSTRAINT);
+  formValidator.start();
+</script>
