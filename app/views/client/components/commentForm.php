@@ -1,4 +1,4 @@
-<form action="<?php echo ADD_COMMENT_ROUTE . $product['id']; ?>" method="post" class="card bg-light">
+<form action="<?php echo ADD_COMMENT_ROUTE . $product['id']; ?>" method="post" class="card bg-light comment-form">
   <header class="card-header border-0 bg-transparent">
     <img
       width="40px"
@@ -12,11 +12,12 @@
       <div>
         <textarea
           class="form-control form-control-sm border border-2 rounded-1"
-          id="exampleFormControlTextarea1"
+          id="message"
           placeholder="Nhập bình luận tại đây"
           name="content"
           rows="4"
         ></textarea>
+        <p class="field-message mb-0"></p>
       </div>
     </div>
   </div>
