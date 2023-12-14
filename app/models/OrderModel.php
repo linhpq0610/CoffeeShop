@@ -24,7 +24,7 @@
       $sql = 
         "SELECT" . 
           " p.image, p.name, p.description," . 
-          " o.price, o.quantity, o.product_id" . 
+          " o.price, o.quantity, o.product_id, o.order_id" . 
         " FROM order_detail o" . 
         " JOIN products p" . 
         " ON p.id = o.product_id" . 
@@ -54,6 +54,30 @@
        "SELECT updated_at" . 
        " FROM orders" .
        " WHERE id = $orderId";
+      return $this->_db->getValue($sql);
+    }
+
+    public function updateQuantity($quantity, $condition) {
+      $sql = 
+        "UPDATE order_detail" . 
+        " SET quantity = " . $quantity . 
+        " WHERE $condition";
+      $this->_db->query($sql);
+    }
+    
+    public function updateTotal($total, $orderId) {
+      $sql = 
+        "UPDATE orders" . 
+        " SET total = " . $total . 
+        " WHERE id = $orderId";
+      $this->_db->query($sql);
+    }
+
+    public function getPrice($orderId, $productId) {
+      $sql = 
+        "SELECT price" . 
+        " FROM order_detail" . 
+        " WHERE order_id = $orderId AND product_id = $productId";
       return $this->_db->getValue($sql);
     }
   }
