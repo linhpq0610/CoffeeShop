@@ -53,5 +53,40 @@
       ];    
       $this->renderClientLayout($this->_data);
     }
+
+    public function updateTotal($operator, $orderId, $price) {
+      switch ($operator) {
+        case '+':
+          $total = "total + $price";
+          break;
+
+        case '-':
+          $total = "total - $price";
+          break;
+      }
+      $this->__orderModel->updateTotal($total, $orderId);
+    }
+
+    public function increaseQuantityProduct($orderId, $productId) {
+      $quantity = 'quantity + 1';
+      $condition = " order_id = $orderId AND product_id = $productId";
+      $this->__orderModel->updateQuantity($quantity, $condition);
+      
+      $operator = '+';
+      $price = $this->__orderModel->getPrice($orderId, $productId);
+      $this->updateTotal($operator, $orderId, $price);
+      header("Location: " . CART_ROUTE);
+    }
+
+    public function decreaseQuantityProduct($orderId, $productId) {
+      $quantity = 'quantity - 1';
+      $condition = " order_id = $orderId AND product_id = $productId";
+      $this->__orderModel->updateQuantity($quantity, $condition);
+      
+      $operator = '-';
+      $price = $this->__orderModel->getPrice($orderId, $productId);
+      $this->updateTotal($operator, $orderId, $price);
+      header("Location: " . CART_ROUTE);
+    }
   }
 ?>
